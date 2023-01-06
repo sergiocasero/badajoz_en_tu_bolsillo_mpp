@@ -10,8 +10,9 @@ const val serialization_version = "1.4.1"
 
 object App {
     const val minSdkVersion = 23
-    const val targetSdkVersion = 31
-    const val versionCode = 20220117
+    const val targetSdkVersion = 33
+    const val versionCode = 1
+    const val versionName = "1.0.0"
     const val testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
 }
 
@@ -28,6 +29,13 @@ object Dependencies {
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.0"
         const val recycler = "androidx.recyclerview:recyclerview:1.2.0"
         const val material = "com.google.android.material:material:1.4.0"
+
+        const val compose = "androidx.compose.ui:ui:1.3.2"
+        const val composeTooling = "androidx.compose.ui:ui-tooling:1.3.2"
+        const val composePreview = "androidx.compose.ui:ui-tooling-preview:1.3.2"
+        const val composeFoundation = "androidx.compose.foundation:foundation:1.2.1"
+        const val composeMaterial = "androidx.compose.material:material:1.3.1"
+        const val composeActivity = "androidx.activity:activity-compose:1.3.1"
 
         // Coroutines
         const val coroutinesAndroid =

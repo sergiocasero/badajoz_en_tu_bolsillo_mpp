@@ -61,9 +61,9 @@ kotlin {
 
 android {
     namespace = "com.badajoz.badajozentubolsillo"
-    compileSdk = 33
+    compileSdk = App.targetSdkVersion
     defaultConfig {
-        minSdk = 23
-        targetSdk = 33
+        minSdk = App.minSdkVersion
+        targetSdk = App.targetSdkVersion
     }
 }
