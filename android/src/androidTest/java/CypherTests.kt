@@ -1,6 +1,6 @@
 import com.badajoz.badajozentubolsillo.model.request.EncryptedNetworkRequest
 import com.badajoz.badajozentubolsillo.model.response.EncryptedNetworkResponse
-import com.badajoz.badajozentubolsillo.model.request.FmdUser
+import com.badajoz.badajozentubolsillo.model.category.fmd.FmdUser
 import com.badajoz.badajozentubolsillo.utils.decrypt
 import com.badajoz.badajozentubolsillo.utils.encrypt
 import org.junit.Assert.assertEquals
@@ -11,7 +11,7 @@ class CypherTests {
     @Test
     fun encryptFunctionShouldEncryptAnEncryptableDataClass() {
         // Given
-        val input = FmdUser(
+        val input = com.badajoz.badajozentubolsillo.model.category.fmd.FmdUser(
             username = "08810165S",
             password = "0000"
         )
@@ -34,13 +34,13 @@ class CypherTests {
             result = "durn58fjkkhH5JK1naxoigjhoVBQkA6PspI/1Dh0B5glUit89kSg5IBoQggEoaFShNt/Onm2rwC1BuPG"
         )
 
-        val expected = FmdUser(
+        val expected = com.badajoz.badajozentubolsillo.model.category.fmd.FmdUser(
             username = "08810165S",
             password = "0000"
         )
 
         // When
-        val decrypted = input.result.decrypt<FmdUser>()
+        val decrypted = input.result.decrypt<com.badajoz.badajozentubolsillo.model.category.fmd.FmdUser>()
 
         // Then
         assertEquals(expected, decrypted)
@@ -49,7 +49,7 @@ class CypherTests {
     @Test
     fun encryptFunctionShouldDoNothingIfProductionIsFalse() {
         // Given
-        val input = FmdUser(
+        val input = com.badajoz.badajozentubolsillo.model.category.fmd.FmdUser(
             username = "08810165S",
             password = "0000"
         )
@@ -72,13 +72,13 @@ class CypherTests {
             result = "{\"username\":\"08810165S\",\"password\":\"0000\"}"
         )
 
-        val expected = FmdUser(
+        val expected = com.badajoz.badajozentubolsillo.model.category.fmd.FmdUser(
             username = "08810165S",
             password = "0000"
         )
 
         // When
-        val decrypted = input.result.decrypt<FmdUser>(production = false)
+        val decrypted = input.result.decrypt<com.badajoz.badajozentubolsillo.model.category.fmd.FmdUser>(production = false)
 
         // Then
         assertEquals(expected, decrypted)

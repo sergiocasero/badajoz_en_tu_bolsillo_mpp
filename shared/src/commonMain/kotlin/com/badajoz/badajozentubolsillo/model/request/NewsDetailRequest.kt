@@ -6,9 +6,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class FmdUser(
-    @SerialName("username")
-    val username: String,
-    @SerialName("password")
-    val password: String
+data class NewsDetailRequest(
+    @SerialName("link")
+    val link: String
 ) : Encryptable()
