@@ -1,6 +1,5 @@
 package com.badajoz.badajozentubolsillo.android.composables.news
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,12 +10,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.rememberScaffoldState
@@ -30,6 +27,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
+import com.badajoz.badajozentubolsillo.android.composables.TopBar
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.model.category.news.News
 import com.badajoz.badajozentubolsillo.model.category.news.NewsPage
@@ -67,31 +65,11 @@ fun NewsContent(
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
-            TopAppBar(
-                // Provide Title
-                title = {
-                    Text(text = "Noticias")
-                },
-                // Provide the navigation Icon (Icon on the left to toggle drawer)
-                navigationIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Menu,
-                        contentDescription = "Menu",
-
-                        // When clicked trigger onClick
-                        // Callback to trigger drawer open
-                        modifier = Modifier
-                            .clickable {
-                                coroutineScope.launch {
-                                    scaffoldState.drawerState.open()
-                                }
-                            }
-                            .padding(start = 8.dp)
-                    )
-                },
-                backgroundColor = MaterialTheme.colors.background,
-                elevation = 0.dp
-            )
+            TopBar(title = "Noticias", icon = Icons.Default.Menu) {
+                coroutineScope.launch {
+                    scaffoldState.drawerState.open()
+                }
+            }
         },
         drawerContent = {
             Text("Prueba")
