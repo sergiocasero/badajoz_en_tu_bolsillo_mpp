@@ -1,6 +1,7 @@
 package com.badajoz.badajozentubolsillo.viewmodel
 
 import com.badajoz.badajozentubolsillo.model.AppError
+import com.badajoz.badajozentubolsillo.model.category.news.NewsPage
 import com.badajoz.badajozentubolsillo.repository.NewsRepository
 import com.badajoz.badajozentubolsillo.utils.exhaustive
 import kotlinx.coroutines.launch
@@ -16,7 +17,7 @@ class HomeViewModel(initialState: HomeState) : RootViewModel<HomeState, HomeEven
 
             execute { repository.getNewsPage(0) }.fold(
                 error = { println("Error: $it") },
-                success = { println("Success: $it") }
+                success = { _uiState.value = HomeState.Success(it) }
             )
         }
     }
@@ -31,6 +32,7 @@ class HomeViewModel(initialState: HomeState) : RootViewModel<HomeState, HomeEven
 sealed class HomeState : ViewState() {
     object InProgress : HomeState()
     class Error(val error: AppError) : HomeState()
+    data class Success(val page: NewsPage) : HomeState()
 }
 
 sealed class HomeEvent {
