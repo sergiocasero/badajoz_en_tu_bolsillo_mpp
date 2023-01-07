@@ -25,6 +25,7 @@ kotlin {
                     implementation(serialization)
                     implementation(ktorClientCore)
                     implementation(ktorClientJson)
+                    implementation(ktorContentNegotiation)
                     implementation(ktorSerialization)
                     implementation(ktorClientAuth)
                     implementation(ktorLogging)

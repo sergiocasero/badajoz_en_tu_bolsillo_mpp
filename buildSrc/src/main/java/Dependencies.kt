@@ -87,8 +87,9 @@ object Dependencies {
                 "org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization_version"
 
             const val ktorClientCore = "io.ktor:ktor-client-core:$ktor_version"
+            const val ktorContentNegotiation = "io.ktor:ktor-client-content-negotiation:$ktor_version"
             const val ktorClientJson = "io.ktor:ktor-client-json:$ktor_version"
-            const val ktorSerialization = "io.ktor:ktor-client-serialization:$ktor_version"
+            const val ktorSerialization = "io.ktor:ktor-serialization-kotlinx-json:$ktor_version"
             const val ktorClientAuth = "io.ktor:ktor-client-auth:$ktor_version"
             const val ktorLogging = "io.ktor:ktor-client-logging:$ktor_version"
         }
