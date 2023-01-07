@@ -12,14 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.badajoz.badajozentubolsillo.Greeting
-import com.badajoz.badajozentubolsillo.model.FmdUserRequest
+import com.badajoz.badajozentubolsillo.model.request.FmdUser
 import com.badajoz.badajozentubolsillo.utils.encrypt
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // given
-        val request = FmdUserRequest(
+        val request = FmdUser(
             username = "08810165S",
             password = "0000"
         )

@@ -1,6 +1,6 @@
-import com.badajoz.badajozentubolsillo.model.EncryptedNetworkRequest
-import com.badajoz.badajozentubolsillo.model.EncryptedNetworkResponse
-import com.badajoz.badajozentubolsillo.model.FmdUserRequest
+import com.badajoz.badajozentubolsillo.model.request.EncryptedNetworkRequest
+import com.badajoz.badajozentubolsillo.model.response.EncryptedNetworkResponse
+import com.badajoz.badajozentubolsillo.model.request.FmdUser
 import com.badajoz.badajozentubolsillo.utils.decrypt
 import com.badajoz.badajozentubolsillo.utils.encrypt
 import org.junit.Assert.assertEquals
@@ -11,7 +11,7 @@ class CypherTests {
     @Test
     fun encryptFunctionShouldEncryptAnEncryptableDataClass() {
         // Given
-        val input = FmdUserRequest(
+        val input = FmdUser(
             username = "08810165S",
             password = "0000"
         )
@@ -34,13 +34,13 @@ class CypherTests {
             result = "durn58fjkkhH5JK1naxoigjhoVBQkA6PspI/1Dh0B5glUit89kSg5IBoQggEoaFShNt/Onm2rwC1BuPG"
         )
 
-        val expected = FmdUserRequest(
+        val expected = FmdUser(
             username = "08810165S",
             password = "0000"
         )
 
         // When
-        val decrypted = input.result.decrypt<FmdUserRequest>()
+        val decrypted = input.result.decrypt<FmdUser>()
 
         // Then
         assertEquals(expected, decrypted)
@@ -49,7 +49,7 @@ class CypherTests {
     @Test
     fun encryptFunctionShouldDoNothingIfProductionIsFalse() {
         // Given
-        val input = FmdUserRequest(
+        val input = FmdUser(
             username = "08810165S",
             password = "0000"
         )
@@ -72,13 +72,13 @@ class CypherTests {
             result = "{\"username\":\"08810165S\",\"password\":\"0000\"}"
         )
 
-        val expected = FmdUserRequest(
+        val expected = FmdUser(
             username = "08810165S",
             password = "0000"
         )
 
         // When
-        val decrypted = input.result.decrypt<FmdUserRequest>(production = false)
+        val decrypted = input.result.decrypt<FmdUser>(production = false)
 
         // Then
         assertEquals(expected, decrypted)

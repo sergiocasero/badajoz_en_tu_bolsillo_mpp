@@ -1,11 +1,12 @@
-package com.badajoz.badajozentubolsillo.model
+package com.badajoz.badajozentubolsillo.model.request
 
 
+import com.badajoz.badajozentubolsillo.model.Encryptable
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class FmdUserRequest(
+data class FmdUser(
     @SerialName("username")
     val username: String,
     @SerialName("password")

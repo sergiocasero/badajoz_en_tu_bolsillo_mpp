@@ -1,4 +1,4 @@
-package com.badajoz.badajozentubolsillo.model
+package com.badajoz.badajozentubolsillo.model.request
 
 import kotlinx.serialization.Serializable
 
