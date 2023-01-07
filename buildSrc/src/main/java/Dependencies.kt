@@ -10,6 +10,7 @@ const val junitVersion = "4.12"
 const val serialization_version = "1.4.1"
 const val koinVersion = "3.2.2"
 const val composeVersion = "1.3.2"
+const val lifecycle = "2.5.0"
 
 object App {
     const val minSdkVersion = 23
@@ -88,7 +89,7 @@ object Dependencies {
         const val google = "com.google.gms:google-services:4.3.3"
     }
 
-    object Common {
+    object Shared {
         object Main {
             const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
             const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization_version"
@@ -105,6 +106,7 @@ object Dependencies {
         object Android {
             const val ktorClientCore = "io.ktor:ktor-client-okhttp:$ktor_version"
             const val sqldelightDriverAndroid = "com.squareup.sqldelight:android-driver:$sqldelight_version"
+            const val lifecycleViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycle}"
         }
 
         object Native {

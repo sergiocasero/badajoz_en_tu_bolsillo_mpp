@@ -20,7 +20,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                with(Dependencies.Common.Main) {
+                with(Dependencies.Shared.Main) {
                     implementation(coroutines)
                     implementation(serialization)
                     implementation(ktorClientCore)
@@ -42,7 +42,13 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
-        val androidMain by getting
+        val androidMain by getting {
+            dependencies {
+                with(Dependencies.Shared.Android) {
+                    api(lifecycleViewModel)
+                }
+            }
+        }
         val androidTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
