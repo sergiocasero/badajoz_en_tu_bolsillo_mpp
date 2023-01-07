@@ -1,13 +1,15 @@
 const val propertiesDir = "signin/properties"
 
 const val coroutines_version = "1.6.4"
-const val kotlin_version = "1.7.10"
-const val android_plugin_version = "8.0.0-alpha09"
-const val ktor_version = "2.2.2"
+const val kotlin_version = "1.7.20"
+const val android_plugin_version = "7.3.1"
+const val ktor_version = "2.1.3"
 const val sqldelight_version = ""
 const val espressoVersion = "3.5.1"
 const val junitVersion = "4.12"
 const val serialization_version = "1.4.1"
+const val koinVersion = "3.2.2"
+const val composeVersion = "1.3.2"
 
 object App {
     const val minSdkVersion = 23
@@ -24,6 +26,13 @@ object Common {
 }
 
 object Dependencies {
+
+    object DI {
+        const val koinCore = "io.insert-koin:koin-core:${koinVersion}"
+        const val koinAndroid = "io.insert-koin:koin-android:${koinVersion}"
+        const val koinCompose = "io.insert-koin:koin-androidx-compose:${koinVersion}"
+    }
+
     object Android {
         // Android
         const val appCompat = "androidx.appcompat:appcompat:1.3.1"
@@ -31,16 +40,15 @@ object Dependencies {
         const val recycler = "androidx.recyclerview:recyclerview:1.2.0"
         const val material = "com.google.android.material:material:1.4.0"
 
-        const val compose = "androidx.compose.ui:ui:1.3.2"
-        const val composeTooling = "androidx.compose.ui:ui-tooling:1.3.2"
-        const val composePreview = "androidx.compose.ui:ui-tooling-preview:1.3.2"
+        const val compose = "androidx.compose.ui:ui:$composeVersion"
+        const val composeTooling = "androidx.compose.ui:ui-tooling:$composeVersion"
+        const val composePreview = "androidx.compose.ui:ui-tooling-preview:$composeVersion"
         const val composeFoundation = "androidx.compose.foundation:foundation:1.2.1"
         const val composeMaterial = "androidx.compose.material:material:1.3.1"
         const val composeActivity = "androidx.activity:activity-compose:1.3.1"
 
         // Coroutines
-        const val coroutinesAndroid =
-            "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+        const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
         object Test {
             // Adds a remote binary dependency only for local tests.
@@ -75,35 +83,33 @@ object Dependencies {
     }
 
     object Root {
-        const val android = "com.android.tools.build:gradle:7.0.3"
-        const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        const val android = "com.android.tools.build:gradle:7.2.1"
+        const val serialization = "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
+        const val google = "com.google.gms:google-services:4.3.3"
     }
 
     object Common {
         object Main {
-            const val coroutines =
-                "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
-            const val serialization =
-                "org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization_version"
+            const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+            const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization_version"
 
             const val ktorClientCore = "io.ktor:ktor-client-core:$ktor_version"
             const val ktorContentNegotiation = "io.ktor:ktor-client-content-negotiation:$ktor_version"
             const val ktorClientJson = "io.ktor:ktor-client-json:$ktor_version"
-            const val ktorSerialization = "io.ktor:ktor-serialization-kotlinx-json:$ktor_version"
+            const val ktorSerialization = "io.ktor:ktor-client-serialization:$ktor_version"
+            const val ktorSerializationJson = "io.ktor:ktor-serialization-kotlinx-json:$ktor_version"
             const val ktorClientAuth = "io.ktor:ktor-client-auth:$ktor_version"
             const val ktorLogging = "io.ktor:ktor-client-logging:$ktor_version"
         }
 
         object Android {
             const val ktorClientCore = "io.ktor:ktor-client-okhttp:$ktor_version"
-            const val sqldelightDriverAndroid =
-                "com.squareup.sqldelight:android-driver:$sqldelight_version"
+            const val sqldelightDriverAndroid = "com.squareup.sqldelight:android-driver:$sqldelight_version"
         }
 
         object Native {
             const val ktorClientCore = "io.ktor:ktor-client-ios:$ktor_version"
-            const val sqldelightDriverNative =
-                "com.squareup.sqldelight:native-driver:$sqldelight_version"
+            const val sqldelightDriverNative = "com.squareup.sqldelight:native-driver:$sqldelight_version"
         }
     }
 }

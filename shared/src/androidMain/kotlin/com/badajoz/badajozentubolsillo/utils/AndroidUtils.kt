@@ -3,6 +3,8 @@ package com.badajoz.badajozentubolsillo.utils
 import android.util.Base64
 import android.util.Log
 import com.badajoz.badajozentubolsillo.model.Encryptable
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -10,6 +12,7 @@ import java.security.MessageDigest
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
+
 
 actual inline fun <reified T : Encryptable> T.encrypt(production: Boolean): String {
     val json = Json.encodeToString(this)

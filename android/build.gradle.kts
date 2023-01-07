@@ -18,7 +18,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.0"
+        kotlinCompilerExtensionVersion = "1.3.2"
     }
     packagingOptions {
         resources {
@@ -45,6 +45,12 @@ dependencies {
         implementation(composeMaterial)
         implementation(composeActivity)
         implementation(coroutinesAndroid)
+    }
+
+    with(Dependencies.DI) {
+        implementation(koinCore)
+        implementation(koinAndroid)
+        implementation(koinCompose)
     }
 
     with(Dependencies.Android.Test) {

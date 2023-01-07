@@ -1,7 +1,7 @@
 plugins {
     kotlin("multiplatform")
+    kotlin("plugin.serialization")
     id("com.android.library")
-    kotlin("plugin.serialization") version kotlin_version
 }
 
 kotlin {
@@ -27,8 +27,13 @@ kotlin {
                     implementation(ktorClientJson)
                     implementation(ktorContentNegotiation)
                     implementation(ktorSerialization)
+                    implementation(ktorSerializationJson)
                     implementation(ktorClientAuth)
                     implementation(ktorLogging)
+                }
+
+                with(Dependencies.DI) {
+                    implementation(koinCore)
                 }
             }
         }
