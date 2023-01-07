@@ -401,8 +401,8 @@ enum class MaterialColor(
     }
 
     fun tone(tone: Int, alpha: Int = 100): Long {
-        val colorTone =
-            tones[tone]?.toLong() ?: throw IllegalArgumentException("Tone $tone not found")
+        val colorTone: Long = singleColor?.toLong()
+            ?: (tones[tone]?.toLong() ?: throw IllegalArgumentException("Tone$tone not found"))
         return colorTone + when (alpha) {
             100 -> 0xFF000000
             99 -> 0xFC000000
@@ -507,8 +507,6 @@ enum class MaterialColor(
             0 -> 0x00000000
             else -> throw IllegalArgumentException("Alpha must be a value between 0 and 100")
         }
-
-
     }
 
     private fun interpolateChannel(

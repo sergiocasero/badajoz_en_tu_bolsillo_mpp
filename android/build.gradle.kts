@@ -45,6 +45,8 @@ dependencies {
         implementation(composeMaterial)
         implementation(composeActivity)
         implementation(coroutinesAndroid)
+
+        implementation(coil)
     }
 
     with(Dependencies.DI) {

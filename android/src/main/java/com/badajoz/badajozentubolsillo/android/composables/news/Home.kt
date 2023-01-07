@@ -1,21 +1,29 @@
 package com.badajoz.badajozentubolsillo.android.composables.news
 
-import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.model.category.news.News
 import com.badajoz.badajozentubolsillo.model.category.news.NewsPage
@@ -48,7 +56,7 @@ fun NewsContent(
 
     Scaffold {
         when (state) {
-            is HomeState.Error -> TODO()
+            is HomeState.Error -> LoadingView()
             HomeState.InProgress -> CircularProgressIndicator()
             is HomeState.Success -> NewsList(state.page.news)
         }
@@ -68,13 +76,47 @@ fun NewsList(news: List<News>) {
 @Composable
 fun NewsItem(news: News) {
     Card(
-        onClick = { /*TODO*/ },
         modifier = Modifier
-            .padding(4.dp)
-            .border(width = 1.dp, color = Color(0xFF3700B3))
-            .padding(4.dp)
+            .fillMaxWidth()
+            .padding(start = 8.dp, end = 8.dp, top = 4.dp, bottom = 4.dp),
+        elevation = 8.dp
     ) {
-        Text(text = news.title)
+        Column(
+            modifier = Modifier.padding(8.dp)
+        ) {
+            Surface(
+                modifier = Modifier.padding(end = 8.dp, bottom = 8.dp),
+                elevation = 4.dp,
+                shape = RoundedCornerShape(16.dp),
+                color = MaterialTheme.colors.secondary
+            ) {
+                Text(
+                    text = news.category,
+                    style = MaterialTheme.typography.subtitle2.apply {
+                        copy(color = MaterialTheme.colors.onPrimary)
+                    },
+                    modifier = Modifier.padding(4.dp)
+                )
+            }
+            Row {
+                Column {
+                    Text(text = news.title, style = MaterialTheme.typography.h6)
+                    Text(
+                        text = news.description,
+                        style = MaterialTheme.typography.body2,
+                        maxLines = 3,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+            }
+            Button(
+                onClick = { /*TODO*/ },
+                modifier = Modifier.align(Alignment.End),
+                shape = RoundedCornerShape(16.dp)
+            ) {
+                Text(text = "Ver más")
+            }
+        }
     }
 }
 
