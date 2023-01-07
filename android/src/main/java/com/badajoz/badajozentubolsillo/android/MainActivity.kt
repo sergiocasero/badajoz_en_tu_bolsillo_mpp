@@ -1,18 +1,33 @@
 package com.badajoz.badajozentubolsillo.android
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.badajoz.badajozentubolsillo.Greeting
+import com.badajoz.badajozentubolsillo.model.FmdUserRequest
+import com.badajoz.badajozentubolsillo.utils.encrypt
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // given
+        val request = FmdUserRequest(
+            username = "08810165S",
+            password = "0000"
+        )
+
+        // when
+        val result = request.encrypt()
+        Log.i("MainActivity", "result: $result")
+
         setContent {
             MyApplicationTheme {
                 Surface(

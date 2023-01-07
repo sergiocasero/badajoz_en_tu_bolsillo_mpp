@@ -12,6 +12,7 @@ android {
         targetSdk = App.targetSdkVersion
         versionCode = App.versionCode
         versionName = App.versionName
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
         compose = true
@@ -29,6 +30,8 @@ android {
             isMinifyEnabled = false
         }
     }
+
+
 }
 
 dependencies {
@@ -42,5 +45,20 @@ dependencies {
         implementation(composeMaterial)
         implementation(composeActivity)
         implementation(coroutinesAndroid)
+    }
+
+    with(Dependencies.Android.Test) {
+        testImplementation(junit)
+        androidTestImplementation(espresso)
+
+        androidTestImplementation(testRunner)
+        androidTestImplementation(testRules)
+        androidTestImplementation(androidJunit)
+        androidTestImplementation(espressoCore)
+        androidTestImplementation(espressoContrib)
+        androidTestImplementation(espressoIntents)
+        androidTestImplementation(espressoAccesibility)
+        androidTestImplementation(espressoWeb)
+        androidTestImplementation(espressoConcurrent)
     }
 }

@@ -5,7 +5,8 @@ const val kotlin_version = "1.7.10"
 const val android_plugin_version = "8.0.0-alpha09"
 const val ktor_version = "2.2.2"
 const val sqldelight_version = ""
-
+const val espressoVersion = "3.5.1"
+const val junitVersion = "4.12"
 const val serialization_version = "1.4.1"
 
 object App {
@@ -40,6 +41,37 @@ object Dependencies {
         // Coroutines
         const val coroutinesAndroid =
             "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
+        object Test {
+            // Adds a remote binary dependency only for local tests.
+            const val junit = "junit:junit:4.12"
+
+            // Adds a remote binary dependency only for the instrumented test APK.
+            const val espresso = "androidx.test.espresso:espresso-core:$espressoVersion"
+
+            // AndroidJUnitRunner and JUnit Rules
+            const val testRunner = "androidx.test:runner:1.5.2"
+            const val testRules = "androidx.test:rules:1.5.0"
+
+            // Assertions
+            const val androidJunit = "androidx.test.ext:junit:1.1.5"
+
+            // Espresso dependencies
+            const val espressoCore = "androidx.test.espresso:espresso-core:$espressoVersion"
+            const val espressoContrib = "androidx.test.espresso:espresso-contrib:$espressoVersion"
+            const val espressoIntents = "androidx.test.espresso:espresso-intents:$espressoVersion"
+            const val espressoAccesibility = "androidx.test.espresso:espresso-accessibility:$espressoVersion"
+            const val espressoWeb = "androidx.test.espresso:espresso-web:$espressoVersion"
+            const val espressoConcurrent = "androidx.test.espresso.idling:idling-concurrent:$espressoVersion"
+
+            // The following Espresso dependency can be either "implementation",
+            // or "androidTestImplementation", depending on whether you want the
+            // dependency to appear on your APK’"s compile classpath or the test APK
+            // classpath.
+            const val espressoResource = "androidx.test.espresso:espresso-idling-resource:$espressoVersion"
+
+
+        }
     }
 
     object Root {
