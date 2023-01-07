@@ -1,5 +1,6 @@
 package com.badajoz.badajozentubolsillo.android.composables.news
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -85,18 +86,29 @@ fun NewsItem(news: News) {
         Column(
             modifier = Modifier.padding(8.dp)
         ) {
-            Surface(
-                modifier = Modifier.padding(end = 8.dp, bottom = 8.dp),
-                elevation = 4.dp,
-                shape = RoundedCornerShape(16.dp),
-                color = MaterialTheme.colors.secondary
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
             ) {
+                Surface(
+                    modifier = Modifier.padding(end = 8.dp, bottom = 8.dp),
+                    elevation = 4.dp,
+                    shape = RoundedCornerShape(16.dp),
+                    color = MaterialTheme.colors.secondary
+                ) {
+                    Text(
+                        text = news.category,
+                        style = MaterialTheme.typography.subtitle2.apply {
+                            copy(color = MaterialTheme.colors.onPrimary)
+                        },
+                        modifier = Modifier.padding(4.dp)
+                    )
+                }
                 Text(
-                    text = news.category,
-                    style = MaterialTheme.typography.subtitle2.apply {
-                        copy(color = MaterialTheme.colors.onPrimary)
-                    },
-                    modifier = Modifier.padding(4.dp)
+                    text = news.date,
+                    style = MaterialTheme.typography.subtitle1.apply {
+                        copy(color = MaterialTheme.colors.onBackground)
+                    }
                 )
             }
             Row {
