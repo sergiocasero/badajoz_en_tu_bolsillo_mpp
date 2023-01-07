@@ -41,6 +41,7 @@ dependencies {
         implementation(compose)
         implementation(composeTooling)
         implementation(composePreview)
+        implementation(composeIcons)
         implementation(composeFoundation)
         implementation(composeMaterial)
         implementation(composeActivity)

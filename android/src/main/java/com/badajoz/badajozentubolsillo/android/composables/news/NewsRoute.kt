@@ -11,36 +11,28 @@ import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
-import com.badajoz.badajozentubolsillo.android.composables.TopBar
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.model.category.news.News
 import com.badajoz.badajozentubolsillo.model.category.news.NewsPage
-import com.badajoz.badajozentubolsillo.viewmodel.HomeEvent
 import com.badajoz.badajozentubolsillo.viewmodel.HomeState
-import com.badajoz.badajozentubolsillo.viewmodel.HomeViewModel
 import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent
-import kotlinx.coroutines.launch
-import kotlin.reflect.KFunction1
+import com.badajoz.badajozentubolsillo.viewmodel.NewsEvent
+import com.badajoz.badajozentubolsillo.viewmodel.NewsViewModel
 
 @Composable
-fun NewsRoute(onNavigationEvent: KFunction1<NavigationEvent, Unit>) {
-    val viewModel = remember { HomeViewModel(HomeState.InProgress) }
+fun NewsRoute(onNavigationEvent: (NavigationEvent) -> Unit) {
+    val viewModel = remember { NewsViewModel(HomeState.InProgress) }
 
     NewsContent(
         state = viewModel.stateWithLifecycle().value,
@@ -52,36 +44,18 @@ fun NewsRoute(onNavigationEvent: KFunction1<NavigationEvent, Unit>) {
 @Composable
 fun NewsContent(
     state: HomeState,
-    onEvent: (HomeEvent) -> Unit,
-    onNavigationEvent: (NavigationEvent) -> Unit
+    onNavigationEvent: (NavigationEvent) -> Unit,
+    onEvent: (NewsEvent) -> Unit
 ) {
     LaunchedEffect(Unit) {
-        onEvent(HomeEvent.Attach)
+        onEvent(NewsEvent.Attach)
     }
 
-    val scaffoldState = rememberScaffoldState()
-    val coroutineScope = rememberCoroutineScope()
-
-    Scaffold(
-        scaffoldState = scaffoldState,
-        topBar = {
-            TopBar(title = "Noticias", icon = Icons.Default.Menu) {
-                coroutineScope.launch {
-                    scaffoldState.drawerState.open()
-                }
-            }
-        },
-        drawerContent = {
-            Text("Prueba")
-        },
-        content = {
-            when (state) {
-                is HomeState.Error -> TODO()
-                HomeState.InProgress -> LoadingView()
-                is HomeState.Success -> NewsSuccess(state.page, onNavigationEvent)
-            }
-        }
-    )
+    when (state) {
+        is HomeState.InProgress -> LoadingView()
+        is HomeState.Success -> NewsSuccess(state.page, onNavigationEvent)
+        is HomeState.Error -> TODO()
+    }
 }
 
 @Composable
@@ -180,6 +154,7 @@ fun NewsContentPreview() {
     )
     NewsContent(
         state = HomeState.Success(NewsPage(news = news, next = 20, prev = 0)),
-        onEvent = {}, onNavigationEvent = {}
+        onEvent = {},
+        onNavigationEvent = {}
     )
 }

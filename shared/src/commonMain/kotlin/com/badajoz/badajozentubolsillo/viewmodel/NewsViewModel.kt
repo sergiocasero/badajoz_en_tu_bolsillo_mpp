@@ -7,7 +7,7 @@ import com.badajoz.badajozentubolsillo.utils.exhaustive
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
-class HomeViewModel(initialState: HomeState) : RootViewModel<HomeState, HomeEvent, HomeActions>(initialState) {
+class NewsViewModel(initialState: HomeState) : RootViewModel<HomeState, NewsEvent, HomeActions>(initialState) {
 
     private val repository: NewsRepository by inject()
 
@@ -22,9 +22,9 @@ class HomeViewModel(initialState: HomeState) : RootViewModel<HomeState, HomeEven
         }
     }
 
-    override fun onEvent(event: HomeEvent) {
+    override fun onEvent(event: NewsEvent) {
         when (event) {
-            HomeEvent.Attach -> attach()
+            NewsEvent.Attach -> attach()
         }.exhaustive
     }
 }
@@ -35,8 +35,8 @@ sealed class HomeState : ViewState() {
     data class Success(val page: NewsPage) : HomeState()
 }
 
-sealed class HomeEvent {
-    object Attach : HomeEvent()
+sealed class NewsEvent {
+    object Attach : NewsEvent()
 }
 
 sealed class HomeActions {

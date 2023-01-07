@@ -7,10 +7,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.badajoz.badajozentubolsillo.android.composables.news.NewsRoute
+import com.badajoz.badajozentubolsillo.android.composables.menu.MenuRoute
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.utils.exhaustive
-import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent.Home
+import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent.Menu
 import com.badajoz.badajozentubolsillo.viewmodel.NavigationState
 import com.badajoz.badajozentubolsillo.viewmodel.NavigationViewModel
 
@@ -21,10 +21,10 @@ fun BadajozApp(navController: NavHostController = rememberNavController()) {
 
     NavHost(
         navController = navController,
-        startDestination = Home.route
+        startDestination = Menu.route
     ) {
-        composable(route = Home.route) {
-            NewsRoute(onNavigationEvent = navigationViewModel::onEvent)
+        composable(route = Menu.route) {
+            MenuRoute(onNavigationEvent = navigationViewModel::onEvent)
         }
 
         /* composable(route = Detail().route) {
@@ -40,6 +40,6 @@ fun BadajozApp(navController: NavHostController = rememberNavController()) {
     Log.i("Composable app changed", "PoiApp: $state")
 
     when (state) {
-        NavigationState.Home -> navController.navigate(Home.route)
+        NavigationState.Menu -> navController.navigate(Menu.route)
     }.exhaustive
 }
