@@ -1,6 +1,7 @@
 package com.badajoz.badajozentubolsillo.android.composables.news
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.viewmodel.HomeEvent
@@ -26,5 +27,7 @@ fun NewsContent(
     onEvent: (HomeEvent) -> Unit,
     onNavigationEvent: (NavigationEvent) -> Unit
 ) {
-
+    LaunchedEffect(Unit) {
+        onEvent(HomeEvent.Attach)
+    }
 }

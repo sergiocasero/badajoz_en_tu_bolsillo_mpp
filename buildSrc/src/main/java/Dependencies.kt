@@ -104,7 +104,7 @@ object Dependencies {
         }
 
         object Android {
-            const val ktorClientCore = "io.ktor:ktor-client-okhttp:$ktor_version"
+            const val ktorClientCore = "io.ktor:ktor-client-android:$ktor_version"
             const val sqldelightDriverAndroid = "com.squareup.sqldelight:android-driver:$sqldelight_version"
             const val lifecycleViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycle}"
         }

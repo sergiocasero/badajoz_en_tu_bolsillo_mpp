@@ -4,6 +4,7 @@ import com.badajoz.badajozentubolsillo.flow.CFlow
 import com.badajoz.badajozentubolsillo.flow.CStateFlow
 import com.badajoz.badajozentubolsillo.flow.cFlow
 import com.badajoz.badajozentubolsillo.flow.cStateFlow
+import com.badajoz.badajozentubolsillo.model.AppError
 import com.badajoz.badajozentubolsillo.model.Either
 import com.badajoz.badajozentubolsillo.utils.Executor
 import kotlinx.coroutines.CoroutineScope
@@ -24,7 +25,6 @@ abstract class RootViewModel<S, E, A>(initialState: S) : KoinComponent, Platform
     private val job = SupervisorJob()
 
     private val executor: Executor by inject()
-
     protected val vmScope: CoroutineScope get() = CoroutineScope(job + executor.main)
 
     protected val _uiState = MutableStateFlow(initialState)
@@ -42,7 +42,7 @@ abstract class RootViewModel<S, E, A>(initialState: S) : KoinComponent, Platform
 
     abstract fun onEvent(event: E)
 
-    protected suspend fun <T> execute(f: suspend () -> Either<Error, T>): Either<Error, T> =
+    protected suspend fun <T> execute(f: suspend () -> Either<AppError, T>): Either<AppError, T> =
         withContext(executor.bg) { f() }
 
     fun <T> Flow<T>.observe(onChange: ((T) -> Unit)) {

@@ -19,6 +19,3 @@ fun <S : ViewState, E, A> RootViewModel<S, E, A>.stateWithLifecycle(): State<S> 
 
     return flow.collectAsState(state.value)
 }
-
-val <T> T.exhaustive: T
-    get() = this

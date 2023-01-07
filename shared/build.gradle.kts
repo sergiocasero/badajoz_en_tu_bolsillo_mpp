@@ -45,6 +45,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 with(Dependencies.Shared.Android) {
+                    implementation(ktorClientCore)
                     api(lifecycleViewModel)
                 }
             }

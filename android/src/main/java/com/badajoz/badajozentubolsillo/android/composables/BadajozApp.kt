@@ -8,8 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.badajoz.badajozentubolsillo.android.composables.news.NewsRoute
-import com.badajoz.badajozentubolsillo.android.utils.exhaustive
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
+import com.badajoz.badajozentubolsillo.utils.exhaustive
 import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent.Home
 import com.badajoz.badajozentubolsillo.viewmodel.NavigationState
 import com.badajoz.badajozentubolsillo.viewmodel.NavigationViewModel

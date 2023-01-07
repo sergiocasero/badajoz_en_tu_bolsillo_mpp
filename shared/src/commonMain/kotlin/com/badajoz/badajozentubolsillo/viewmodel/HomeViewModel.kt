@@ -1,40 +1,40 @@
 package com.badajoz.badajozentubolsillo.viewmodel
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
+import com.badajoz.badajozentubolsillo.model.AppError
+import com.badajoz.badajozentubolsillo.repository.NewsRepository
+import com.badajoz.badajozentubolsillo.utils.exhaustive
 import kotlinx.coroutines.launch
+import org.koin.core.component.inject
 
 class HomeViewModel(initialState: HomeState) : RootViewModel<HomeState, HomeEvent, HomeActions>(initialState) {
 
-    private val job = SupervisorJob()
-
-    private val scope = CoroutineScope(job)
+    private val repository: NewsRepository by inject()
 
     override fun attach() = apply {
-        scope.launch {
+        vmScope.launch {
             _uiState.value = HomeState.InProgress
 
-
+            execute { repository.getNewsPage(0) }.fold(
+                error = { println("Error: $it") },
+                success = { println("Success: $it") }
+            )
         }
     }
 
-    override fun detach() {
-        scope.cancel()
-    }
-
     override fun onEvent(event: HomeEvent) {
-        TODO("Not yet implemented")
+        when (event) {
+            HomeEvent.Attach -> attach()
+        }.exhaustive
     }
 }
 
 sealed class HomeState : ViewState() {
     object InProgress : HomeState()
-    class Error(val error: Error) : HomeState()
+    class Error(val error: AppError) : HomeState()
 }
 
 sealed class HomeEvent {
-
+    object Attach : HomeEvent()
 }
 
 sealed class HomeActions {
