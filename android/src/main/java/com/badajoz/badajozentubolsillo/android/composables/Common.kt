@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 fun LoadingView() {
     Box(
         modifier = Modifier
-            .background(color = MaterialTheme.colors.primary)
+            .background(color = MaterialTheme.colors.background)
             .fillMaxSize()
     ) {
         CircularProgressIndicator(

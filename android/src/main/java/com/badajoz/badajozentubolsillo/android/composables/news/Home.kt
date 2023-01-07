@@ -1,5 +1,6 @@
 package com.badajoz.badajozentubolsillo.android.composables.news
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,15 +10,20 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
@@ -31,6 +37,7 @@ import com.badajoz.badajozentubolsillo.viewmodel.HomeEvent
 import com.badajoz.badajozentubolsillo.viewmodel.HomeState
 import com.badajoz.badajozentubolsillo.viewmodel.HomeViewModel
 import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent
+import kotlinx.coroutines.launch
 import kotlin.reflect.KFunction1
 
 @Composable
@@ -54,14 +61,56 @@ fun NewsContent(
         onEvent(HomeEvent.Attach)
     }
 
-    Scaffold {
-        when (state) {
-            is HomeState.Error -> LoadingView()
-            HomeState.InProgress -> CircularProgressIndicator()
-            is HomeState.Success -> NewsList(state.page.news)
+    val scaffoldState = rememberScaffoldState()
+    val coroutineScope = rememberCoroutineScope()
+
+    Scaffold(
+        scaffoldState = scaffoldState,
+        topBar = {
+            TopAppBar(
+                // Provide Title
+                title = {
+                    Text(text = "Noticias")
+                },
+                // Provide the navigation Icon (Icon on the left to toggle drawer)
+                navigationIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Menu,
+                        contentDescription = "Menu",
+
+                        // When clicked trigger onClick
+                        // Callback to trigger drawer open
+                        modifier = Modifier
+                            .clickable {
+                                coroutineScope.launch {
+                                    scaffoldState.drawerState.open()
+                                }
+                            }
+                            .padding(start = 8.dp)
+                    )
+                },
+                backgroundColor = MaterialTheme.colors.background,
+                elevation = 0.dp
+            )
+        },
+        drawerContent = {
+            Text("Prueba")
+        },
+        content = {
+            when (state) {
+                is HomeState.Error -> TODO()
+                HomeState.InProgress -> LoadingView()
+                is HomeState.Success -> NewsSuccess(state.page, onNavigationEvent)
+            }
         }
-    }
+    )
 }
+
+@Composable
+fun NewsSuccess(page: NewsPage, onNavigationEvent: (NavigationEvent) -> Unit) {
+    NewsList(page.news)
+}
+
 
 @Composable
 fun NewsList(news: List<News>) {
