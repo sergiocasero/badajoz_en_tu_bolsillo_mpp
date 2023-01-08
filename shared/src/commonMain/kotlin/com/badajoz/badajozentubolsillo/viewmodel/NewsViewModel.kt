@@ -20,16 +20,16 @@ class NewsViewModel(initialState: HomeState) :
         loadPage(nextPage)
     }
 
-    private fun loadPage(page: Int) {
+    private fun loadPage(page: Int, initialState: HomeState = HomeState.InProgress) {
         vmScope.launch {
-            _uiState.value = HomeState.InProgress
+            _uiState.value = initialState
 
             execute { repository.getNewsPage(page) }.fold(
                 error = { println("Error: $it") },
                 success = {
                     nextPage = it.next
                     newsToShow.addAll(it.news)
-                    _uiState.value = HomeState.Success(newsToShow.toList())
+                    _uiState.value = HomeState.Success(newsToShow.toList(), loadingMore = false)
                 }
             )
         }
@@ -38,7 +38,10 @@ class NewsViewModel(initialState: HomeState) :
     override fun onEvent(event: NewsEvent) {
         when (event) {
             NewsEvent.Attach -> attach()
-            NewsEvent.OnLoadMore -> loadPage(nextPage)
+            NewsEvent.OnLoadMore -> loadPage(
+                nextPage,
+                HomeState.Success(news = newsToShow.toList(), loadingMore = true)
+            )
         }.exhaustive
     }
 }
@@ -46,7 +49,8 @@ class NewsViewModel(initialState: HomeState) :
 sealed class HomeState : ViewState() {
     object InProgress : HomeState()
     class Error(val error: AppError) : HomeState()
-    data class Success(val news: List<News>) : HomeState()
+    data class Success(val news: List<News>, val loadingMore: Boolean) : HomeState()
+
 }
 
 sealed class NewsEvent {

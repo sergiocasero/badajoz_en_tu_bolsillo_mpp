@@ -184,7 +184,7 @@ fun NewsContentPreview() {
         )
     )
     NewsContent(
-        state = HomeState.Success(news),
+        state = HomeState.Success(news, loadingMore = false),
         onEvent = {},
         onNavigationEvent = {}
     )
