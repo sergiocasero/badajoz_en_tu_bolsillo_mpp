@@ -1,3 +1,5 @@
+import org.gradle.api.Project
+
 const val propertiesDir = "signin/properties"
 
 const val coroutines_version = "1.6.4"
@@ -120,4 +122,14 @@ object Dependencies {
             const val sqldelightDriverNative = "com.squareup.sqldelight:native-driver:$sqldelight_version"
         }
     }
+}
+
+fun Project.getLocalProperty(name: String): String {
+    val localProperties = java.util.Properties()
+    localProperties
+        .load(rootProject.file("local.properties").inputStream())
+
+    return localProperties.getOrElse(name) {
+        throw IllegalArgumentException("Define $name in your local.properties file")
+    } as String
 }

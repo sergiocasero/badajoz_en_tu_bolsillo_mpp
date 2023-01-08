@@ -64,7 +64,7 @@ fun MenuState.icon(): ImageVector = when (this) {
 
 @Composable
 fun MenuRoute(onNavigationEvent: (NavigationEvent) -> Unit) {
-    val viewModel = remember { MenuViewModel(MenuState.News) }
+    val viewModel = remember { MenuViewModel(MenuState.Bike) }
 
     MenuContent(
         state = viewModel.stateWithLifecycle().value,
@@ -91,6 +91,7 @@ fun MenuContent(
                 }
             }
         },
+        drawerGesturesEnabled = scaffoldState.drawerState.isOpen,
         drawerContent = {
             DrawerItem(title = MenuState.News.title(), icon = MenuState.News.icon()) {
                 coroutineScope.launch { scaffoldState.drawerState.close() }
@@ -119,20 +120,19 @@ fun MenuContent(
             DrawerItem(title = MenuState.Pharmacy.title(), icon = MenuState.Pharmacy.icon()) {
                 onEvent(MenuEvent.OnPharmacyClick)
             }
-        },
-        content = {
-            when (state) {
-                MenuState.News -> NewsRoute { onNavigationEvent(it) }
-                MenuState.Bike -> BikeRoute()
-                MenuState.Bus -> TODO()
-                MenuState.Calendar -> CalendarRoute()
-                MenuState.Fmd -> TODO()
-                MenuState.Minits -> TODO()
-                MenuState.Pharmacy -> TODO()
-                MenuState.Taxes -> TaxesRoute { onNavigationEvent(it) }
-            }
         }
-    )
+    ) {
+        when (state) {
+            MenuState.News -> NewsRoute { onNavigationEvent(it) }
+            MenuState.Bike -> BikeRoute()
+            MenuState.Bus -> TODO()
+            MenuState.Calendar -> CalendarRoute()
+            MenuState.Fmd -> TODO()
+            MenuState.Minits -> TODO()
+            MenuState.Pharmacy -> TODO()
+            MenuState.Taxes -> TaxesRoute { onNavigationEvent(it) }
+        }
+    }
 }
 
 @Composable

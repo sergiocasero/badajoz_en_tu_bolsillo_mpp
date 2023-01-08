@@ -13,13 +13,18 @@ class BikeViewModel(initialState: BikeState) :
 
     private val repository: BikeRepository by inject()
 
+    private val bikeStations = mutableListOf<BikeStation>()
+
     override fun attach() = apply {
         vmScope.launch {
             _uiState.value = BikeState.InProgress
 
             execute { repository.getBikeStations() }.fold(
                 error = { println("Error: ") },
-                success = { println("Success: $it") }
+                success = {
+                    bikeStations.addAll(it)
+                    _uiState.value = BikeState.Success(it, BikeViewType.Map)
+                }
             )
         }
     }
@@ -27,6 +32,8 @@ class BikeViewModel(initialState: BikeState) :
     override fun onEvent(event: BikeEvent) {
         when (event) {
             BikeEvent.Attach -> attach()
+            BikeEvent.OnBikeListClick -> _uiState.value = BikeState.Success(bikeStations, BikeViewType.List)
+            BikeEvent.OnBikeMapClick -> _uiState.value = BikeState.Success(bikeStations, BikeViewType.Map)
         }.exhaustive
     }
 }
@@ -34,10 +41,17 @@ class BikeViewModel(initialState: BikeState) :
 sealed class BikeState : ViewState() {
     object InProgress : BikeState()
     class Error(val error: AppError) : BikeState()
-    data class Success(val bikeStations: List<BikeStation>) : BikeState()
+    data class Success(val bikeStations: List<BikeStation>, val view: BikeViewType) : BikeState()
 
 }
 
 sealed class BikeEvent {
     object Attach : BikeEvent()
+    object OnBikeMapClick : BikeEvent()
+    object OnBikeListClick : BikeEvent()
+}
+
+enum class BikeViewType {
+    List,
+    Map
 }

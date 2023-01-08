@@ -13,6 +13,12 @@ android {
         versionCode = App.versionCode
         versionName = App.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        resValue(
+            "string",
+            "mapbox_access_token",
+            System.getenv("MAPBOX_API_KEY") ?: getLocalProperty("MAPBOX_API_KEY")
+        )
     }
     buildFeatures {
         compose = true
