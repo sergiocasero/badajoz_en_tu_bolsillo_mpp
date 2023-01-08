@@ -11,6 +11,7 @@ const val serialization_version = "1.4.1"
 const val koinVersion = "3.2.2"
 const val composeVersion = "1.3.2"
 const val lifecycle = "2.5.0"
+const val mapboxVersion = "10.10.0"
 
 object App {
     const val minSdkVersion = 23
@@ -51,6 +52,7 @@ object Dependencies {
         const val htmlText = "de.charlex.compose:html-text:1.4.1"
 
         const val coil = "io.coil-kt:coil-compose:2.2.2"
+        const val mapbox = "com.mapbox.maps:android:$mapboxVersion"
 
         // Coroutines
         const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"

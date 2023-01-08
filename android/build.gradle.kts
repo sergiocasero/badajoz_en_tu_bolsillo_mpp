@@ -49,6 +49,7 @@ dependencies {
 
         implementation(coil)
         implementation(htmlText)
+        implementation(mapbox)
     }
 
     with(Dependencies.DI) {

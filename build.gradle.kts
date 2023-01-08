@@ -19,7 +19,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        /*maven {
+        maven {
             url = uri("https://api.mapbox.com/downloads/v2/releases/maven")
             credentials {
                 // Do not change the username below.
@@ -32,7 +32,7 @@ allprojects {
             authentication {
                 create<BasicAuthentication>("basic")
             }
-        }*/
+        }
     }
 }
 
