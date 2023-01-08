@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -67,22 +66,18 @@ fun NewsDetailContent(
 
 @Composable
 fun SuccessView(newsDetail: NewsDetail) {
-    Card(
-        modifier = Modifier.padding(8.dp)
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+            .verticalScroll(rememberScrollState())
     ) {
-        Column(
+        AsyncImage(
+            model = newsDetail.img.url,
+            contentDescription = newsDetail.img.alt,
             modifier = Modifier
-                .padding(8.dp)
-                .verticalScroll(rememberScrollState())
-        ) {
-            AsyncImage(
-                model = newsDetail.img.url,
-                contentDescription = newsDetail.img.alt,
-                modifier = Modifier
-                    .fillMaxWidth()
-            )
-            HtmlText(text = newsDetail.content)
-        }
+                .fillMaxWidth()
+        )
+        HtmlText(text = newsDetail.content)
     }
 }
 
