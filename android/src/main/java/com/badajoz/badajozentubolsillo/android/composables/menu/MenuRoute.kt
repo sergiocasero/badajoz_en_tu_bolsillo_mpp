@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.badajoz.badajozentubolsillo.android.composables.TopBar
+import com.badajoz.badajozentubolsillo.android.composables.bike.BikeRoute
 import com.badajoz.badajozentubolsillo.android.composables.calendar.CalendarRoute
 import com.badajoz.badajozentubolsillo.android.composables.news.NewsRoute
 import com.badajoz.badajozentubolsillo.android.composables.taxes.TaxesRoute
@@ -122,7 +123,7 @@ fun MenuContent(
         content = {
             when (state) {
                 MenuState.News -> NewsRoute { onNavigationEvent(it) }
-                MenuState.Bike -> TODO()
+                MenuState.Bike -> BikeRoute()
                 MenuState.Bus -> TODO()
                 MenuState.Calendar -> CalendarRoute()
                 MenuState.Fmd -> TODO()
