@@ -10,7 +10,7 @@ import com.badajoz.badajozentubolsillo.viewmodel.RootViewModel
 import com.badajoz.badajozentubolsillo.viewmodel.ViewState
 
 @Composable
-fun <S : ViewState, E, A> RootViewModel<S, E, A>.stateWithLifecycle(): State<S> {
+fun <S : ViewState, E> RootViewModel<S, E>.stateWithLifecycle(): State<S> {
     val lifecycleOwner = LocalLifecycleOwner.current
 
     val flow = remember(state, lifecycleOwner) {

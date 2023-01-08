@@ -51,7 +51,9 @@ fun NewsDetailContent(
 
     Scaffold(topBar = {
         if (state is NewsDetailState.Success) {
-            TopBar(title = state.newsDetail.title, icon = Icons.Default.ArrowBack, onNavClick = { })
+            TopBar(title = state.newsDetail.title, icon = Icons.Default.ArrowBack, onNavClick = {
+                onNavigationEvent(NavigationEvent.OnBack)
+            })
         }
     },
         content = {

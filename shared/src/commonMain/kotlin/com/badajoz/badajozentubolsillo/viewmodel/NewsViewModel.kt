@@ -7,7 +7,8 @@ import com.badajoz.badajozentubolsillo.utils.exhaustive
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
-class NewsViewModel(initialState: HomeState) : RootViewModel<HomeState, NewsEvent, HomeActions>(initialState) {
+class NewsViewModel(initialState: HomeState) :
+    RootViewModel<HomeState, NewsEvent>(initialState) {
 
     private val repository: NewsRepository by inject()
 
@@ -37,8 +38,4 @@ sealed class HomeState : ViewState() {
 
 sealed class NewsEvent {
     object Attach : NewsEvent()
-}
-
-sealed class HomeActions {
-
 }

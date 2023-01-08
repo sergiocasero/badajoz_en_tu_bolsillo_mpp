@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
 class NewsDetailViewModel(private val link: String, initialState: NewsDetailState) :
-    RootViewModel<NewsDetailState, NewsDetailEvent, NewsDetailActions>(initialState) {
+    RootViewModel<NewsDetailState, NewsDetailEvent>(initialState) {
 
     private val repository: NewsRepository by inject()
 
@@ -41,8 +41,4 @@ sealed class NewsDetailState : ViewState() {
 
 sealed class NewsDetailEvent {
     object Attach : NewsDetailEvent()
-}
-
-sealed class NewsDetailActions {
-
 }

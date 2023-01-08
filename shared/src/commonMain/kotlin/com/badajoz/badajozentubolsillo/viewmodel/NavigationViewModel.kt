@@ -3,7 +3,7 @@ package com.badajoz.badajozentubolsillo.viewmodel
 import kotlinx.coroutines.launch
 
 class NavigationViewModel :
-    RootViewModel<NavigationState, NavigationEvent, NavigationAction>(NavigationState.Menu) {
+    RootViewModel<NavigationState, NavigationEvent>(NavigationState.Menu) {
 
     override fun attach(): NavigationViewModel = apply {
         // do nothing
@@ -13,7 +13,7 @@ class NavigationViewModel :
         when (event) {
             NavigationEvent.OnMenu -> _uiState.value = NavigationState.Menu
             is NavigationEvent.OnNewsDetail -> _uiState.value = NavigationState.NewsDetail(event.link)
-            NavigationEvent.OnBack -> vmScope.launch { _actions.send(NavigationAction.Back) }
+            NavigationEvent.OnBack -> vmScope.launch { _uiState.value = NavigationState.Menu }
         }
     }
 }
@@ -30,9 +30,4 @@ sealed class NavigationEvent(val route: String) {
     }
 
     object OnBack : NavigationEvent("back")
-}
-
-sealed class NavigationAction {
-    object Dummy : NavigationAction()
-    object Back : NavigationAction()
 }

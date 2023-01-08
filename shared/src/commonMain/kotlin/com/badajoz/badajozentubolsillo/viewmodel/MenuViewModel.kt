@@ -1,6 +1,7 @@
 package com.badajoz.badajozentubolsillo.viewmodel
 
-class MenuViewModel(initialState: MenuState) : RootViewModel<MenuState, MenuEvent, MenuActions>(initialState) {
+class MenuViewModel(initialState: MenuState) :
+    RootViewModel<MenuState, MenuEvent>(initialState) {
 
     override fun attach(): MenuViewModel = apply {
         // do nothing
@@ -43,9 +44,5 @@ sealed class MenuEvent {
     object OnBusClick : MenuEvent()
     object OnMinitsClick : MenuEvent()
     object OnPharmacyClick : MenuEvent()
-
-}
-
-sealed class MenuActions {
 
 }
