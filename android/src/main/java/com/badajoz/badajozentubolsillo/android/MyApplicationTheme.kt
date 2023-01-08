@@ -43,6 +43,16 @@ fun MyApplicationTheme(
             fontWeight = FontWeight.Bold,
             fontSize = 96.sp
         ),
+        h5 = TextStyle(
+            fontFamily = FontFamily.SansSerif,
+            fontWeight = FontWeight.Bold,
+            fontSize = 20.sp
+        ),
+        h6 = TextStyle(
+            fontFamily = FontFamily.SansSerif,
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp
+        ),
         body1 = TextStyle(
             fontFamily = FontFamily.Default,
             fontWeight = FontWeight.Normal,
