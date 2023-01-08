@@ -1,13 +1,13 @@
 package com.badajoz.badajozentubolsillo.android.composables.news
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Card
@@ -17,17 +17,18 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.model.category.news.News
+import com.badajoz.badajozentubolsillo.utils.MaterialColor
 import com.badajoz.badajozentubolsillo.viewmodel.HomeState
 import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent
 import com.badajoz.badajozentubolsillo.viewmodel.NewsEvent
@@ -57,7 +58,26 @@ fun NewsContent(
 
     when (state) {
         is HomeState.InProgress -> LoadingView()
-        is HomeState.Success -> NewsSuccess(state.news, onEvent, onNavigationEvent)
+        is HomeState.Success -> Box {
+            if (state.loadingMore) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .zIndex(1f)
+                ) {
+                    LoadingView(background = Color(MaterialColor.WHITE.tone(100, 0)))
+                }
+            }
+
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .zIndex(0f)
+            ) {
+                NewsSuccess(state.news, onEvent, onNavigationEvent)
+            }
+        }
+
         is HomeState.Error -> TODO()
     }
 }
@@ -76,20 +96,18 @@ fun NewsSuccess(news: List<News>, onEvent: (NewsEvent) -> Unit, onNavigationEven
 
 @Composable
 fun NewsList(news: List<News>, onItemClick: (News) -> Unit, onLoadMore: () -> Unit) {
-    val state = rememberLazyListState()
-    LazyColumn(state = state) {
-        items(news) {
-            NewsItem(news = it) { onItemClick(it) }
+    LazyColumn(
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        items(count = news.size + 1) { index ->
+            if (index == news.size) {
+                Button(onClick = { onLoadMore() }) {
+                    Text("Cargar más")
+                }
+            } else {
+                NewsItem(news = news[index]) { onItemClick(news[index]) }
+            }
         }
-    }
-    val lastItemVisible by remember {
-        derivedStateOf {
-            state.firstVisibleItemIndex == news.indexOf(news.last()) - 4
-        }
-    }
-
-    if (lastItemVisible) {
-        onLoadMore()
     }
 }
 
@@ -146,7 +164,7 @@ fun NewsItem(news: News, onClick: () -> Unit) {
                 modifier = Modifier.align(Alignment.End),
                 shape = RoundedCornerShape(16.dp)
             ) {
-                Text(text = "Ver más")
+                Text(text = "Ver")
             }
         }
     }
