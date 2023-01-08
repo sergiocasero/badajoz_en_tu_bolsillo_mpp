@@ -128,7 +128,7 @@ fun MenuContent(
                 MenuState.Fmd -> TODO()
                 MenuState.Minits -> TODO()
                 MenuState.Pharmacy -> TODO()
-                MenuState.Taxes -> TaxesRoute()
+                MenuState.Taxes -> TaxesRoute { onNavigationEvent(it) }
             }
         }
     )

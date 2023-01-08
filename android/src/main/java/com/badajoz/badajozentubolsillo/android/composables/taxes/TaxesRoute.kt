@@ -2,6 +2,7 @@ package com.badajoz.badajozentubolsillo.android.composables.taxes
 
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,22 +21,28 @@ import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.model.category.taxes.TaxGroup
 import com.badajoz.badajozentubolsillo.model.category.taxes.TaxLink
+import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent
 import com.badajoz.badajozentubolsillo.viewmodel.TaxesViewModel
 import com.badajoz.badajozentubolsillo.viewmodel.TaxesViewModelEvent
 import com.badajoz.badajozentubolsillo.viewmodel.TaxesViewModelState
 
 @Composable
-fun TaxesRoute() {
+fun TaxesRoute(onNavigationEvent: (NavigationEvent) -> Unit) {
     val viewModel = remember { TaxesViewModel(initialState = TaxesViewModelState.InProgress) }
 
     TaxesContent(
         state = viewModel.stateWithLifecycle().value,
-        onEvent = { viewModel.onEvent(it) }
+        onEvent = { viewModel.onEvent(it) },
+        onNavigationEvent = onNavigationEvent
     )
 }
 
 @Composable
-fun TaxesContent(state: TaxesViewModelState, onEvent: (TaxesViewModelEvent) -> Unit) {
+fun TaxesContent(
+    state: TaxesViewModelState,
+    onEvent: (TaxesViewModelEvent) -> Unit,
+    onNavigationEvent: (NavigationEvent) -> Unit
+) {
     LaunchedEffect(Unit) {
         onEvent(TaxesViewModelEvent.Attach)
     }
@@ -45,23 +52,25 @@ fun TaxesContent(state: TaxesViewModelState, onEvent: (TaxesViewModelEvent) -> U
             when (state) {
                 is TaxesViewModelState.InProgress -> LoadingView()
                 is TaxesViewModelState.Error -> TODO()
-                is TaxesViewModelState.Success -> TaxesSuccess(state.taxes)
+                is TaxesViewModelState.Success -> TaxesSuccess(state.taxes) {
+                    onNavigationEvent(NavigationEvent.OnOpenExternalLink(it.url))
+                }
             }
         }
     )
 }
 
 @Composable
-fun TaxesSuccess(taxes: List<TaxGroup>) {
+fun TaxesSuccess(taxes: List<TaxGroup>, onLinkClick: (TaxLink) -> Unit) {
     LazyColumn {
         items(taxes) { tax ->
-            TaxGroupCard(tax)
+            TaxGroupCard(tax) { onLinkClick(it) }
         }
     }
 }
 
 @Composable
-fun TaxGroupCard(taxGroup: TaxGroup) {
+fun TaxGroupCard(taxGroup: TaxGroup, onLinkClick: (TaxLink) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -79,7 +88,7 @@ fun TaxGroupCard(taxGroup: TaxGroup) {
                     .padding(8.dp)
             )
 
-            TaxTaxLinkList(taxGroup.links)
+            TaxTaxLinkList(taxGroup.links) { onLinkClick(it) }
 
             taxGroup.child.forEach {
                 Card(
@@ -96,7 +105,7 @@ fun TaxGroupCard(taxGroup: TaxGroup) {
                                 .background(MaterialTheme.colors.secondary)
                                 .padding(8.dp)
                         )
-                        TaxTaxLinkList(it.links)
+                        TaxTaxLinkList(it.links) { onLinkClick(it) }
                     }
                 }
             }
@@ -105,13 +114,15 @@ fun TaxGroupCard(taxGroup: TaxGroup) {
 }
 
 @Composable
-fun TaxTaxLinkList(links: List<TaxLink>) {
+fun TaxTaxLinkList(links: List<TaxLink>, onLinkClick: (TaxLink) -> Unit) {
     Column {
         links.forEach { link ->
             Text(
                 text = link.title,
                 style = MaterialTheme.typography.body1,
-                modifier = Modifier.padding(6.dp)
+                modifier = Modifier
+                    .padding(6.dp)
+                    .clickable { onLinkClick(link) },
             )
         }
     }

@@ -1,7 +1,5 @@
 package com.badajoz.badajozentubolsillo.viewmodel
 
-import kotlinx.coroutines.launch
-
 class NavigationViewModel :
     RootViewModel<NavigationState, NavigationEvent>(NavigationState.Menu) {
 
@@ -13,7 +11,8 @@ class NavigationViewModel :
         when (event) {
             NavigationEvent.OnMenu -> _uiState.value = NavigationState.Menu
             is NavigationEvent.OnNewsDetail -> _uiState.value = NavigationState.NewsDetail(event.link)
-            NavigationEvent.OnBack -> vmScope.launch { _uiState.value = NavigationState.Menu }
+            NavigationEvent.OnBack -> _uiState.value = NavigationState.Menu
+            is NavigationEvent.OnOpenExternalLink -> _uiState.value = NavigationState.ExternalLink(event.link)
         }
     }
 }
@@ -21,6 +20,8 @@ class NavigationViewModel :
 sealed class NavigationState : ViewState() {
     object Menu : NavigationState()
     data class NewsDetail(val link: String) : NavigationState()
+
+    data class ExternalLink(val link: String) : NavigationState()
 }
 
 sealed class NavigationEvent(val route: String) {
@@ -30,4 +31,8 @@ sealed class NavigationEvent(val route: String) {
     }
 
     object OnBack : NavigationEvent("back")
+
+    data class OnOpenExternalLink(val link: String = "") : NavigationEvent("open_external/{linkname}") {
+        fun createRoute(link: String) = "open_external/$link"
+    }
 }

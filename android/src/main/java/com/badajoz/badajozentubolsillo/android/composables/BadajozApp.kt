@@ -1,8 +1,11 @@
 package com.badajoz.badajozentubolsillo.android.composables
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -45,5 +48,10 @@ fun BadajozApp(navController: NavHostController = rememberNavController()) {
     when (state) {
         NavigationState.Menu -> navController.navigate(OnMenu.route)
         is NavigationState.NewsDetail -> navController.navigate(NavigationEvent.OnNewsDetail(state.link).createRoute())
+        is NavigationState.ExternalLink -> {
+            val context = LocalContext.current
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(state.link))
+            context.startActivity(intent)
+        }
     }.exhaustive
 }
