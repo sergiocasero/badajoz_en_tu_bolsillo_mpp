@@ -48,6 +48,7 @@ dependencies {
         implementation(coroutinesAndroid)
 
         implementation(coil)
+        implementation(htmlText)
     }
 
     with(Dependencies.DI) {

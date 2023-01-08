@@ -2,7 +2,6 @@ package com.badajoz.badajozentubolsillo.viewmodel
 
 import com.badajoz.badajozentubolsillo.model.AppError
 import com.badajoz.badajozentubolsillo.model.category.news.NewsDetail
-import com.badajoz.badajozentubolsillo.model.category.news.NewsPage
 import com.badajoz.badajozentubolsillo.repository.NewsRepository
 import com.badajoz.badajozentubolsillo.utils.exhaustive
 import kotlinx.coroutines.launch
@@ -19,7 +18,10 @@ class NewsDetailViewModel(private val link: String, initialState: NewsDetailStat
 
             execute { repository.getNewsDetail(link) }.fold(
                 error = { println("Error: $it") },
-                success = { _uiState.value = NewsDetailState.Success(it) }
+                success = {
+                    println("Success: $it")
+                    _uiState.value = NewsDetailState.Success(it)
+                }
             )
         }
     }

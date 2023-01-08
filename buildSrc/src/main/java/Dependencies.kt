@@ -48,8 +48,9 @@ object Dependencies {
         const val composeFoundation = "androidx.compose.foundation:foundation:1.2.1"
         const val composeMaterial = "androidx.compose.material:material:1.3.1"
         const val composeActivity = "androidx.activity:activity-compose:1.3.1"
+        const val htmlText = "de.charlex.compose:html-text:1.4.1"
 
-        const val coil = "io.coil-kt:coil:2.2.2"
+        const val coil = "io.coil-kt:coil-compose:2.2.2"
 
         // Coroutines
         const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
