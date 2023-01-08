@@ -6,7 +6,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CalendarEvent(
+data class CalendarItem(
     @SerialName("date")
     val date: String,
     @SerialName("location")

@@ -5,4 +5,6 @@ object Uris {
         fun page(id: Int) = "/api/news/$id"
         const val detail = "/api/news/detail"
     }
+
+    const val Calendar = "/api/calendar"
 }

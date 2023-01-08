@@ -12,7 +12,7 @@ class MenuViewModel(initialState: MenuState) :
             MenuEvent.Attach -> attach()
             MenuEvent.OnBikeClick -> TODO()
             MenuEvent.OnBusClick -> TODO()
-            MenuEvent.OnCalendarClick -> TODO()
+            MenuEvent.OnCalendarClick -> _uiState.value = MenuState.Calendar
             MenuEvent.OnFmdClick -> TODO()
             MenuEvent.OnMinitsClick -> TODO()
             MenuEvent.OnNewsClick -> _uiState.value = MenuState.News

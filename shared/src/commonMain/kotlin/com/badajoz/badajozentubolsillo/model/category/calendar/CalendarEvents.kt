@@ -8,5 +8,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class CalendarEvents(
     @SerialName("events")
-    val events: List<CalendarEvent>
+    val events: List<CalendarItem>
 ) : Encryptable()
