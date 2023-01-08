@@ -17,6 +17,7 @@ import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent
 import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent.OnMenu
 import com.badajoz.badajozentubolsillo.viewmodel.NavigationState
 import com.badajoz.badajozentubolsillo.viewmodel.NavigationViewModel
+import java.net.URLDecoder
 
 @Composable
 fun BadajozApp(navController: NavHostController = rememberNavController()) {
@@ -33,7 +34,7 @@ fun BadajozApp(navController: NavHostController = rememberNavController()) {
 
         composable(route = NavigationEvent.OnNewsDetail().route) {
             NewsDetailRoute(
-                link = it.arguments!!.getString("link")!!,
+                link = URLDecoder.decode(it.arguments!!.getString("link")!!, "UTF-8"),
                 onNavigationEvent = navigationViewModel::onEvent
             )
         }

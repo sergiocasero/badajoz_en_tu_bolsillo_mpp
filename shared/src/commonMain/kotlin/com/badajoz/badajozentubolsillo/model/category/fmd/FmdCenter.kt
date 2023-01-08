@@ -1,6 +1,7 @@
 package com.badajoz.badajozentubolsillo.model.category.fmd
 
 
+import com.badajoz.badajozentubolsillo.model.Encryptable
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -15,7 +16,7 @@ data class FmdCenter(
     @SerialName("phone")
     val phone: String,
     @SerialName("sports")
-    val sports: List<com.badajoz.badajozentubolsillo.model.category.fmd.FmdSport>,
+    val sports: List<FmdSport>,
     @SerialName("title")
     val title: String
-)
+) : Encryptable()

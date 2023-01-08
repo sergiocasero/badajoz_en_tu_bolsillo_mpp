@@ -1,6 +1,7 @@
 package com.badajoz.badajozentubolsillo.model.category.bus
 
 
+import com.badajoz.badajozentubolsillo.model.Encryptable
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -12,4 +13,4 @@ data class BusStop(
     val line: Int,
     @SerialName("name")
     val name: String
-)
+) : Encryptable()

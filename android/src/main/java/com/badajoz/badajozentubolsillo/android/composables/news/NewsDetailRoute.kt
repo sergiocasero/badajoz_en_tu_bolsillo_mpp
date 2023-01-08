@@ -6,6 +6,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.composables.TopBar
@@ -32,6 +33,10 @@ fun NewsDetailContent(
     onEvent: (NewsDetailEvent) -> Unit,
     onNavigationEvent: (NavigationEvent) -> Unit
 ) {
+    LaunchedEffect(Unit) {
+        onEvent(NewsDetailEvent.Attach)
+    }
+
     Scaffold(topBar = {
         if (state is NewsDetailState.Success) {
             TopBar(title = state.newsDetail.title, icon = Icons.Default.ArrowBack, onNavClick = { })

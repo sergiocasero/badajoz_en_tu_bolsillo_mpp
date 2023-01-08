@@ -27,6 +27,8 @@ private fun buildClient(endpoint: String, buildType: BuildType, block: HttpClien
                 protocol = endpointUrlBuilder.protocol
                 host = endpointUrlBuilder.host
             }
+
+            headers.append("Content-Type", "application/json")
         }
         if (buildType != BuildType.PRO) {
             install(Logging) {

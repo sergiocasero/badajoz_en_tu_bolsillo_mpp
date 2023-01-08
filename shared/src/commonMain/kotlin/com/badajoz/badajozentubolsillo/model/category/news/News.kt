@@ -1,6 +1,7 @@
 package com.badajoz.badajozentubolsillo.model.category.news
 
 
+import com.badajoz.badajozentubolsillo.model.Encryptable
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -16,4 +17,4 @@ data class News(
     val link: String,
     @SerialName("title")
     val title: String
-)
+) : Encryptable()

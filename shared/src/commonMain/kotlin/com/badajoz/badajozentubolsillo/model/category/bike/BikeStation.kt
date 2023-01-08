@@ -1,6 +1,7 @@
 package com.badajoz.badajozentubolsillo.model.category.bike
 
 
+import com.badajoz.badajozentubolsillo.model.Encryptable
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -20,4 +21,4 @@ data class BikeStation(
     val name: String,
     @SerialName("notAvailableBikes")
     val notAvailableBikes: Int
-)
+) : Encryptable()

@@ -4,11 +4,13 @@ import com.badajoz.badajozentubolsillo.model.AppError
 import com.badajoz.badajozentubolsillo.model.Either
 import com.badajoz.badajozentubolsillo.model.category.news.NewsDetail
 import com.badajoz.badajozentubolsillo.model.category.news.NewsPage
+import com.badajoz.badajozentubolsillo.model.request.EncryptedNetworkRequest
 import com.badajoz.badajozentubolsillo.model.request.NewsDetailRequest
 import com.badajoz.badajozentubolsillo.model.response.EncryptedNetworkResponse
 import com.badajoz.badajozentubolsillo.utils.BASE_URL
 import com.badajoz.badajozentubolsillo.utils.BuildType
 import com.badajoz.badajozentubolsillo.utils.decrypt
+import com.badajoz.badajozentubolsillo.utils.encrypt
 import com.badajoz.badajozentubolsillo.utils.execute
 import com.badajoz.badajozentubolsillo.utils.withPath
 import io.ktor.client.call.body
@@ -35,8 +37,7 @@ class SharedNewsNetworkDataSource(private val buildType: BuildType) : NewsNetwor
         buildClientWithAuth(BASE_URL, buildType).use {
             it.post {
                 url.withPath(Uris.News.detail)
-
-                setBody(NewsDetailRequest(link = link))
+                setBody(EncryptedNetworkRequest(NewsDetailRequest(link).encrypt()))
             }.body<EncryptedNetworkResponse>().result.decrypt()
         }
     }

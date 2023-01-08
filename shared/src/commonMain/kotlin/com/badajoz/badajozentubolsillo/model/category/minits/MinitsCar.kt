@@ -1,6 +1,7 @@
 package com.badajoz.badajozentubolsillo.model.category.minits
 
 
+import com.badajoz.badajozentubolsillo.model.Encryptable
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -24,4 +25,4 @@ data class MinitsCar(
     val price: Double,
     @SerialName("standby_price")
     val standbyPrice: Double
-)
+) : Encryptable()

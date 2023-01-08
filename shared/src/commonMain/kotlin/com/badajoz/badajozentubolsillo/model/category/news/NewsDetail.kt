@@ -1,6 +1,7 @@
 package com.badajoz.badajozentubolsillo.model.category.news
 
 
+import com.badajoz.badajozentubolsillo.model.Encryptable
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -11,9 +12,9 @@ data class NewsDetail(
     @SerialName("datetime")
     val datetime: String,
     @SerialName("downloads")
-    val downloads: List<com.badajoz.badajozentubolsillo.model.category.news.NewsDownload>,
+    val downloads: List<NewsDownload>,
     @SerialName("img")
-    val img: com.badajoz.badajozentubolsillo.model.category.news.NewsImg,
+    val img: NewsImg,
     @SerialName("title")
     val title: String
-)
+) : Encryptable()
