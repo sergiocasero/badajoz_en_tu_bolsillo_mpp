@@ -30,6 +30,7 @@ import com.badajoz.badajozentubolsillo.viewmodel.HomeState
 import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent
 import com.badajoz.badajozentubolsillo.viewmodel.NewsEvent
 import com.badajoz.badajozentubolsillo.viewmodel.NewsViewModel
+import java.net.URLEncoder
 
 @Composable
 fun NewsRoute(onNavigationEvent: (NavigationEvent) -> Unit) {
@@ -61,22 +62,24 @@ fun NewsContent(
 
 @Composable
 fun NewsSuccess(page: NewsPage, onNavigationEvent: (NavigationEvent) -> Unit) {
-    NewsList(page.news)
+    NewsList(page.news) {
+        onNavigationEvent(NavigationEvent.OnNewsDetail(URLEncoder.encode(it.link, "UTF-8")))
+    }
 }
 
 
 @Composable
-fun NewsList(news: List<News>) {
+fun NewsList(news: List<News>, onItemClick: (News) -> Unit) {
     LazyColumn {
         items(news) {
-            NewsItem(news = it)
+            NewsItem(news = it) { onItemClick(it) }
         }
     }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun NewsItem(news: News) {
+fun NewsItem(news: News, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -123,7 +126,7 @@ fun NewsItem(news: News) {
                 }
             }
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { onClick() },
                 modifier = Modifier.align(Alignment.End),
                 shape = RoundedCornerShape(16.dp)
             ) {
