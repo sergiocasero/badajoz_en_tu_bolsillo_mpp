@@ -10,14 +10,14 @@ class MenuViewModel(initialState: MenuState) :
     override fun onEvent(event: MenuEvent) {
         when (event) {
             MenuEvent.Attach -> attach()
-            MenuEvent.OnBikeClick -> TODO()
-            MenuEvent.OnBusClick -> TODO()
+            MenuEvent.OnBikeClick -> _uiState.value = MenuState.Bike
+            MenuEvent.OnBusClick -> _uiState.value = MenuState.Bus
             MenuEvent.OnCalendarClick -> _uiState.value = MenuState.Calendar
-            MenuEvent.OnFmdClick -> TODO()
-            MenuEvent.OnMinitsClick -> TODO()
+            MenuEvent.OnFmdClick -> _uiState.value = MenuState.Fmd
+            MenuEvent.OnMinitsClick -> _uiState.value = MenuState.Minits
             MenuEvent.OnNewsClick -> _uiState.value = MenuState.News
-            MenuEvent.OnPharmacyClick -> TODO()
-            MenuEvent.OnTaxesClick -> TODO()
+            MenuEvent.OnPharmacyClick -> _uiState.value = MenuState.Pharmacy
+            MenuEvent.OnTaxesClick -> _uiState.value = MenuState.Taxes
         }
     }
 }

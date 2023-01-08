@@ -4,10 +4,14 @@ import com.badajoz.badajozentubolsillo.datasource.CalendarNetworkDataSource
 import com.badajoz.badajozentubolsillo.datasource.NewsNetworkDataSource
 import com.badajoz.badajozentubolsillo.datasource.SharedCalendarNetworkDataSource
 import com.badajoz.badajozentubolsillo.datasource.SharedNewsNetworkDataSource
+import com.badajoz.badajozentubolsillo.datasource.SharedTaxNetworkDataSource
+import com.badajoz.badajozentubolsillo.datasource.TaxNetworkDataSource
 import com.badajoz.badajozentubolsillo.repository.CalendarRepository
 import com.badajoz.badajozentubolsillo.repository.NewsRepository
 import com.badajoz.badajozentubolsillo.repository.SharedCalendarRepository
 import com.badajoz.badajozentubolsillo.repository.SharedNewsRepository
+import com.badajoz.badajozentubolsillo.repository.SharedTaxRepository
+import com.badajoz.badajozentubolsillo.repository.TaxRepository
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
@@ -23,6 +27,9 @@ val sharedModule = module {
 
     single<CalendarNetworkDataSource> { SharedCalendarNetworkDataSource(buildType = get()) }
     single<CalendarRepository> { SharedCalendarRepository(network = get()) }
+
+    single<TaxNetworkDataSource> { SharedTaxNetworkDataSource(buildType = get()) }
+    single<TaxRepository> { SharedTaxRepository(network = get()) }
 }
 
 fun initKoin(appModule: Module): KoinApplication {

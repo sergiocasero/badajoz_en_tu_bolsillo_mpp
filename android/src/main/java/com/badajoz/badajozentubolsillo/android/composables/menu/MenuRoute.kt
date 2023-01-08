@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import com.badajoz.badajozentubolsillo.android.composables.TopBar
 import com.badajoz.badajozentubolsillo.android.composables.calendar.CalendarRoute
 import com.badajoz.badajozentubolsillo.android.composables.news.NewsRoute
+import com.badajoz.badajozentubolsillo.android.composables.taxes.TaxesRoute
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.viewmodel.MenuEvent
 import com.badajoz.badajozentubolsillo.viewmodel.MenuState
@@ -100,7 +101,7 @@ fun MenuContent(
             }
             DrawerItem(title = MenuState.Taxes.title(), icon = MenuState.Taxes.icon()) {
                 coroutineScope.launch { scaffoldState.drawerState.close() }
-                onEvent(MenuEvent.OnCalendarClick)
+                onEvent(MenuEvent.OnTaxesClick)
             }
             DrawerItem(title = MenuState.Bike.title(), icon = MenuState.Bike.icon()) {
                 coroutineScope.launch { scaffoldState.drawerState.close() }
@@ -127,7 +128,7 @@ fun MenuContent(
                 MenuState.Fmd -> TODO()
                 MenuState.Minits -> TODO()
                 MenuState.Pharmacy -> TODO()
-                MenuState.Taxes -> TODO()
+                MenuState.Taxes -> TaxesRoute()
             }
         }
     )
