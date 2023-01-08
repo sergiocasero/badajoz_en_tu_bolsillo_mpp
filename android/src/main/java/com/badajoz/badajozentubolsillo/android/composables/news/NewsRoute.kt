@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Card
@@ -16,6 +17,8 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.model.category.news.News
-import com.badajoz.badajozentubolsillo.model.category.news.NewsPage
 import com.badajoz.badajozentubolsillo.viewmodel.HomeState
 import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent
 import com.badajoz.badajozentubolsillo.viewmodel.NewsEvent
@@ -55,25 +57,39 @@ fun NewsContent(
 
     when (state) {
         is HomeState.InProgress -> LoadingView()
-        is HomeState.Success -> NewsSuccess(state.page, onNavigationEvent)
+        is HomeState.Success -> NewsSuccess(state.news, onEvent, onNavigationEvent)
         is HomeState.Error -> TODO()
     }
 }
 
 @Composable
-fun NewsSuccess(page: NewsPage, onNavigationEvent: (NavigationEvent) -> Unit) {
-    NewsList(page.news) {
-        onNavigationEvent(NavigationEvent.OnNewsDetail(URLEncoder.encode(it.link, "UTF-8")))
-    }
+fun NewsSuccess(news: List<News>, onEvent: (NewsEvent) -> Unit, onNavigationEvent: (NavigationEvent) -> Unit) {
+    NewsList(news,
+        onItemClick = {
+            onNavigationEvent(NavigationEvent.OnNewsDetail(URLEncoder.encode(it.link, "UTF-8")))
+        },
+        onLoadMore = {
+            onEvent(NewsEvent.OnLoadMore)
+        })
 }
 
 
 @Composable
-fun NewsList(news: List<News>, onItemClick: (News) -> Unit) {
-    LazyColumn {
+fun NewsList(news: List<News>, onItemClick: (News) -> Unit, onLoadMore: () -> Unit) {
+    val state = rememberLazyListState()
+    LazyColumn(state = state) {
         items(news) {
             NewsItem(news = it) { onItemClick(it) }
         }
+    }
+    val lastItemVisible by remember {
+        derivedStateOf {
+            state.firstVisibleItemIndex == news.indexOf(news.last()) - 4
+        }
+    }
+
+    if (lastItemVisible) {
+        onLoadMore()
     }
 }
 
@@ -168,7 +184,7 @@ fun NewsContentPreview() {
         )
     )
     NewsContent(
-        state = HomeState.Success(NewsPage(news = news, next = 20, prev = 0)),
+        state = HomeState.Success(news),
         onEvent = {},
         onNavigationEvent = {}
     )
