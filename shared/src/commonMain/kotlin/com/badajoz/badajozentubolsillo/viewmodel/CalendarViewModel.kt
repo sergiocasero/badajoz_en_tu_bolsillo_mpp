@@ -20,6 +20,7 @@ class CalendarViewModel(initialState: CalendarState) :
             execute { repository.getCalendar() }.fold(
                 error = { println("Error: ") },
                 success = {
+                    println("Success: $it")
                     _uiState.value = CalendarState.Success(it)
                 }
             )

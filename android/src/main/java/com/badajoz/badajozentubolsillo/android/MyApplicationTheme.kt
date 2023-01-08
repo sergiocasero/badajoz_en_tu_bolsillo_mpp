@@ -51,7 +51,7 @@ fun MyApplicationTheme(
         body2 = TextStyle(
             fontFamily = FontFamily.Default,
             fontWeight = FontWeight.Normal,
-            fontSize = 11.sp
+            fontSize = 12.sp
         ),
         subtitle2 = TextStyle(
             fontFamily = FontFamily.Default,
