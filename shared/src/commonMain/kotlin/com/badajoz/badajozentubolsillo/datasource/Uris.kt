@@ -8,4 +8,5 @@ object Uris {
 
     const val Calendar = "/api/calendar"
     const val Taxes = "/api/taxes"
+    const val Biba = "/api/biba"
 }
