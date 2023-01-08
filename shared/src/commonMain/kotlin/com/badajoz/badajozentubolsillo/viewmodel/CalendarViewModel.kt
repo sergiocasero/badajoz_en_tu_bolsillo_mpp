@@ -19,7 +19,9 @@ class CalendarViewModel(initialState: CalendarState) :
 
             execute { repository.getCalendar() }.fold(
                 error = { println("Error: ") },
-                success = { println("Error: ") }
+                success = {
+                    _uiState.value = CalendarState.Success(it)
+                }
             )
         }
     }

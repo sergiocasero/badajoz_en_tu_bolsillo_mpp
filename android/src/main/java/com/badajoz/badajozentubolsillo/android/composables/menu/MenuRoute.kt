@@ -91,21 +91,27 @@ fun MenuContent(
         },
         drawerContent = {
             DrawerItem(title = MenuState.News.title(), icon = MenuState.News.icon()) {
+                coroutineScope.launch { scaffoldState.drawerState.close() }
                 onEvent(MenuEvent.OnNewsClick)
             }
             DrawerItem(title = MenuState.Calendar.title(), icon = MenuState.Calendar.icon()) {
+                coroutineScope.launch { scaffoldState.drawerState.close() }
                 onEvent(MenuEvent.OnCalendarClick)
             }
             DrawerItem(title = MenuState.Taxes.title(), icon = MenuState.Taxes.icon()) {
+                coroutineScope.launch { scaffoldState.drawerState.close() }
                 onEvent(MenuEvent.OnCalendarClick)
             }
             DrawerItem(title = MenuState.Bike.title(), icon = MenuState.Bike.icon()) {
+                coroutineScope.launch { scaffoldState.drawerState.close() }
                 onEvent(MenuEvent.OnBikeClick)
             }
             DrawerItem(title = MenuState.Bus.title(), icon = MenuState.Bus.icon()) {
+                coroutineScope.launch { scaffoldState.drawerState.close() }
                 onEvent(MenuEvent.OnBusClick)
             }
             DrawerItem(title = MenuState.Minits.title(), icon = MenuState.Minits.icon()) {
+                coroutineScope.launch { scaffoldState.drawerState.close() }
                 onEvent(MenuEvent.OnMinitsClick)
             }
             DrawerItem(title = MenuState.Pharmacy.title(), icon = MenuState.Pharmacy.icon()) {

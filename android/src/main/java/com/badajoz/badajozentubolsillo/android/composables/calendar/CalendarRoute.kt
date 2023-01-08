@@ -6,6 +6,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
@@ -27,6 +28,10 @@ fun CalendarRoute() {
 
 @Composable
 fun CalendarContent(state: CalendarState, onEvent: (CalendarEvent) -> Unit) {
+    LaunchedEffect(Unit) {
+        onEvent(CalendarEvent.Attach)
+    }
+
     Scaffold(
         content = {
             when (state) {
