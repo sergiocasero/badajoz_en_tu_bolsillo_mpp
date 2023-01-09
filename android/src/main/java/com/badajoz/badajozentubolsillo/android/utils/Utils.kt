@@ -1,5 +1,6 @@
 package com.badajoz.badajozentubolsillo.android.utils
 
+import android.content.Context
 import android.util.Base64
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -7,6 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.flowWithLifecycle
+import coil.request.ImageRequest
 import com.badajoz.badajozentubolsillo.utils.BASE_URL
 import com.badajoz.badajozentubolsillo.utils.BASIC_AUTH_PASSWORD
 import com.badajoz.badajozentubolsillo.utils.BASIC_AUTH_USER
@@ -31,6 +33,10 @@ fun basicAuth(): String {
     )
 }
 
-fun String.staticUrl(): String {
-    return "$BASE_URL/$this"
+fun String.staticUrl(context: Context): ImageRequest {
+    return ImageRequest.Builder(context)
+        .data("$BASE_URL/$this")
+        .addHeader("Authorization", basicAuth())
+        .crossfade(true)
+        .build()
 }

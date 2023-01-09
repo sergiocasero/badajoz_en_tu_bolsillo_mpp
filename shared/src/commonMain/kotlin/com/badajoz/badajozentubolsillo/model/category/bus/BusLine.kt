@@ -16,5 +16,9 @@ data class BusLine(
     @SerialName("more")
     val more: String,
     @SerialName("name")
-    val name: String
+    val name: String,
+    @SerialName("image")
+    val image: String,
+    @SerialName("color")
+    val color: String
 ) : Encryptable()
