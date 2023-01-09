@@ -14,6 +14,7 @@ class NavigationViewModel :
             NavigationEvent.OnBack -> _uiState.value = NavigationState.Menu
             is NavigationEvent.OnOpenExternalLink -> _uiState.value = NavigationState.ExternalLink(event.link)
             is NavigationEvent.OnBusLineDetail -> _uiState.value = NavigationState.BusLineDetail(event.lineId)
+            is NavigationEvent.OnOpenMapLink -> _uiState.value = NavigationState.MapLink(event.address)
         }
     }
 }
@@ -23,6 +24,7 @@ sealed class NavigationState : ViewState() {
     data class NewsDetail(val link: String) : NavigationState()
     data class BusLineDetail(val lineId: Int) : NavigationState()
     data class ExternalLink(val link: String) : NavigationState()
+    data class MapLink(val address: String) : NavigationState()
 }
 
 sealed class NavigationEvent(val route: String) {
@@ -35,6 +37,10 @@ sealed class NavigationEvent(val route: String) {
 
     data class OnOpenExternalLink(val link: String = "") : NavigationEvent("open_external/{linkname}") {
         fun createRoute(link: String) = "open_external/$link"
+    }
+
+    data class OnOpenMapLink(val address: String = "") : NavigationEvent("open_map/{address}") {
+        fun createRoute(link: String) = "open_map/$link"
     }
 
     data class OnBusLineDetail(val lineId: Int = 0) : NavigationEvent("bus_line_detail/{lineId}") {

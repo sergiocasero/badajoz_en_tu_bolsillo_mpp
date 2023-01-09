@@ -65,5 +65,11 @@ fun BadajozApp(navController: NavHostController = rememberNavController()) {
         is NavigationState.BusLineDetail -> navController.navigate(
             NavigationEvent.OnBusLineDetail(state.lineId).createRoute()
         )
+
+        is NavigationState.MapLink -> {
+            val context = LocalContext.current
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=${state.address}"))
+            context.startActivity(intent)
+        }
     }.exhaustive
 }

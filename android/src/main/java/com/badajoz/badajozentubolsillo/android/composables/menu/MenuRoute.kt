@@ -66,7 +66,7 @@ fun MenuState.icon(): ImageVector = when (this) {
 
 @Composable
 fun MenuRoute(onNavigationEvent: (NavigationEvent) -> Unit) {
-    val viewModel = remember { MenuViewModel(MenuState.Bus) }
+    val viewModel = remember { MenuViewModel(MenuState.Pharmacy) }
 
     MenuContent(
         state = viewModel.stateWithLifecycle().value,
