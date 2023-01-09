@@ -2,10 +2,9 @@ package com.badajoz.badajozentubolsillo.datasource
 
 import com.badajoz.badajozentubolsillo.model.AppError
 import com.badajoz.badajozentubolsillo.model.Either
-import com.badajoz.badajozentubolsillo.model.category.bus.BusLine
+import com.badajoz.badajozentubolsillo.model.category.bus.BusLineDetail
+import com.badajoz.badajozentubolsillo.model.category.bus.BusLineItem
 import com.badajoz.badajozentubolsillo.model.category.bus.BusLines
-import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
-import com.badajoz.badajozentubolsillo.model.category.bus.BusStops
 import com.badajoz.badajozentubolsillo.model.category.bus.BusTime
 import com.badajoz.badajozentubolsillo.model.category.bus.BusTimes
 import com.badajoz.badajozentubolsillo.model.response.EncryptedNetworkResponse
@@ -19,13 +18,13 @@ import io.ktor.client.request.get
 import io.ktor.utils.io.core.use
 
 interface BusNetworkDataSource : NetworkDataSource {
-    suspend fun getBusLines(): Either<AppError, List<BusLine>>
-    suspend fun getBusStops(lineId: Int): Either<AppError, List<BusStop>>
+    suspend fun getBusLines(): Either<AppError, List<BusLineItem>>
+    suspend fun getBusLineDetail(lineId: Int): Either<AppError, BusLineDetail>
     suspend fun getStopTimes(lineId: Int, stopId: Int): Either<AppError, List<BusTime>>
 }
 
 class SharedBusNetworkDataSource(private val buildType: BuildType) : BusNetworkDataSource {
-    override suspend fun getBusLines(): Either<AppError, List<BusLine>> = execute {
+    override suspend fun getBusLines(): Either<AppError, List<BusLineItem>> = execute {
         buildClientWithAuth(BASE_URL, buildType).use {
             it.get {
                 url.withPath(Uris.Bus.Lines)
@@ -33,11 +32,11 @@ class SharedBusNetworkDataSource(private val buildType: BuildType) : BusNetworkD
         }
     }
 
-    override suspend fun getBusStops(lineId: Int): Either<AppError, List<BusStop>> = execute {
+    override suspend fun getBusLineDetail(lineId: Int): Either<AppError, BusLineDetail> = execute {
         buildClientWithAuth(BASE_URL, buildType).use {
             it.get {
                 url.withPath(Uris.Bus.stops(lineId))
-            }.body<EncryptedNetworkResponse>().result.decrypt<BusStops>().stops
+            }.body<EncryptedNetworkResponse>().result.decrypt()
         }
     }
 

@@ -2,7 +2,7 @@ package com.badajoz.badajozentubolsillo.viewmodel
 
 
 import com.badajoz.badajozentubolsillo.model.AppError
-import com.badajoz.badajozentubolsillo.model.category.bus.BusLine
+import com.badajoz.badajozentubolsillo.model.category.bus.BusLineItem
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
 import com.badajoz.badajozentubolsillo.repository.BusRepository
 import com.badajoz.badajozentubolsillo.utils.exhaustive
@@ -14,7 +14,7 @@ class BusHomeViewModel(initialState: BusHomeState) :
 
     private val repository: BusRepository by inject()
 
-    private val busLines = mutableListOf<BusLine>()
+    private val busLines = mutableListOf<BusLineItem>()
 
     private val favoriteStops = mutableListOf<BusStop>()
 
@@ -51,7 +51,7 @@ class BusHomeViewModel(initialState: BusHomeState) :
 sealed class BusHomeState : ViewState() {
     object InProgress : BusHomeState()
     class Error(val error: AppError) : BusHomeState()
-    data class BusLines(val lines: List<BusLine>) : BusHomeState()
+    data class BusLines(val lines: List<BusLineItem>) : BusHomeState()
     data class FavoriteStops(val stops: List<BusStop>) : BusHomeState()
 }
 

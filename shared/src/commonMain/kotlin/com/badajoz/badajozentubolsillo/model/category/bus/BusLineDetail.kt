@@ -6,7 +6,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class BusLine(
+data class BusLineDetail(
     @SerialName("code")
     val code: Int,
     @SerialName("description")
@@ -20,5 +20,7 @@ data class BusLine(
     @SerialName("image")
     val image: String,
     @SerialName("color")
-    val color: String
+    val color: String,
+    @SerialName("stops")
+    val stops: List<BusStop>
 ) : Encryptable()

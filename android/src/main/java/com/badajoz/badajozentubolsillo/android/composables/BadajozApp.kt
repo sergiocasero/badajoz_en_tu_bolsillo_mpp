@@ -43,7 +43,7 @@ fun BadajozApp(navController: NavHostController = rememberNavController()) {
 
         composable(route = NavigationEvent.OnBusLineDetail().route) {
             BusLineDetailRoute(
-                lineId = it.arguments!!.getInt("lineId")
+                lineId = it.arguments!!.getString("lineId")!!.toInt()
             )
         }
     }

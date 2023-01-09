@@ -8,5 +8,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class BusLines(
     @SerialName("lines")
-    val lines: List<BusLine>
+    val lines: List<BusLineItem>
 ) : Encryptable()

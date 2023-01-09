@@ -5,13 +5,14 @@ import com.badajoz.badajozentubolsillo.datasource.local.BusLocalDataSource
 import com.badajoz.badajozentubolsillo.model.AppError
 import com.badajoz.badajozentubolsillo.model.Either
 import com.badajoz.badajozentubolsillo.model.Success
-import com.badajoz.badajozentubolsillo.model.category.bus.BusLine
+import com.badajoz.badajozentubolsillo.model.category.bus.BusLineDetail
+import com.badajoz.badajozentubolsillo.model.category.bus.BusLineItem
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
 import com.badajoz.badajozentubolsillo.model.category.bus.BusTime
 
 interface BusRepository {
-    suspend fun getBusLines(): Either<AppError, List<BusLine>>
-    suspend fun getBusStops(lineId: Int): Either<AppError, List<BusStop>>
+    suspend fun getBusLines(): Either<AppError, List<BusLineItem>>
+    suspend fun getBusLineDetail(lineId: Int): Either<AppError, BusLineDetail>
     suspend fun getFavoriteBusStops(): Either<AppError, List<BusStop>>
     suspend fun getStopTimes(lineId: Int, stopId: Int): Either<AppError, List<BusTime>>
     suspend fun saveFavoriteStop(stop: BusStop): Either<AppError, Success>
@@ -19,11 +20,11 @@ interface BusRepository {
 
 class SharedBusRepository(private val local: BusLocalDataSource, private val network: BusNetworkDataSource) :
     BusRepository {
-    override suspend fun getBusLines(): Either<AppError, List<BusLine>> =
+    override suspend fun getBusLines(): Either<AppError, List<BusLineItem>> =
         network.getBusLines()
 
-    override suspend fun getBusStops(lineId: Int): Either<AppError, List<BusStop>> =
-        network.getBusStops(lineId)
+    override suspend fun getBusLineDetail(lineId: Int): Either<AppError, BusLineDetail> =
+        network.getBusLineDetail(lineId)
 
     override suspend fun getFavoriteBusStops(): Either<AppError, List<BusStop>> =
         local.getFavoriteBusStops()

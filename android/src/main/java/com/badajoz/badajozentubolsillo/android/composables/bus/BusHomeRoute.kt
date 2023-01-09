@@ -2,6 +2,7 @@ package com.badajoz.badajozentubolsillo.android.composables.bus
 
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -36,7 +37,7 @@ import coil.compose.AsyncImage
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.android.utils.staticUrl
-import com.badajoz.badajozentubolsillo.model.category.bus.BusLine
+import com.badajoz.badajozentubolsillo.model.category.bus.BusLineItem
 import com.badajoz.badajozentubolsillo.viewmodel.BusHomeEvent
 import com.badajoz.badajozentubolsillo.viewmodel.BusHomeState
 import com.badajoz.badajozentubolsillo.viewmodel.BusHomeViewModel
@@ -54,7 +55,11 @@ fun BusHomeRoute(onNavigationEvent: (NavigationEvent) -> Unit) {
 }
 
 @Composable
-fun BusHomeContent(state: BusHomeState, onEvent: (BusHomeEvent) -> Unit, onNavigationEvent: (NavigationEvent) -> Unit) {
+fun BusHomeContent(
+    state: BusHomeState,
+    onEvent: (BusHomeEvent) -> Unit,
+    onNavigationEvent: (NavigationEvent) -> Unit
+) {
     LaunchedEffect(Unit) {
         onEvent(BusHomeEvent.Attach)
     }
@@ -100,21 +105,22 @@ fun BusHomeContent(state: BusHomeState, onEvent: (BusHomeEvent) -> Unit, onNavig
 }
 
 @Composable
-fun BusLinesView(lines: List<BusLine>, onLineClick: (BusLine) -> Unit) {
+fun BusLinesView(lines: List<BusLineItem>, onLineClick: (BusLineItem) -> Unit) {
     LazyColumn {
         items(lines) { busLine ->
-            BusLineItemView(line = busLine)
+            BusLineItemView(line = busLine) { onLineClick(busLine) }
         }
     }
 }
 
 @Composable
-fun BusLineItemView(line: BusLine) {
+fun BusLineItemView(line: BusLineItem, onLineClick: (BusLineItem) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(4.dp)
             .height(60.dp)
+            .clickable { onLineClick(line) },
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -167,7 +173,7 @@ fun BusLinesViewPreview() {
     BusHomeContent(
         state = BusHomeState.BusLines(
             listOf(
-                BusLine(
+                BusLineItem(
                     code = 71,
                     description = "LM1 Barriada de Llera -Estación FF . CC .",
                     id = 55,
@@ -176,7 +182,7 @@ fun BusLinesViewPreview() {
                     image = "static/tubasa/images/LM1.jpg",
                     color = "FFf5c9ff",
                 ),
-                BusLine(
+                BusLineItem(
                     code = 73,
                     description = "LM3 La Pilara - Urb.Deh.Calamón",
                     id = 54,
@@ -185,7 +191,7 @@ fun BusLinesViewPreview() {
                     image = "static/tubasa/images/LM3.jpg",
                     color = "FFffffff",
                 ),
-                BusLine(
+                BusLineItem(
                     code = 74,
                     description = "LM4 Alvarado -Tres Arroyos -Avenida de Huelva",
                     id = 57,
@@ -194,7 +200,7 @@ fun BusLinesViewPreview() {
                     image = "static/tubasa/images/LM4.jpg",
                     color = "FFf9e2ff"
                 ),
-                BusLine(
+                BusLineItem(
                     code = 10,
                     description = "LCM Plaza de La Libertad - Cementerio Nuevo",
                     id = 53,

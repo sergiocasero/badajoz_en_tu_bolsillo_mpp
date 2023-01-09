@@ -8,8 +8,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
-import com.badajoz.badajozentubolsillo.model.category.bus.BusLine
-import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
+import com.badajoz.badajozentubolsillo.model.category.bus.BusLineDetail
 import com.badajoz.badajozentubolsillo.viewmodel.BusLineDetailEvent
 import com.badajoz.badajozentubolsillo.viewmodel.BusLineDetailState
 import com.badajoz.badajozentubolsillo.viewmodel.BusLineDetailViewModel
@@ -35,14 +34,14 @@ fun BusLineDetailContent(state: BusLineDetailState, onEvent: (BusLineDetailEvent
             when (state) {
                 is BusLineDetailState.InProgress -> LoadingView()
                 is BusLineDetailState.Error -> TODO()
-                is BusLineDetailState.Success -> BusLineDetailView(state.line, state.stops, state.bigImage)
+                is BusLineDetailState.Success -> BusLineDetailView(state.line, state.bigImage)
             }
         }
     )
 }
 
 @Composable
-fun BusLineDetailView(line: BusLine, stops: List<BusStop>, bigImage: Boolean) {
+fun BusLineDetailView(line: BusLineDetail, bigImage: Boolean) {
     Scaffold {
         Text(line.description)
     }
