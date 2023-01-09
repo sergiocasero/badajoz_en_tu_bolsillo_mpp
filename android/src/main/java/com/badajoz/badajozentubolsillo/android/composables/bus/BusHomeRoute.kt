@@ -40,19 +40,21 @@ import com.badajoz.badajozentubolsillo.model.category.bus.BusLine
 import com.badajoz.badajozentubolsillo.viewmodel.BusHomeEvent
 import com.badajoz.badajozentubolsillo.viewmodel.BusHomeState
 import com.badajoz.badajozentubolsillo.viewmodel.BusHomeViewModel
+import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent
 
 @Composable
-fun BusHomeRoute() {
+fun BusHomeRoute(onNavigationEvent: (NavigationEvent) -> Unit) {
     val viewModel = remember { BusHomeViewModel(initialState = BusHomeState.InProgress) }
 
     BusHomeContent(
         state = viewModel.stateWithLifecycle().value,
-        onEvent = { viewModel.onEvent(it) }
+        onEvent = { viewModel.onEvent(it) },
+        onNavigationEvent = onNavigationEvent
     )
 }
 
 @Composable
-fun BusHomeContent(state: BusHomeState, onEvent: (BusHomeEvent) -> Unit) {
+fun BusHomeContent(state: BusHomeState, onEvent: (BusHomeEvent) -> Unit, onNavigationEvent: (NavigationEvent) -> Unit) {
     LaunchedEffect(Unit) {
         onEvent(BusHomeEvent.Attach)
     }
@@ -82,7 +84,13 @@ fun BusHomeContent(state: BusHomeState, onEvent: (BusHomeEvent) -> Unit) {
         Box(modifier = Modifier.padding(it)) {
             when (state) {
                 is BusHomeState.InProgress -> LoadingView()
-                is BusHomeState.BusLines -> BusLinesView(state.lines)// BusLinesView(lines = state.lines)
+                is BusHomeState.BusLines -> BusLinesView(state.lines) {
+                    onNavigationEvent(
+                        NavigationEvent.OnBusLineDetail(it.id)
+                    )
+                } // BusLinesView
+                // (lines =
+                // state.lines)
                 is BusHomeState.FavoriteStops -> TODO() // BusStopsView(stops = state.stops)
                 is BusHomeState.Error -> TODO() // ErrorView(error = state.error)
             }
@@ -92,7 +100,7 @@ fun BusHomeContent(state: BusHomeState, onEvent: (BusHomeEvent) -> Unit) {
 }
 
 @Composable
-fun BusLinesView(lines: List<BusLine>) {
+fun BusLinesView(lines: List<BusLine>, onLineClick: (BusLine) -> Unit) {
     LazyColumn {
         items(lines) { busLine ->
             BusLineItemView(line = busLine)
@@ -133,7 +141,7 @@ fun BusLineItemView(line: BusLine) {
                     .weight(1f),
                 style = MaterialTheme.typography.body1
             )
-            
+
             AsyncImage(
                 model = line.image.staticUrl(LocalContext.current),
                 contentDescription = line.more,
@@ -197,6 +205,7 @@ fun BusLinesViewPreview() {
                 )
             )
         ),
-        onEvent = {}
+        onEvent = {},
+        onNavigationEvent = {}
     )
 }

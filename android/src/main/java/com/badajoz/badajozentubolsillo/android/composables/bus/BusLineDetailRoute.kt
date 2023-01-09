@@ -15,8 +15,8 @@ import com.badajoz.badajozentubolsillo.viewmodel.BusLineDetailState
 import com.badajoz.badajozentubolsillo.viewmodel.BusLineDetailViewModel
 
 @Composable
-fun BusLineDetailRoute(line: BusLine) {
-    val viewModel = remember { BusLineDetailViewModel(line = line, initialState = BusLineDetailState.InProgress) }
+fun BusLineDetailRoute(lineId: Int) {
+    val viewModel = remember { BusLineDetailViewModel(lineId = lineId, initialState = BusLineDetailState.InProgress) }
 
     BusLineDetailContent(
         state = viewModel.stateWithLifecycle().value,

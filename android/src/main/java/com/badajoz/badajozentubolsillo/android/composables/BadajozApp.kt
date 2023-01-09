@@ -10,6 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.badajoz.badajozentubolsillo.android.composables.bus.BusLineDetailRoute
 import com.badajoz.badajozentubolsillo.android.composables.menu.MenuRoute
 import com.badajoz.badajozentubolsillo.android.composables.news.NewsDetailRoute
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
@@ -39,6 +40,12 @@ fun BadajozApp(navController: NavHostController = rememberNavController()) {
                 onNavigationEvent = navigationViewModel::onEvent
             )
         }
+
+        composable(route = NavigationEvent.OnBusLineDetail().route) {
+            BusLineDetailRoute(
+                lineId = it.arguments!!.getInt("lineId")
+            )
+        }
     }
 
     val state = navigationViewModel.stateWithLifecycle().value
@@ -53,5 +60,9 @@ fun BadajozApp(navController: NavHostController = rememberNavController()) {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(state.link))
             context.startActivity(intent)
         }
+
+        is NavigationState.BusLineDetail -> navController.navigate(
+            NavigationEvent.OnBusLineDetail(state.lineId).createRoute()
+        )
     }.exhaustive
 }

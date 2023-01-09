@@ -9,7 +9,7 @@ import com.badajoz.badajozentubolsillo.utils.exhaustive
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
-class BusLineDetailViewModel(private val line: BusLine, initialState: BusLineDetailState) :
+class BusLineDetailViewModel(private val lineId: Int, initialState: BusLineDetailState) :
     RootViewModel<BusLineDetailState, BusLineDetailEvent>(initialState) {
 
     private val repository: BusRepository by inject()
@@ -18,7 +18,7 @@ class BusLineDetailViewModel(private val line: BusLine, initialState: BusLineDet
         vmScope.launch {
             _uiState.value = BusLineDetailState.InProgress
 
-            execute { repository.getBusStops(line.id) }.fold(
+            execute { repository.getBusStops(lineId) }.fold(
                 error = { println("Error: ") },
                 success = { println("Error: ") }
             )
