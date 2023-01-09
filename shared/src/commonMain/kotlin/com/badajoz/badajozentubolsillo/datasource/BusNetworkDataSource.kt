@@ -20,8 +20,8 @@ import io.ktor.utils.io.core.use
 
 interface BusNetworkDataSource : NetworkDataSource {
     suspend fun getBusLines(): Either<AppError, List<BusLine>>
-    suspend fun getBusStops(lineId: String): Either<AppError, List<BusStop>>
-    suspend fun getStopTimes(lineId: String, stopId: String): Either<AppError, List<BusTime>>
+    suspend fun getBusStops(lineId: Int): Either<AppError, List<BusStop>>
+    suspend fun getStopTimes(lineId: Int, stopId: Int): Either<AppError, List<BusTime>>
 }
 
 class SharedBusNetworkDataSource(private val buildType: BuildType) : BusNetworkDataSource {
@@ -33,7 +33,7 @@ class SharedBusNetworkDataSource(private val buildType: BuildType) : BusNetworkD
         }
     }
 
-    override suspend fun getBusStops(lineId: String): Either<AppError, List<BusStop>> = execute {
+    override suspend fun getBusStops(lineId: Int): Either<AppError, List<BusStop>> = execute {
         buildClientWithAuth(BASE_URL, buildType).use {
             it.get {
                 url.withPath(Uris.Bus.stops(lineId))
@@ -41,7 +41,7 @@ class SharedBusNetworkDataSource(private val buildType: BuildType) : BusNetworkD
         }
     }
 
-    override suspend fun getStopTimes(lineId: String, stopId: String): Either<AppError, List<BusTime>> =
+    override suspend fun getStopTimes(lineId: Int, stopId: Int): Either<AppError, List<BusTime>> =
         execute {
             buildClientWithAuth(BASE_URL, buildType).use {
                 it.get {

@@ -12,7 +12,7 @@ object Uris {
 
     object Bus {
         const val Lines = "/api/tubasa/lines"
-        fun stops(lineId: String) = "/api/tubasa/$lineId/stops"
-        fun times(lineId: String, stopId: String) = "/api/tubasa/$lineId/$stopId/times"
+        fun stops(lineId: Int) = "/api/tubasa/$lineId/stops"
+        fun times(lineId: Int, stopId: Int) = "/api/tubasa/$lineId/$stopId/times"
     }
 }
