@@ -30,6 +30,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.badajoz.badajozentubolsillo.android.composables.TopBar
 import com.badajoz.badajozentubolsillo.android.composables.bike.BikeRoute
+import com.badajoz.badajozentubolsillo.android.composables.bus.BusHomeRoute
 import com.badajoz.badajozentubolsillo.android.composables.calendar.CalendarRoute
 import com.badajoz.badajozentubolsillo.android.composables.news.NewsRoute
 import com.badajoz.badajozentubolsillo.android.composables.taxes.TaxesRoute
@@ -64,7 +65,7 @@ fun MenuState.icon(): ImageVector = when (this) {
 
 @Composable
 fun MenuRoute(onNavigationEvent: (NavigationEvent) -> Unit) {
-    val viewModel = remember { MenuViewModel(MenuState.Bike) }
+    val viewModel = remember { MenuViewModel(MenuState.Bus) }
 
     MenuContent(
         state = viewModel.stateWithLifecycle().value,
@@ -125,7 +126,7 @@ fun MenuContent(
         when (state) {
             MenuState.News -> NewsRoute { onNavigationEvent(it) }
             MenuState.Bike -> BikeRoute()
-            MenuState.Bus -> TODO()
+            MenuState.Bus -> BusHomeRoute()
             MenuState.Calendar -> CalendarRoute()
             MenuState.Fmd -> TODO()
             MenuState.Minits -> TODO()
