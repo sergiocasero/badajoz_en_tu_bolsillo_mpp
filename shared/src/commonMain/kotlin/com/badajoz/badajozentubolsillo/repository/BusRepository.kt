@@ -25,9 +25,8 @@ class SharedBusRepository(private val local: BusLocalDataSource, private val net
     override suspend fun getBusStops(lineId: String): Either<AppError, List<BusStop>> =
         network.getBusStops(lineId)
 
-    override suspend fun getFavoriteBusStops(): Either<AppError, List<BusStop>> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getFavoriteBusStops(): Either<AppError, List<BusStop>> =
+        local.getFavoriteBusStops()
 
     override suspend fun getStopTimes(lineId: String, stopId: String): Either<AppError, List<BusTime>> =
         network.getStopTimes(lineId, stopId)

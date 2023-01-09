@@ -1,6 +1,8 @@
 package com.badajoz.badajozentubolsillo.android.composables.bus
 
 
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -14,6 +16,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
+import com.badajoz.badajozentubolsillo.model.category.bus.BusLine
 import com.badajoz.badajozentubolsillo.viewmodel.BusHomeEvent
 import com.badajoz.badajozentubolsillo.viewmodel.BusHomeState
 import com.badajoz.badajozentubolsillo.viewmodel.BusHomeViewModel
@@ -58,9 +61,23 @@ fun BusHomeContent(state: BusHomeState, onEvent: (BusHomeEvent) -> Unit) {
     ) {
         when (state) {
             is BusHomeState.InProgress -> LoadingView()
-            is BusHomeState.BusLines -> TODO() // BusLinesView(lines = state.lines)
+            is BusHomeState.BusLines -> BusLinesView(state.lines)// BusLinesView(lines = state.lines)
             is BusHomeState.FavoriteStops -> TODO() // BusStopsView(stops = state.stops)
             is BusHomeState.Error -> TODO() // ErrorView(error = state.error)
         }
     }
+}
+
+@Composable
+fun BusLinesView(lines: List<BusLine>) {
+    LazyColumn {
+        items(lines) { busLine ->
+            BusLineItemView(line = busLine)
+        }
+    }
+}
+
+@Composable
+fun BusLineItemView(line: BusLine) {
+    Text(line.name)
 }

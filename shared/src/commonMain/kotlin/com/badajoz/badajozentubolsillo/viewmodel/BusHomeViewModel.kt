@@ -34,7 +34,6 @@ class BusHomeViewModel(initialState: BusHomeState) :
                 error = { println("Error: ") },
                 success = {
                     favoriteStops.addAll(it)
-                    _uiState.value = BusHomeState.FavoriteStops(it)
                 }
             )
         }
