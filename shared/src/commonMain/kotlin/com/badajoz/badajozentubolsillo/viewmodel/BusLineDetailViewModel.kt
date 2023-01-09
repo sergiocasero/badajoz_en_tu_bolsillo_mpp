@@ -13,13 +13,20 @@ class BusLineDetailViewModel(private val lineId: Int, initialState: BusLineDetai
 
     private val repository: BusRepository by inject()
 
+    private var line: BusLineDetail? = null
+
+    private var bigImage = false
+
     override fun attach() = apply {
         vmScope.launch {
             _uiState.value = BusLineDetailState.InProgress
 
             execute { repository.getBusLineDetail(lineId) }.fold(
                 error = { println("Error: ") },
-                success = { _uiState.value = BusLineDetailState.Success(line = it, bigImage = false) }
+                success = {
+                    line = it
+                    _uiState.value = BusLineDetailState.Success(line = it, bigImage = bigImage)
+                }
             )
         }
     }
@@ -27,6 +34,10 @@ class BusLineDetailViewModel(private val lineId: Int, initialState: BusLineDetai
     override fun onEvent(event: BusLineDetailEvent) {
         when (event) {
             BusLineDetailEvent.Attach -> attach()
+            BusLineDetailEvent.OnImageClick -> line?.let {
+                bigImage = !bigImage
+                _uiState.value = BusLineDetailState.Success(line = it, bigImage = bigImage)
+            }
         }.exhaustive
     }
 }
@@ -39,4 +50,5 @@ sealed class BusLineDetailState : ViewState() {
 
 sealed class BusLineDetailEvent {
     object Attach : BusLineDetailEvent()
+    object OnImageClick : BusLineDetailEvent()
 }
