@@ -33,6 +33,7 @@ import com.badajoz.badajozentubolsillo.android.composables.bike.BikeRoute
 import com.badajoz.badajozentubolsillo.android.composables.bus.BusHomeRoute
 import com.badajoz.badajozentubolsillo.android.composables.calendar.CalendarRoute
 import com.badajoz.badajozentubolsillo.android.composables.news.NewsRoute
+import com.badajoz.badajozentubolsillo.android.composables.pharmacy.PharmacyRoute
 import com.badajoz.badajozentubolsillo.android.composables.taxes.TaxesRoute
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.viewmodel.MenuEvent
@@ -130,7 +131,7 @@ fun MenuContent(
             MenuState.Calendar -> CalendarRoute()
             MenuState.Fmd -> TODO()
             MenuState.Minits -> TODO()
-            MenuState.Pharmacy -> TODO()
+            MenuState.Pharmacy -> PharmacyRoute { onNavigationEvent(it) }
             MenuState.Taxes -> TaxesRoute { onNavigationEvent(it) }
         }
     }

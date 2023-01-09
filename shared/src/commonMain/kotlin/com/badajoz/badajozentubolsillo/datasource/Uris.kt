@@ -15,4 +15,6 @@ object Uris {
         fun stops(lineId: Int) = "/api/tubasa/lines/$lineId"
         fun times(lineId: Int, stopId: Int) = "/api/tubasa/lines/$lineId/stop/$stopId/times"
     }
+
+    const val Pharmacy = "/api/pharmacy"
 }
