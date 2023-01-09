@@ -519,8 +519,8 @@ enum class MaterialColor(
         (lowValue * (highTone - tone) + highValue * (tone - lowTone)) / (highTone - lowTone)
 }
 
-private const val COLOR_BLACK = 0x000000
-private const val COLOR_WHITE = 0xFFFFFF
+const val COLOR_BLACK = 0x000000
+const val COLOR_WHITE = 0xFFFFFF
 
 fun Int.red() = this and 0xFF0000 ushr 16
 fun Int.green() = this and 0x00FF00 ushr 8
