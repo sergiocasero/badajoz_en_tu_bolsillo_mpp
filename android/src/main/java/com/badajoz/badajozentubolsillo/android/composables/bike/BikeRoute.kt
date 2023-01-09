@@ -1,6 +1,7 @@
 package com.badajoz.badajozentubolsillo.android.composables.bike
 
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,19 +37,21 @@ import com.badajoz.badajozentubolsillo.viewmodel.BikeEvent
 import com.badajoz.badajozentubolsillo.viewmodel.BikeState
 import com.badajoz.badajozentubolsillo.viewmodel.BikeViewModel
 import com.badajoz.badajozentubolsillo.viewmodel.BikeViewType
+import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent
 
 @Composable
-fun BikeRoute() {
+fun BikeRoute(onNavigationEvent: (NavigationEvent) -> Unit) {
     val viewModel = remember { BikeViewModel(initialState = BikeState.InProgress) }
 
     BikeContent(
         state = viewModel.stateWithLifecycle().value,
-        onEvent = { viewModel.onEvent(it) }
+        onEvent = { viewModel.onEvent(it) },
+        onNavigationEvent = onNavigationEvent
     )
 }
 
 @Composable
-fun BikeContent(state: BikeState, onEvent: (BikeEvent) -> Unit) {
+fun BikeContent(state: BikeState, onEvent: (BikeEvent) -> Unit, onNavigationEvent: (NavigationEvent) -> Unit = {}) {
     LaunchedEffect(Unit) {
         onEvent(BikeEvent.Attach)
     }
@@ -80,7 +83,10 @@ fun BikeContent(state: BikeState, onEvent: (BikeEvent) -> Unit) {
                 is BikeState.InProgress -> LoadingView()
                 is BikeState.Error -> TODO()
                 is BikeState.Success -> when (state.view) {
-                    BikeViewType.List -> BikeList(state.bikeStations)
+                    BikeViewType.List -> BikeList(state.bikeStations) {
+                        onNavigationEvent(NavigationEvent.OnOpenMapLink("${it.lat},${it.lng}"))
+                    }
+
                     BikeViewType.Map -> MapWithMarkers(
                         markers = state.bikeStations.map { it.toMarker() },
                     )
@@ -91,13 +97,14 @@ fun BikeContent(state: BikeState, onEvent: (BikeEvent) -> Unit) {
 }
 
 @Composable
-fun BikeList(bikeStations: List<BikeStation>) {
+fun BikeList(bikeStations: List<BikeStation>, onBikeClick: (BikeStation) -> Unit) {
     LazyColumn {
         items(bikeStations) { bikeStation ->
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
+                    .clickable { onBikeClick(bikeStation) },
             ) {
                 Row(
                     modifier = Modifier.height(100.dp),

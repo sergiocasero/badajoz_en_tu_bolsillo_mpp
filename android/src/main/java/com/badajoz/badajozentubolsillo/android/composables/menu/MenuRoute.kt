@@ -126,7 +126,7 @@ fun MenuContent(
     ) {
         when (state) {
             MenuState.News -> NewsRoute { onNavigationEvent(it) }
-            MenuState.Bike -> BikeRoute()
+            MenuState.Bike -> BikeRoute { onNavigationEvent(it) }
             MenuState.Bus -> BusHomeRoute { onNavigationEvent(it) }
             MenuState.Calendar -> CalendarRoute()
             MenuState.Fmd -> TODO()
