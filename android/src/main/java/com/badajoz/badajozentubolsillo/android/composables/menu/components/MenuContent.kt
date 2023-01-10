@@ -30,15 +30,16 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.badajoz.badajozentubolsillo.android.R
-import com.badajoz.badajozentubolsillo.android.composables.reusable.EmptyView
-import com.badajoz.badajozentubolsillo.android.composables.reusable.TopBar
 import com.badajoz.badajozentubolsillo.android.composables.bike.BikeRoute
 import com.badajoz.badajozentubolsillo.android.composables.bus.BusHomeRoute
 import com.badajoz.badajozentubolsillo.android.composables.calendar.CalendarRoute
+import com.badajoz.badajozentubolsillo.android.composables.fmd.FmdRoute
 import com.badajoz.badajozentubolsillo.android.composables.menu.models.icon
 import com.badajoz.badajozentubolsillo.android.composables.menu.models.title
 import com.badajoz.badajozentubolsillo.android.composables.news.NewsRoute
 import com.badajoz.badajozentubolsillo.android.composables.pharmacy.PharmacyRoute
+import com.badajoz.badajozentubolsillo.android.composables.reusable.EmptyView
+import com.badajoz.badajozentubolsillo.android.composables.reusable.TopBar
 import com.badajoz.badajozentubolsillo.android.composables.taxes.TaxesRoute
 import com.badajoz.badajozentubolsillo.viewmodel.MenuEvent
 import com.badajoz.badajozentubolsillo.viewmodel.MenuState
@@ -117,7 +118,7 @@ fun MenuContent(
             MenuState.Bike -> BikeRoute { onNavigationEvent(it) }
             MenuState.Bus -> BusHomeRoute { onNavigationEvent(it) }
             MenuState.Calendar -> CalendarRoute()
-            MenuState.Fmd -> EmptyView(message = "NotImplementedYet", icon = Icons.Default.ThumbDown)
+            MenuState.Fmd -> FmdRoute()
             MenuState.Minits -> EmptyView(message = "NotImplementedYet", icon = Icons.Default.ThumbDown)
             MenuState.Pharmacy -> PharmacyRoute { onNavigationEvent(it) }
             MenuState.Taxes -> TaxesRoute { onNavigationEvent(it) }

@@ -17,4 +17,9 @@ object Uris {
     }
 
     const val Pharmacy = "/api/pharmacy"
+
+    object Fmd {
+        const val Sports = "/api/fmd/sports"
+        fun availability(sportId: Int) = "/api/fmd/sports/$sportId"
+    }
 }

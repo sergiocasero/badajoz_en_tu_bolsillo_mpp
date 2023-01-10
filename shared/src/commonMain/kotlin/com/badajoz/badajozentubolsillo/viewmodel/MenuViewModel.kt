@@ -23,7 +23,7 @@ sealed class MenuState : NavigationState() {
             Fmd,
             Bike,
             Bus,
-            Minits,
+            // Minits,
             Pharmacy
         )
     }
