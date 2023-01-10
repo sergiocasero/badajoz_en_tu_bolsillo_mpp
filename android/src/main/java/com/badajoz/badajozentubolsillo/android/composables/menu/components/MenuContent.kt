@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -66,46 +65,44 @@ fun MenuContent(
         },
         drawerGesturesEnabled = scaffoldState.drawerState.isOpen,
         drawerContent = {
-            LazyColumn(
-                modifier = Modifier.background(MaterialTheme.colors.secondary)
+            Column(
+                modifier = Modifier
+                    .background(MaterialTheme.colors.secondary)
+                    .fillMaxSize()
             ) {
 
-                item {
-                    Spacer(modifier = Modifier.size(24.dp))
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        Image(
-                            painterResource(id = R.drawable.badajoz_logo),
-                            contentDescription = "Logo",
-                            modifier = Modifier
-                                .padding(start = 16.dp)
-                                .size(50.dp),
-                            colorFilter = ColorFilter.tint(Color.White)
-                        )
-                        Text(
-                            text = "Badajoz en tu bolsillo",
-                            style = MaterialTheme.typography.h5,
-                            color = Color.White,
-                            modifier = Modifier
-                                .padding(start = 16.dp)
-                                .align(Alignment.CenterVertically)
-                        )
-                    }
-                    Spacer(modifier = Modifier.size(24.dp))
-                }
-
-                item {
-                    Box(
+                Spacer(modifier = Modifier.size(24.dp))
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    Image(
+                        painterResource(id = R.drawable.badajoz_logo),
+                        contentDescription = "Logo",
                         modifier = Modifier
-                            .fillMaxSize()
-                            .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
-                            .background(Color.White)
-                    ) {
-                        Column() {
-                            MenuState.values().forEach {
-                                DrawerItem(title = it.title(), icon = it.icon(), isCurrent = it == state) {
-                                    coroutineScope.launch { scaffoldState.drawerState.close() }
-                                    onNavigationEvent(NavigationEvent.OnMenu(it))
-                                }
+                            .padding(start = 16.dp)
+                            .size(50.dp),
+                        colorFilter = ColorFilter.tint(Color.White)
+                    )
+                    Text(
+                        text = "Badajoz en tu bolsillo",
+                        style = MaterialTheme.typography.h5,
+                        color = Color.White,
+                        modifier = Modifier
+                            .padding(start = 16.dp)
+                            .align(Alignment.CenterVertically)
+                    )
+                }
+                Spacer(modifier = Modifier.size(24.dp))
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp))
+                        .background(MaterialTheme.colors.background)
+                ) {
+                    Column {
+                        MenuState.values().forEach {
+                            DrawerItem(title = it.title(), icon = it.icon(), isCurrent = it == state) {
+                                coroutineScope.launch { scaffoldState.drawerState.close() }
+                                onNavigationEvent(NavigationEvent.OnMenu(it))
                             }
                         }
                     }
