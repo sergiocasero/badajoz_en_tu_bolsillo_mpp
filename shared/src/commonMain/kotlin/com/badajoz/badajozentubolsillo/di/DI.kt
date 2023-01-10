@@ -26,6 +26,7 @@ import com.badajoz.badajozentubolsillo.repository.SharedNewsRepository
 import com.badajoz.badajozentubolsillo.repository.SharedPharmacyRepository
 import com.badajoz.badajozentubolsillo.repository.SharedTaxRepository
 import com.badajoz.badajozentubolsillo.repository.TaxRepository
+import com.russhwolf.settings.Settings
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
@@ -35,6 +36,8 @@ expect fun Module.platformModule()
 
 val sharedModule = module {
     platformModule()
+
+    single { Settings() }
 
     single<NewsNetworkDataSource> { SharedNewsNetworkDataSource(buildType = get()) }
     single<NewsRepository> { SharedNewsRepository(network = get()) }
@@ -48,7 +51,7 @@ val sharedModule = module {
     single<BikeNetworkDataSource> { SharedBikeNetworkDataSource(buildType = get()) }
     single<BikeRepository> { SharedBikeRepository(network = get()) }
 
-    single<BusLocalDataSource> { SharedBusLocalDataSource() }
+    single<BusLocalDataSource> { SharedBusLocalDataSource(settings = get()) }
     single<BusNetworkDataSource> { SharedBusNetworkDataSource(buildType = get()) }
     single<BusRepository> { SharedBusRepository(local = get(), network = get()) }
 

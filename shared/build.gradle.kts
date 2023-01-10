@@ -30,6 +30,7 @@ kotlin {
                     implementation(ktorSerializationJson)
                     implementation(ktorClientAuth)
                     implementation(ktorLogging)
+                    implementation(settings)
                 }
 
                 with(Dependencies.DI) {

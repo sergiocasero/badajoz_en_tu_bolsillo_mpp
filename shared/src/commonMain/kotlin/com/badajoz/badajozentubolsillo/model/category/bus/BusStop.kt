@@ -12,5 +12,7 @@ data class BusStop(
     @SerialName("line")
     val line: Int,
     @SerialName("name")
-    val name: String
+    val name: String,
+    @SerialName("favorite")
+    var favorite: Boolean = false
 ) : Encryptable()

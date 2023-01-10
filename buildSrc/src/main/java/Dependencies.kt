@@ -109,6 +109,8 @@ object Dependencies {
             const val ktorSerializationJson = "io.ktor:ktor-serialization-kotlinx-json:$ktor_version"
             const val ktorClientAuth = "io.ktor:ktor-client-auth:$ktor_version"
             const val ktorLogging = "io.ktor:ktor-client-logging:$ktor_version"
+
+            const val settings = "com.russhwolf:multiplatform-settings-no-arg:1.0.0-RC"
         }
 
         object Android {

@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    BadajozApp(initialState = MenuState.News)
+                    BadajozApp(initialState = MenuState.Bus)
                 }
             }
         }
