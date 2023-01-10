@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.composables.TopBar
+import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.android.utils.staticUrl
 import com.badajoz.badajozentubolsillo.model.category.bus.BusLineDetail
@@ -115,8 +116,8 @@ fun BusLineDetailView(
                 LazyColumn {
                     items(line.stops) { stop ->
                         Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
+                            elevation = defaultCardElevation
                         ) {
                             Text(
                                 stop.name, modifier = Modifier.padding(16.dp),

@@ -13,6 +13,8 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocalPharmacy
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -22,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.composables.TextBox
+import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.model.category.pharmacy.Pharmacy
 import com.badajoz.badajozentubolsillo.model.category.pharmacy.PharmacyGroup
@@ -94,13 +97,14 @@ fun PharmacySuccessView(pharmacy: List<PharmacyGroup>, onPharmacyClick: (Pharmac
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(60.dp)
-                        .padding(4.dp)
+                        .padding(4.dp),
+                    elevation = defaultCardElevation
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.clickable { onPharmacyClick(item) }
                     ) {
-                        TextBox(label = "+", color = Color(MaterialColor.GREEN.tone(700)))
+                        TextBox(icon = Icons.Default.LocalPharmacy, color = Color(MaterialColor.GREEN.tone(700)))
                         Text(
                             text = item.address,
                             style = MaterialTheme.typography.h6,

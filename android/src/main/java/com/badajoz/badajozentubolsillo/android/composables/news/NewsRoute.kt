@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
+import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.model.category.news.News
 import com.badajoz.badajozentubolsillo.utils.MaterialColor
@@ -118,7 +119,7 @@ fun NewsItem(news: News, onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 8.dp, end = 8.dp, top = 4.dp, bottom = 4.dp),
-        elevation = 8.dp
+        elevation = defaultCardElevation
     ) {
         Column(
             modifier = Modifier.padding(8.dp)
@@ -143,7 +144,7 @@ fun NewsItem(news: News, onClick: () -> Unit) {
                 }
                 Text(
                     text = news.date,
-                    style = MaterialTheme.typography.subtitle1.apply {
+                    style = MaterialTheme.typography.subtitle2.apply {
                         copy(color = MaterialTheme.colors.onBackground)
                     }
                 )

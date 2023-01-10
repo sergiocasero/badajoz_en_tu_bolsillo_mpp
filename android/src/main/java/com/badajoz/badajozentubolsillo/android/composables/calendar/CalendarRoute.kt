@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
+import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.model.category.calendar.CalendarItem
 import com.badajoz.badajozentubolsillo.viewmodel.CalendarEvent
@@ -70,8 +71,8 @@ fun CalendarEventItem(item: CalendarItem) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxWidth()
-            .padding(start = 8.dp, end = 8.dp, top = 4.dp, bottom = 4.dp)
+            .padding(start = 8.dp, end = 8.dp, top = 4.dp, bottom = 4.dp),
+        elevation = defaultCardElevation
     ) {
         Column {
             Text(

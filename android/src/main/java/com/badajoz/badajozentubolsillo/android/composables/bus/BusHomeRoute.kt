@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.composables.TextBox
+import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.android.utils.staticUrl
 import com.badajoz.badajozentubolsillo.model.category.bus.BusLineItem
@@ -119,6 +120,7 @@ fun BusLineItemView(line: BusLineItem, onLineClick: (BusLineItem) -> Unit) {
             .padding(4.dp)
             .height(60.dp)
             .clickable { onLineClick(line) },
+        elevation = defaultCardElevation
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

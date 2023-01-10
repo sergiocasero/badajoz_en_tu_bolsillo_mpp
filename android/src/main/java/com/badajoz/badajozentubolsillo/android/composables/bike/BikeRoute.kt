@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.composables.MapWithMarkers
 import com.badajoz.badajozentubolsillo.android.composables.Marker
+import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.model.category.bike.BikeStation
 import com.badajoz.badajozentubolsillo.viewmodel.BikeEvent
@@ -105,6 +106,7 @@ fun BikeList(bikeStations: List<BikeStation>, onBikeClick: (BikeStation) -> Unit
                     .fillMaxWidth()
                     .padding(8.dp)
                     .clickable { onBikeClick(bikeStation) },
+                elevation = defaultCardElevation
             ) {
                 Row(
                     modifier = Modifier.height(100.dp),

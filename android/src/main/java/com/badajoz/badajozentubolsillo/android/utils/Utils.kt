@@ -7,6 +7,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.flowWithLifecycle
 import coil.request.ImageRequest
 import com.badajoz.badajozentubolsillo.flow.CStateFlow
@@ -52,3 +53,5 @@ fun String.staticUrl(context: Context): ImageRequest {
         .crossfade(true)
         .build()
 }
+
+val defaultCardElevation = 8.dp
