@@ -12,5 +12,7 @@ data class FmdSport(
     @SerialName("id")
     val id: Int,
     @SerialName("name")
-    val name: String
+    val name: String,
+    @SerialName("image")
+    val image: String
 ) : Encryptable()
