@@ -18,7 +18,7 @@ class TaxesViewModel(initialState: TaxesViewModelState) :
             _uiState.value = TaxesViewModelState.InProgress
 
             execute { repository.getTaxes() }.fold(
-                error = { println("Error: ") },
+                error = { _uiState.value = TaxesViewModelState.Error(it) },
                 success = { _uiState.value = TaxesViewModelState.Success(it) }
             )
         }

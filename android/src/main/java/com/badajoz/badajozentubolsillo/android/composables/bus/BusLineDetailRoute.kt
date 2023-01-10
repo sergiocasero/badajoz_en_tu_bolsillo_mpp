@@ -25,6 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.badajoz.badajozentubolsillo.android.composables.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.composables.StopItemView
 import com.badajoz.badajozentubolsillo.android.composables.TopBar
@@ -65,7 +66,7 @@ fun BusLineDetailContent(
 
     when (state) {
         is BusLineDetailState.InProgress -> LoadingView(background = Color.Transparent)
-        is BusLineDetailState.Error -> TODO()
+        is BusLineDetailState.Error -> ErrorView(error = state.error) { onEvent(BusLineDetailEvent.Attach) }
         is BusLineDetailState.Success -> BusLineDetailView(
             title = state.title,
             imageRoute = state.imageRoute,

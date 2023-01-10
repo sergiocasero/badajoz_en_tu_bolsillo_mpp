@@ -22,7 +22,7 @@ class BusHomeViewModel(initialState: BusHomeState) :
             _uiState.value = BusHomeState.InProgress
 
             execute { repository.getBusLines() }.fold(
-                error = { println("Error: ") },
+                error = { _uiState.value = BusHomeState.Error(it) },
                 success = {
                     busLines.addAll(it)
                     _uiState.value = BusHomeState.BusLines(it)
@@ -30,7 +30,7 @@ class BusHomeViewModel(initialState: BusHomeState) :
             )
 
             execute { repository.getFavoriteBusStops() }.fold(
-                error = { println("Error: ") },
+                error = { _uiState.value = BusHomeState.Error(it) },
                 success = {
                     favoriteStops.addAll(it)
                 }
@@ -51,7 +51,10 @@ class BusHomeViewModel(initialState: BusHomeState) :
         vmScope.launch {
             _uiState.value = BusHomeState.InProgress
             execute { repository.removeFavoriteStop(busStop) }.fold(
-                error = { println("Error: ") },
+                error = {
+                    println("Error: $it")
+                    _uiState.value = BusHomeState.Error(it)
+                },
                 success = {
                     favoriteStops.remove(busStop)
                     _uiState.value = BusHomeState.FavoriteStops(favoriteStops)

@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.badajoz.badajozentubolsillo.android.composables.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
@@ -50,7 +51,7 @@ fun CalendarContent(state: CalendarState, onEvent: (CalendarEvent) -> Unit) {
         content = {
             when (state) {
                 is CalendarState.InProgress -> LoadingView()
-                is CalendarState.Error -> TODO()
+                is CalendarState.Error -> ErrorView(error = state.error) { onEvent(CalendarEvent.Attach) }
                 is CalendarState.Success -> CalendarSuccess(state.events)
             }
         }

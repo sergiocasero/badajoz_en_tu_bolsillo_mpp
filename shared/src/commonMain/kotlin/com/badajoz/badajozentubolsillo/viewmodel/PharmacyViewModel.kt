@@ -18,7 +18,7 @@ class PharmacyViewModel(initialState: PharmacyState) :
             _uiState.value = PharmacyState.InProgress
 
             execute { repository.getPharmacy() }.fold(
-                error = { println("Error: ") },
+                error = { _uiState.value = PharmacyState.Error(it) },
                 success = { _uiState.value = PharmacyState.Success(it) }
             )
         }

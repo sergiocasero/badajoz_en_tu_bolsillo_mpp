@@ -19,6 +19,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.List
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -28,6 +29,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.badajoz.badajozentubolsillo.android.composables.EmptyView
+import com.badajoz.badajozentubolsillo.android.composables.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.composables.StopItemView
 import com.badajoz.badajozentubolsillo.android.composables.TextBox
@@ -63,23 +66,25 @@ fun BusHomeContent(
 
     Scaffold(
         bottomBar = {
-            BottomNavigation {
-                BottomNavigationItem(
-                    selected = state is BusHomeState.BusLines,
-                    onClick = { onEvent(BusHomeEvent.OnBusLinesClick) },
-                    icon = {
-                        Icon(Icons.Default.List, contentDescription = "Líneas de buses")
-                    },
-                    label = { Text("Líneas") }
-                )
-                BottomNavigationItem(
-                    selected = state is BusHomeState.FavoriteStops,
-                    onClick = { onEvent(BusHomeEvent.OnFavoriteStopsClick) },
-                    icon = {
-                        Icon(Icons.Default.Favorite, contentDescription = "Paradas favoritas")
-                    },
-                    label = { Text("Paradas favoritas") }
-                )
+            if (state !is BusHomeState.Error) {
+                BottomNavigation {
+                    BottomNavigationItem(
+                        selected = state is BusHomeState.BusLines,
+                        onClick = { onEvent(BusHomeEvent.OnBusLinesClick) },
+                        icon = {
+                            Icon(Icons.Default.List, contentDescription = "Líneas de buses")
+                        },
+                        label = { Text("Líneas") }
+                    )
+                    BottomNavigationItem(
+                        selected = state is BusHomeState.FavoriteStops,
+                        onClick = { onEvent(BusHomeEvent.OnFavoriteStopsClick) },
+                        icon = {
+                            Icon(Icons.Default.Favorite, contentDescription = "Paradas favoritas")
+                        },
+                        label = { Text("Paradas favoritas") }
+                    )
+                }
             }
         }
     ) {
@@ -98,10 +103,9 @@ fun BusHomeContent(
                     onEvent(BusHomeEvent.OnRemoveStopClick(it))
                 }
 
-                is BusHomeState.Error -> TODO() // ErrorView(error = state.error)
+                is BusHomeState.Error -> ErrorView(error = state.error) { onEvent(BusHomeEvent.Attach) }
             }
         }
-
     }
 }
 
@@ -143,9 +147,16 @@ fun BusLineItemView(line: BusLineItem, onLineClick: (BusLineItem) -> Unit) {
 
 @Composable
 fun FavoriteStopsView(stops: List<BusStop>, onItemClick: (BusStop) -> Unit) {
-    LazyColumn {
-        items(stops) { busStop ->
-            StopItemView(stop = busStop) { onItemClick(busStop) }
+    if (stops.isEmpty()) {
+        EmptyView(
+            message = "Aún no tienes paradas favoritas, añádelas en el listado de paradas dentro de cada línea",
+            icon = Icons.Filled.FavoriteBorder
+        )
+    } else {
+        LazyColumn {
+            items(stops) { busStop ->
+                StopItemView(stop = busStop) { onItemClick(busStop) }
+            }
         }
     }
 }

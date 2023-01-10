@@ -17,6 +17,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.badajoz.badajozentubolsillo.android.composables.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.model.category.taxes.TaxGroup
@@ -51,7 +52,7 @@ fun TaxesContent(
         content = {
             when (state) {
                 is TaxesViewModelState.InProgress -> LoadingView()
-                is TaxesViewModelState.Error -> TODO()
+                is TaxesViewModelState.Error -> ErrorView(error = state.error) { onEvent(TaxesViewModelEvent.Attach) }
                 is TaxesViewModelState.Success -> TaxesSuccess(state.taxes) {
                     onNavigationEvent(NavigationEvent.OnOpenExternalLink(it.url))
                 }

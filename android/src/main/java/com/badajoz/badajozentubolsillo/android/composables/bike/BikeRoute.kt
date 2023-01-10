@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.badajoz.badajozentubolsillo.android.composables.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.composables.MapWithMarkers
 import com.badajoz.badajozentubolsillo.android.composables.Marker
@@ -82,7 +83,7 @@ fun BikeContent(state: BikeState, onEvent: (BikeEvent) -> Unit, onNavigationEven
         Box(modifier = Modifier.padding(innerPadding)) {
             when (state) {
                 is BikeState.InProgress -> LoadingView()
-                is BikeState.Error -> TODO()
+                is BikeState.Error -> ErrorView(error = state.error) { onEvent(BikeEvent.Attach) }
                 is BikeState.Success -> when (state.view) {
                     BikeViewType.List -> BikeList(state.bikeStations) {
                         onNavigationEvent(NavigationEvent.OnOpenMapLink("${it.lat},${it.lng}"))

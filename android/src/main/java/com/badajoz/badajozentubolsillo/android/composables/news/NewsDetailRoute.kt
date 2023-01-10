@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.badajoz.badajozentubolsillo.android.composables.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.composables.TopBar
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
@@ -60,9 +61,10 @@ fun NewsDetailContent(
             when (state) {
                 is NewsDetailState.InProgress -> LoadingView()
                 is NewsDetailState.Success -> SuccessView(state.newsDetail)
-                is NewsDetailState.Error -> TODO()
+                is NewsDetailState.Error -> ErrorView(error = state.error) { onEvent(NewsDetailEvent.Attach) }
             }
-        })
+        }
+    )
 }
 
 @Composable

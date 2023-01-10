@@ -20,7 +20,7 @@ class BikeViewModel(initialState: BikeState) :
             _uiState.value = BikeState.InProgress
 
             execute { repository.getBikeStations() }.fold(
-                error = { println("Error: ") },
+                error = { _uiState.value = BikeState.Error(it) },
                 success = {
                     bikeStations.addAll(it)
                     _uiState.value = BikeState.Success(it, BikeViewType.Map)

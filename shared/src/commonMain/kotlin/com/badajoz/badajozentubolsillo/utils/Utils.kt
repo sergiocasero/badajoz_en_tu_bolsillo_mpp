@@ -1,8 +1,5 @@
 package com.badajoz.badajozentubolsillo.utils
 
-import com.badajoz.badajozentubolsillo.datasource.NetworkDataSource
-import com.badajoz.badajozentubolsillo.model.AppError
-import com.badajoz.badajozentubolsillo.model.Either
 import com.badajoz.badajozentubolsillo.model.Encryptable
 import io.ktor.http.URLBuilder
 import io.ktor.http.encodedPath
@@ -18,18 +15,6 @@ const val ENCRYPTION_IV = "durn58fjkkhH5JK1"
 expect inline fun <reified T : Encryptable> T.encrypt(production: Boolean = true): String
 
 expect inline fun <reified T : Encryptable> String.decrypt(production: Boolean = true): T
-
-internal suspend fun <R> NetworkDataSource.execute(block: suspend () -> R): Either<AppError, R> = try {
-    Either.Right(block())
-} catch (t: Throwable) {
-    t.printStackTrace()
-    Either.Left(
-        when (t) {
-            is AppError -> t
-            else -> AppError.Unknown
-        }
-    )
-}
 
 fun <T> MutableStateFlow<MutableList<T>>.withItemUpdated(item: T, where: (T) -> Boolean): MutableList<T> {
     val newList = mutableListOf<T>()

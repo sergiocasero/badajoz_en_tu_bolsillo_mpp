@@ -3,7 +3,6 @@ package com.badajoz.badajozentubolsillo.viewmodel
 import com.badajoz.badajozentubolsillo.model.AppError
 import com.badajoz.badajozentubolsillo.model.category.news.News
 import com.badajoz.badajozentubolsillo.repository.NewsRepository
-import com.badajoz.badajozentubolsillo.utils.exhaustive
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
@@ -25,7 +24,7 @@ class NewsViewModel(initialState: HomeState) :
             _uiState.value = initialState
 
             execute { repository.getNewsPage(page) }.fold(
-                error = { println("Error: $it") },
+                error = { _uiState.value = HomeState.Error(it) },
                 success = {
                     nextPage = it.next
                     newsToShow.addAll(it.news)
@@ -42,7 +41,7 @@ class NewsViewModel(initialState: HomeState) :
                 nextPage,
                 HomeState.Success(news = newsToShow.toList(), loadingMore = true)
             )
-        }.exhaustive
+        }
     }
 }
 

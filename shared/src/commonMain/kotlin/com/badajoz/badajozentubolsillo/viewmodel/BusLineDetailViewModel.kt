@@ -51,7 +51,7 @@ class BusLineDetailViewModel(private val lineId: Int, initialState: BusLineDetai
                     false -> repository.removeFavoriteStop(newStop)
                 }
             }.fold(
-                error = { println("Error: ") },
+                error = { _uiState.value = BusLineDetailState.Error(it) },
                 success = {
                     _busStopsState.value = _busStopsState
                         .withItemUpdated(stop.copy(favorite = newStop.favorite)) { it.id == stop.id }

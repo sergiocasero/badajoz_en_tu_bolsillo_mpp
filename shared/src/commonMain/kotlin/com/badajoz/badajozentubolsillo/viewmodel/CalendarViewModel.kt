@@ -18,7 +18,7 @@ class CalendarViewModel(initialState: CalendarState) :
             _uiState.value = CalendarState.InProgress
 
             execute { repository.getCalendar() }.fold(
-                error = { println("Error: ") },
+                error = { _uiState.value = CalendarState.Error(it) },
                 success = {
                     println("Success: $it")
                     _uiState.value = CalendarState.Success(it)

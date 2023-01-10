@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import com.badajoz.badajozentubolsillo.android.composables.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
@@ -79,7 +80,7 @@ fun NewsContent(
             }
         }
 
-        is HomeState.Error -> TODO()
+        is HomeState.Error -> ErrorView(error = state.error) { onEvent(NewsEvent.Attach) }
     }
 }
 

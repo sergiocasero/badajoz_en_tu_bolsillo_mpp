@@ -11,7 +11,6 @@ import com.badajoz.badajozentubolsillo.model.response.EncryptedNetworkResponse
 import com.badajoz.badajozentubolsillo.utils.BASE_URL
 import com.badajoz.badajozentubolsillo.utils.BuildType
 import com.badajoz.badajozentubolsillo.utils.decrypt
-import com.badajoz.badajozentubolsillo.utils.execute
 import com.badajoz.badajozentubolsillo.utils.withPath
 import io.ktor.client.call.body
 import io.ktor.client.request.get

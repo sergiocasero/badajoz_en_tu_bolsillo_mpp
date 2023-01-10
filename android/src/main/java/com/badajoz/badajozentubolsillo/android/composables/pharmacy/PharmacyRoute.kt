@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.badajoz.badajozentubolsillo.android.composables.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
 import com.badajoz.badajozentubolsillo.android.composables.TextBox
 import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
@@ -59,7 +60,7 @@ fun PharmacyContent(
         content = {
             when (state) {
                 is PharmacyState.InProgress -> LoadingView()
-                is PharmacyState.Error -> TODO()
+                is PharmacyState.Error -> ErrorView(error = state.error) { onEvent(PharmacyEvent.Attach) }
                 is PharmacyState.Success -> PharmacySuccessView(state.pharmacy) {
                     onNavigationEvent(NavigationEvent.OnOpenMapLink(it.address))
                 }

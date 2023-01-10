@@ -17,9 +17,8 @@ class NewsDetailViewModel(private val link: String, initialState: NewsDetailStat
             _uiState.value = NewsDetailState.InProgress
 
             execute { repository.getNewsDetail(link) }.fold(
-                error = { println("Error: $it") },
+                error = { _uiState.value = NewsDetailState.Error(it) },
                 success = {
-                    println("Success: $it")
                     _uiState.value = NewsDetailState.Success(it)
                 }
             )
