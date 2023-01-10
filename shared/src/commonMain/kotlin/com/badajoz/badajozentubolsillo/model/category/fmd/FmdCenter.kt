@@ -16,7 +16,7 @@ data class FmdCenter(
     @SerialName("phone")
     val phone: String,
     @SerialName("sports")
-    val sports: List<FmdSportAvailability>,
+    val sports: List<FmdSportDetail>,
     @SerialName("title")
     val title: String
 ) : Encryptable()
