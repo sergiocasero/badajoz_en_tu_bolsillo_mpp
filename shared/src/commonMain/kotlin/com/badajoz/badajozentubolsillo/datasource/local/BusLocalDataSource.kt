@@ -23,7 +23,7 @@ class SharedBusLocalDataSource(private val settings: Settings) : BusLocalDataSou
         private const val FAVORITE_STOPS = "favorite_stops"
     }
 
-    override fun getFavoriteBusStops(): Either<AppError, List<BusStop>> = Either.Right(emptyList())
+    override fun getFavoriteBusStops(): Either<AppError, List<BusStop>> = Either.Right(getStopsVo().stops)
 
     override fun saveFavoriteStop(stop: BusStop): Either<AppError, Success> =
         try {
@@ -38,8 +38,9 @@ class SharedBusLocalDataSource(private val settings: Settings) : BusLocalDataSou
     override fun removeFavoriteStop(stop: BusStop): Either<AppError, Success> =
         try {
             val currentStops = getStopsVo()
-            val newStops = currentStops.copy(stops = currentStops.stops - stop)
-            setStopsVo(newStops)
+            val newStops = currentStops.stops.toMutableList()
+            newStops.removeAll { it.id == stop.id }
+            setStopsVo(BusStopsVo(newStops))
             Either.Right(Success)
         } catch (e: Exception) {
             Either.Left(AppError.LocalError)

@@ -3,8 +3,8 @@ package com.badajoz.badajozentubolsillo.viewmodel
 
 import com.badajoz.badajozentubolsillo.model.AppError
 import com.badajoz.badajozentubolsillo.model.category.bus.BusLineDetail
+import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
 import com.badajoz.badajozentubolsillo.repository.BusRepository
-import com.badajoz.badajozentubolsillo.utils.exhaustive
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
@@ -38,7 +38,29 @@ class BusLineDetailViewModel(private val lineId: Int, initialState: BusLineDetai
                 bigImage = !bigImage
                 _uiState.value = BusLineDetailState.Success(line = it, bigImage = bigImage)
             }
-        }.exhaustive
+
+            is BusLineDetailEvent.OnFavoriteClick -> updateFavoriteStatus(event.stop)
+        }
+    }
+
+    private fun updateFavoriteStatus(stop: BusStop) {
+        vmScope.launch {
+            _uiState.value = BusLineDetailState.InProgress
+            execute {
+                when (stop.favorite) {
+                    true -> repository.saveFavoriteStop(stop)
+                    false -> repository.removeFavoriteStop(stop)
+                }
+            }.fold(
+                error = { println("Error: ") },
+                success = {
+                    line?.stops?.find { it.id == stop.id }?.favorite = stop.favorite
+                    line?.let {
+                        _uiState.value = BusLineDetailState.Success(line = it, bigImage = bigImage)
+                    }
+                }
+            )
+        }
     }
 }
 
@@ -51,4 +73,6 @@ sealed class BusLineDetailState : ViewState() {
 sealed class BusLineDetailEvent {
     object Attach : BusLineDetailEvent()
     object OnImageClick : BusLineDetailEvent()
+
+    data class OnFavoriteClick(val stop: BusStop) : BusLineDetailEvent()
 }

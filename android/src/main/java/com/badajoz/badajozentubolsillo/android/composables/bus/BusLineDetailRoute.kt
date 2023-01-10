@@ -132,7 +132,11 @@ fun BusLineDetailView(
                                         .weight(1f),
                                     style = MaterialTheme.typography.body1
                                 )
-                                IconButton(onClick = { /*TODO*/ }) {
+                                IconButton(onClick = {
+                                    onEvent(
+                                        BusLineDetailEvent.OnFavoriteClick(stop.copy(favorite = !stop.favorite))
+                                    )
+                                }) {
                                     Icon(
                                         if (stop.favorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                                         contentDescription = "Marcar como favorita"

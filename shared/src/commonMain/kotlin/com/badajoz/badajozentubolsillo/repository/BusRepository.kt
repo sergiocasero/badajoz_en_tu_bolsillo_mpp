@@ -16,6 +16,8 @@ interface BusRepository {
     suspend fun getFavoriteBusStops(): Either<AppError, List<BusStop>>
     suspend fun getStopTimes(lineId: Int, stopId: Int): Either<AppError, List<BusTime>>
     suspend fun saveFavoriteStop(stop: BusStop): Either<AppError, Success>
+
+    suspend fun removeFavoriteStop(stop: BusStop): Either<AppError, Success>
 }
 
 class SharedBusRepository(private val local: BusLocalDataSource, private val network: BusNetworkDataSource) :
@@ -46,4 +48,7 @@ class SharedBusRepository(private val local: BusLocalDataSource, private val net
 
     override suspend fun saveFavoriteStop(stop: BusStop): Either<AppError, Success> =
         local.saveFavoriteStop(stop)
+
+    override suspend fun removeFavoriteStop(stop: BusStop): Either<AppError, Success> =
+        local.removeFavoriteStop(stop)
 }
