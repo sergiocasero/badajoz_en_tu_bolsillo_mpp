@@ -34,18 +34,28 @@ class FmdViewModel(initialState: FmdState) :
     }
 
     private fun showSports() {
-        TODO("Not yet implemented")
+        vmScope.launch {
+            execute { repository.getSports() }.fold(
+                error = { _uiState.value = FmdState.Error(it) },
+                success = { _uiState.value = FmdState.SportList(it) }
+            )
+        }
     }
 
     private fun doLoginAndGetSports(fmdUser: FmdUser) {
-
+        vmScope.launch {
+            execute { repository.saveUser(fmdUser) }.fold(
+                error = { _uiState.value = FmdState.Error(it) },
+                success = { showSports() }
+            )
+        }
     }
 }
 
 sealed class FmdState : ViewState() {
     object InProgress : FmdState()
     class Error(val error: AppError) : FmdState()
-    data class SportList(val availableSports: List<FmdSport>) : FmdState()
+    data class SportList(val sports: List<FmdSport>) : FmdState()
     object NotLoggedIn : FmdState()
 
 }

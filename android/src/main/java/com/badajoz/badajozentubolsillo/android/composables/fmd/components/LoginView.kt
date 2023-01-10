@@ -54,6 +54,11 @@ fun LoginView(onEvent: (FmdEvent) -> Unit) {
             modifier = Modifier.padding(start = 32.dp, end = 32.dp)
         )
         Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "Con esta aplicación no podrás reservar, pero si que podrás ver los horarios libres de los deportes",
+            modifier = Modifier.padding(start = 32.dp, end = 32.dp)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
         OutlinedTextField(
             label = { Text("Nombre de usuario") },
             value = username.value,

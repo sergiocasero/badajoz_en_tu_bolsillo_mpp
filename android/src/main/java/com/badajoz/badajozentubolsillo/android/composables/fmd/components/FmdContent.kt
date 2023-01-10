@@ -3,6 +3,7 @@ package com.badajoz.badajozentubolsillo.android.composables.fmd.components
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
 import com.badajoz.badajozentubolsillo.viewmodel.FmdEvent
 import com.badajoz.badajozentubolsillo.viewmodel.FmdState
@@ -17,9 +18,9 @@ fun FmdContent(state: FmdState, onEvent: (FmdEvent) -> Unit) {
         content = {
             when (state) {
                 is FmdState.InProgress -> LoadingView()
-                is FmdState.Error -> TODO()
+                is FmdState.Error -> ErrorView(error = state.error) { onEvent(FmdEvent.Attach) }
                 FmdState.NotLoggedIn -> LoginView(onEvent)
-                is FmdState.SportList -> TODO()
+                is FmdState.SportList -> FmdSportsListView(state.sports)
             }
         }
     )
