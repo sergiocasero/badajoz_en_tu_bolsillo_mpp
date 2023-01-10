@@ -14,7 +14,7 @@ class MenuViewModel(initialState: MenuState) :
     }
 }
 
-sealed class MenuState : NavigationState() {
+sealed class MenuState {
     companion object {
         fun values() = listOf(
             News,

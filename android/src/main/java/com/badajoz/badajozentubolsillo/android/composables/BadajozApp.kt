@@ -27,49 +27,65 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
 
         composable(Screen.News.route) {
             MenuRoute(state = MenuState.News) {
-                Screen.News.canNavigate(it) { navController.navigate(it.route) }
+                if (Screen.News.checkAccess(it)) {
+                    navController.navigate(it.route)
+                }
             }
         }
 
         composable(Screen.Calendar.route) {
             MenuRoute(state = MenuState.Calendar) {
-                Screen.Calendar.canNavigate(it) { navController.navigate(it.route) }
+                if (Screen.Calendar.checkAccess(it)) {
+                    navController.navigate(it.route)
+                }
             }
         }
 
         composable(Screen.Bus.route) {
             MenuRoute(state = MenuState.Bus) {
-                Screen.Bus.canNavigate(it) { navController.navigate(it.route) }
+                if (Screen.Bus.checkAccess(it)) {
+                    navController.navigate(it.route)
+                }
             }
         }
 
         composable(Screen.Bike.route) {
             MenuRoute(state = MenuState.Bike) {
-                Screen.Bike.canNavigate(it) { navController.navigate(it.route) }
+                if (Screen.Bike.checkAccess(it)) {
+                    navController.navigate(it.route)
+                }
             }
         }
 
         composable(Screen.Minits.route) {
             MenuRoute(state = MenuState.Minits) {
-                Screen.Minits.canNavigate(it) { navController.navigate(it.route) }
+                if (Screen.Minits.checkAccess(it)) {
+                    navController.navigate(it.route)
+                }
             }
         }
 
         composable(Screen.Fmd.route) {
             MenuRoute(state = MenuState.Fmd) {
-                Screen.Fmd.canNavigate(it) { navController.navigate(it.route) }
+                if (Screen.Fmd.checkAccess(it)) {
+                    navController.navigate(it.route)
+                }
             }
         }
 
         composable(Screen.Pharmacy.route) {
             MenuRoute(state = MenuState.Pharmacy) {
-                Screen.Pharmacy.canNavigate(it) { navController.navigate(it.route) }
+                if (Screen.Pharmacy.checkAccess(it)) {
+                    navController.navigate(it.route)
+                }
             }
         }
 
         composable(Screen.Taxes.route) {
             MenuRoute(state = MenuState.Taxes) {
-                Screen.Taxes.canNavigate(it) { navController.navigate(it.route) }
+                if (Screen.Taxes.checkAccess(it)) {
+                    navController.navigate(it.route)
+                }
             }
         }
 
@@ -80,7 +96,11 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             val link = requireNotNull(it.arguments).getString("link")
             NewsDetailRoute(
                 link = URLDecoder.decode(link, "UTF-8"),
-                onNavigate = { Screen.NewsDetail().canNavigate(it) { navController.popBackStack() } }
+                onNavigate = {
+                    if (Screen.NewsDetail().checkAccess(it)) {
+                        navController.popBackStack()
+                    }
+                }
             )
         }
 
@@ -91,7 +111,11 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             val lineId = requireNotNull(it.arguments).getInt("lineId")
             BusLineDetailRoute(
                 lineId = lineId,
-                onNavigate = { Screen.BusLineDetail().canNavigate(it) { navController.popBackStack() } }
+                onNavigate = {
+                    if (Screen.BusLineDetail().checkAccess(it)) {
+                        navController.popBackStack()
+                    }
+                }
             )
         }
     }

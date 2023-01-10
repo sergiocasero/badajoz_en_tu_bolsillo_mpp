@@ -111,6 +111,8 @@ object Dependencies {
             const val ktorLogging = "io.ktor:ktor-client-logging:$ktor_version"
 
             const val settings = "com.russhwolf:multiplatform-settings-no-arg:1.0.0-RC"
+
+            const val mokk = "io.mockk:mockk:1.13.3"
         }
 
         object Android {
