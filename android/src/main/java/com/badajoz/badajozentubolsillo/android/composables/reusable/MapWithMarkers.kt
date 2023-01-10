@@ -1,4 +1,4 @@
-package com.badajoz.badajozentubolsillo.android.composables
+package com.badajoz.badajozentubolsillo.android.composables.reusable
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -23,8 +23,6 @@ import com.mapbox.maps.plugin.animation.flyTo
 import com.mapbox.maps.plugin.annotation.annotations
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions
 import com.mapbox.maps.plugin.annotation.generated.createPointAnnotationManager
-
-data class Marker(val latitude: Double, val longitude: Double, val title: String)
 
 @Composable
 fun MapWithMarkers(markers: List<Marker>) {

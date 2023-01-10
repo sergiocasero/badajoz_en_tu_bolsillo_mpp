@@ -1,4 +1,4 @@
-package com.badajoz.badajozentubolsillo.android.composables
+package com.badajoz.badajozentubolsillo.android.composables.reusable
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
