@@ -35,6 +35,7 @@ import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
 import com.badajoz.badajozentubolsillo.viewmodel.BusLineDetailEvent
 import com.badajoz.badajozentubolsillo.viewmodel.BusLineDetailState
 import com.badajoz.badajozentubolsillo.viewmodel.BusLineDetailViewModel
+import com.badajoz.badajozentubolsillo.viewmodel.MenuState
 import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent
 
 @Composable
@@ -80,7 +81,7 @@ fun BusLineDetailView(
     Scaffold(
         topBar = {
             TopBar(title = line.description, icon = Icons.Default.ArrowBack) {
-                onNavigationEvent(NavigationEvent.OnBack)
+                onNavigationEvent(NavigationEvent.OnBack(MenuState.Bus))
             }
         },
         floatingActionButton = {

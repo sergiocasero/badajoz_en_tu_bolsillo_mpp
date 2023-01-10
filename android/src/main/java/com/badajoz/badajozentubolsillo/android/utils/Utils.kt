@@ -9,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.flowWithLifecycle
 import coil.request.ImageRequest
+import com.badajoz.badajozentubolsillo.flow.CStateFlow
 import com.badajoz.badajozentubolsillo.utils.BASE_URL
 import com.badajoz.badajozentubolsillo.utils.BASIC_AUTH_PASSWORD
 import com.badajoz.badajozentubolsillo.utils.BASIC_AUTH_USER
@@ -24,6 +25,17 @@ fun <S : ViewState, E> RootViewModel<S, E>.stateWithLifecycle(): State<S> {
     }
 
     return flow.collectAsState(state.value)
+}
+
+@Composable
+fun <T> CStateFlow<T>.withLifeCycle(): State<T> {
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    val flow = remember(this, lifecycleOwner) {
+        this.flowWithLifecycle(lifecycleOwner.lifecycle)
+    }
+
+    return flow.collectAsState(this.value)
 }
 
 fun basicAuth(): String {

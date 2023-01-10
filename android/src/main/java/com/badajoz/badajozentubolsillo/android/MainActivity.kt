@@ -8,6 +8,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import com.badajoz.badajozentubolsillo.android.composables.BadajozApp
+import com.badajoz.badajozentubolsillo.viewmodel.MenuState
 
 class MainActivity : ComponentActivity() {
 
@@ -19,7 +20,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    BadajozApp()
+                    BadajozApp(initialState = MenuState.News)
                 }
             }
         }

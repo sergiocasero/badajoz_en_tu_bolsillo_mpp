@@ -21,6 +21,7 @@ import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.model.category.news.NewsDetail
 import com.badajoz.badajozentubolsillo.model.category.news.NewsDownload
 import com.badajoz.badajozentubolsillo.model.category.news.NewsImg
+import com.badajoz.badajozentubolsillo.viewmodel.MenuState
 import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent
 import com.badajoz.badajozentubolsillo.viewmodel.NewsDetailEvent
 import com.badajoz.badajozentubolsillo.viewmodel.NewsDetailState
@@ -51,7 +52,7 @@ fun NewsDetailContent(
     Scaffold(topBar = {
         if (state is NewsDetailState.Success) {
             TopBar(title = state.newsDetail.title, icon = Icons.Default.ArrowBack, onNavClick = {
-                onNavigationEvent(NavigationEvent.OnBack)
+                onNavigationEvent(NavigationEvent.OnBack(MenuState.News))
             })
         }
     },

@@ -35,7 +35,6 @@ import com.badajoz.badajozentubolsillo.android.composables.calendar.CalendarRout
 import com.badajoz.badajozentubolsillo.android.composables.news.NewsRoute
 import com.badajoz.badajozentubolsillo.android.composables.pharmacy.PharmacyRoute
 import com.badajoz.badajozentubolsillo.android.composables.taxes.TaxesRoute
-import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.viewmodel.MenuEvent
 import com.badajoz.badajozentubolsillo.viewmodel.MenuState
 import com.badajoz.badajozentubolsillo.viewmodel.MenuViewModel
@@ -65,11 +64,11 @@ fun MenuState.icon(): ImageVector = when (this) {
 }
 
 @Composable
-fun MenuRoute(onNavigationEvent: (NavigationEvent) -> Unit) {
-    val viewModel = remember { MenuViewModel(MenuState.Pharmacy) }
+fun MenuRoute(state: MenuState, onNavigationEvent: (NavigationEvent) -> Unit) {
+    val viewModel = remember { MenuViewModel(state) }
 
     MenuContent(
-        state = viewModel.stateWithLifecycle().value,
+        state = state,
         onEvent = { viewModel.onEvent(it) },
         onNavigationEvent = onNavigationEvent
     )
@@ -95,32 +94,11 @@ fun MenuContent(
         },
         drawerGesturesEnabled = scaffoldState.drawerState.isOpen,
         drawerContent = {
-            DrawerItem(title = MenuState.News.title(), icon = MenuState.News.icon()) {
-                coroutineScope.launch { scaffoldState.drawerState.close() }
-                onEvent(MenuEvent.OnNewsClick)
-            }
-            DrawerItem(title = MenuState.Calendar.title(), icon = MenuState.Calendar.icon()) {
-                coroutineScope.launch { scaffoldState.drawerState.close() }
-                onEvent(MenuEvent.OnCalendarClick)
-            }
-            DrawerItem(title = MenuState.Taxes.title(), icon = MenuState.Taxes.icon()) {
-                coroutineScope.launch { scaffoldState.drawerState.close() }
-                onEvent(MenuEvent.OnTaxesClick)
-            }
-            DrawerItem(title = MenuState.Bike.title(), icon = MenuState.Bike.icon()) {
-                coroutineScope.launch { scaffoldState.drawerState.close() }
-                onEvent(MenuEvent.OnBikeClick)
-            }
-            DrawerItem(title = MenuState.Bus.title(), icon = MenuState.Bus.icon()) {
-                coroutineScope.launch { scaffoldState.drawerState.close() }
-                onEvent(MenuEvent.OnBusClick)
-            }
-            DrawerItem(title = MenuState.Minits.title(), icon = MenuState.Minits.icon()) {
-                coroutineScope.launch { scaffoldState.drawerState.close() }
-                onEvent(MenuEvent.OnMinitsClick)
-            }
-            DrawerItem(title = MenuState.Pharmacy.title(), icon = MenuState.Pharmacy.icon()) {
-                onEvent(MenuEvent.OnPharmacyClick)
+            MenuState.values().forEach {
+                DrawerItem(title = it.title(), icon = it.icon()) {
+                    coroutineScope.launch { scaffoldState.drawerState.close() }
+                    onNavigationEvent(NavigationEvent.OnMenu(it))
+                }
             }
         }
     ) {
