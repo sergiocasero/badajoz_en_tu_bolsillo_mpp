@@ -13,17 +13,17 @@ import androidx.compose.material.icons.filled.Map
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import com.badajoz.badajozentubolsillo.android.composables.bike.models.toMarker
 import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.MapWithMarkers
-import com.badajoz.badajozentubolsillo.android.composables.bike.models.toMarker
 import com.badajoz.badajozentubolsillo.viewmodel.BikeEvent
 import com.badajoz.badajozentubolsillo.viewmodel.BikeState
 import com.badajoz.badajozentubolsillo.viewmodel.BikeViewType
-import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent
+import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable
-fun BikeContent(state: BikeState, onEvent: (BikeEvent) -> Unit, onNavigationEvent: (NavigationEvent) -> Unit = {}) {
+fun BikeContent(state: BikeState, onEvent: (BikeEvent) -> Unit, onNavigate: (Screen) -> Unit = {}) {
     LaunchedEffect(Unit) {
         onEvent(BikeEvent.Attach)
     }
@@ -58,7 +58,7 @@ fun BikeContent(state: BikeState, onEvent: (BikeEvent) -> Unit, onNavigationEven
                 is BikeState.Error -> ErrorView(error = state.error) { onEvent(BikeEvent.Attach) }
                 is BikeState.Success -> when (state.view) {
                     BikeViewType.List -> BikeList(state.bikeStations) {
-                        onNavigationEvent(NavigationEvent.OnOpenMapLink("${it.lat},${it.lng}"))
+                        onNavigate(Screen.MapLink("${it.lat},${it.lng}"))
                     }
 
                     BikeViewType.Map -> MapWithMarkers(

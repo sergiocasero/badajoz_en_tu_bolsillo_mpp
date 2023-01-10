@@ -1,7 +1,6 @@
 package com.badajoz.badajozentubolsillo.android.composables
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -12,78 +11,87 @@ import com.badajoz.badajozentubolsillo.android.composables.bus.BusLineDetailRout
 import com.badajoz.badajozentubolsillo.android.composables.menu.MenuRoute
 import com.badajoz.badajozentubolsillo.android.composables.news.NewsDetailRoute
 import com.badajoz.badajozentubolsillo.viewmodel.MenuState
-import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent
-import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent.OnBusLineDetail
-import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent.OnMenu
-import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent.OnNewsDetail
-import com.badajoz.badajozentubolsillo.viewmodel.NavigationViewModel
+import com.badajoz.badajozentubolsillo.viewmodel.Screen
 import java.net.URLDecoder
 
 @Composable
-fun BadajozApp(initialState: MenuState, navController: NavHostController = rememberNavController()) {
+fun BadajozApp(initialScreen: Screen, navController: NavHostController = rememberNavController()) {
 
-    val navigationViewModel = remember { NavigationViewModel(initialState) }
+    // val navigationViewModel = remember { NavigationViewModel(initialScreen) }
 
     NavHost(
         navController = navController,
-        startDestination = OnMenu(initialState).createRoute()
+        startDestination = Screen.News.route
     ) {
 
-        MenuState.values().forEach { state ->
-            composable(OnMenu(state).createRoute()) {
-                MenuRoute(
-                    state = state,
-                    onNavigationEvent = {
-                        when (it) {
-                            is NavigationEvent.OnBack -> navController.popBackStack()
-                            is OnBusLineDetail -> navController.navigate(OnBusLineDetail(it.lineId).createRoute())
-                            is OnMenu -> {
-                                val route1 = it.createRoute()
-                                navController.navigate(route1) {
-                                    popUpTo(route1) { inclusive = true }
-                                }
-                            }
 
-                            is OnNewsDetail -> navController.navigate(OnNewsDetail(it.link).createRoute())
-                            is NavigationEvent.OnOpenExternalLink -> {
-                                // val context = LocalContext.current
-                                // val intent = Intent(Intent.ACTION_VIEW, Uri.parse(state.link))
-                                // context.startActivity(intent)
-                            }
+        composable(Screen.News.route) {
+            MenuRoute(state = MenuState.News) {
+                Screen.News.canNavigate(it) { navController.navigate(it.route) }
+            }
+        }
 
-                            is NavigationEvent.OnOpenMapLink -> {
-                                // val context = LocalContext.current
-                                // val intent = Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=${state
-                                // .address}"))
-                                // context.startActivity(intent)
-                            }
-                        }
-                    }
-                )
+        composable(Screen.Calendar.route) {
+            MenuRoute(state = MenuState.Calendar) {
+                Screen.Calendar.canNavigate(it) { navController.navigate(it.route) }
+            }
+        }
+
+        composable(Screen.Bus.route) {
+            MenuRoute(state = MenuState.Bus) {
+                Screen.Bus.canNavigate(it) { navController.navigate(it.route) }
+            }
+        }
+
+        composable(Screen.Bike.route) {
+            MenuRoute(state = MenuState.Bike) {
+                Screen.Bike.canNavigate(it) { navController.navigate(it.route) }
+            }
+        }
+
+        composable(Screen.Minits.route) {
+            MenuRoute(state = MenuState.Minits) {
+                Screen.Minits.canNavigate(it) { navController.navigate(it.route) }
+            }
+        }
+
+        composable(Screen.Fmd.route) {
+            MenuRoute(state = MenuState.Fmd) {
+                Screen.Fmd.canNavigate(it) { navController.navigate(it.route) }
+            }
+        }
+
+        composable(Screen.Pharmacy.route) {
+            MenuRoute(state = MenuState.Pharmacy) {
+                Screen.Pharmacy.canNavigate(it) { navController.navigate(it.route) }
+            }
+        }
+
+        composable(Screen.Taxes.route) {
+            MenuRoute(state = MenuState.Taxes) {
+                Screen.Taxes.canNavigate(it) { navController.navigate(it.route) }
             }
         }
 
         composable(
-            route = OnNewsDetail().route,
+            route = Screen.NewsDetail().route,
             arguments = listOf(navArgument("link") { type = NavType.StringType })
-        ) { it ->
-            val arguments = requireNotNull(it.arguments)
-            val link = arguments.getString("link")
+        ) {
+            val link = requireNotNull(it.arguments).getString("link")
             NewsDetailRoute(
                 link = URLDecoder.decode(link, "UTF-8"),
-                onNavigationEvent = { navController.popBackStack() }
+                onNavigate = { Screen.NewsDetail().canNavigate(it) { navController.popBackStack() } }
             )
         }
 
         composable(
-            route = OnBusLineDetail().route,
+            route = Screen.BusLineDetail().route,
             arguments = listOf(navArgument("lineId") { type = NavType.IntType })
         ) {
-            val arguments = requireNotNull(it.arguments)
-            val lineId = arguments.getInt("lineId")
+            val lineId = requireNotNull(it.arguments).getInt("lineId")
             BusLineDetailRoute(
                 lineId = lineId,
-                onNavigationEvent = { navController.popBackStack() }
+                onNavigate = { Screen.BusLineDetail().canNavigate(it) { navController.popBackStack() } }
             )
         }
     }

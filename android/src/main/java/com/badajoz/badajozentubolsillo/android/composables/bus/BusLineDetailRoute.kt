@@ -7,10 +7,10 @@ import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.android.utils.withLifeCycle
 import com.badajoz.badajozentubolsillo.viewmodel.BusLineDetailState
 import com.badajoz.badajozentubolsillo.viewmodel.BusLineDetailViewModel
-import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent
+import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable
-fun BusLineDetailRoute(lineId: Int, onNavigationEvent: (NavigationEvent) -> Unit) {
+fun BusLineDetailRoute(lineId: Int, onNavigate: (Screen) -> Unit) {
     val viewModel = remember { BusLineDetailViewModel(lineId = lineId, initialState = BusLineDetailState.InProgress) }
 
     BusLineDetailContent(
@@ -18,7 +18,7 @@ fun BusLineDetailRoute(lineId: Int, onNavigationEvent: (NavigationEvent) -> Unit
         stops = viewModel.busStopsState.withLifeCycle().value,
         bigImage = viewModel.bigImageState.withLifeCycle().value,
         onEvent = { viewModel.onEvent(it) },
-        onNavigationEvent = onNavigationEvent
+        onNavigate = onNavigate
     )
 }
 

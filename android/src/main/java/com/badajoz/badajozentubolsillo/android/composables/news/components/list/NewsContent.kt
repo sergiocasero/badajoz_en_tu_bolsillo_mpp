@@ -13,14 +13,14 @@ import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
 import com.badajoz.badajozentubolsillo.model.category.news.News
 import com.badajoz.badajozentubolsillo.utils.MaterialColor
 import com.badajoz.badajozentubolsillo.viewmodel.HomeState
-import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent
 import com.badajoz.badajozentubolsillo.viewmodel.NewsEvent
+import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable
 fun NewsContent(
     state: HomeState,
-    onNavigationEvent: (NavigationEvent) -> Unit,
-    onEvent: (NewsEvent) -> Unit
+    onEvent: (NewsEvent) -> Unit,
+    onNavigate: (Screen) -> Unit
 ) {
     LaunchedEffect(Unit) {
         onEvent(NewsEvent.Attach)
@@ -44,7 +44,7 @@ fun NewsContent(
                     .fillMaxSize()
                     .zIndex(0f)
             ) {
-                NewsSuccess(state.news, onEvent, onNavigationEvent)
+                NewsSuccess(state.news, onEvent, onNavigate)
             }
         }
 
@@ -86,6 +86,6 @@ fun NewsContentPreview() {
     NewsContent(
         state = HomeState.Success(news, loadingMore = false),
         onEvent = {},
-        onNavigationEvent = {}
+        onNavigate = {}
     )
 }

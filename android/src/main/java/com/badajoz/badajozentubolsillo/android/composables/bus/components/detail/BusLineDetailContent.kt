@@ -8,7 +8,7 @@ import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
 import com.badajoz.badajozentubolsillo.viewmodel.BusLineDetailEvent
 import com.badajoz.badajozentubolsillo.viewmodel.BusLineDetailState
-import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent
+import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable
 fun BusLineDetailContent(
@@ -16,7 +16,7 @@ fun BusLineDetailContent(
     stops: List<BusStop>,
     bigImage: Boolean,
     onEvent: (BusLineDetailEvent) -> Unit,
-    onNavigationEvent: (NavigationEvent) -> Unit
+    onNavigate: (Screen) -> Unit
 ) {
     LaunchedEffect(Unit) {
         onEvent(BusLineDetailEvent.Attach)
@@ -31,7 +31,7 @@ fun BusLineDetailContent(
             stops = stops,
             bigImage = bigImage,
             onEvent = onEvent,
-            onNavigationEvent = onNavigationEvent
+            onNavigate = onNavigate
         )
     }
 }

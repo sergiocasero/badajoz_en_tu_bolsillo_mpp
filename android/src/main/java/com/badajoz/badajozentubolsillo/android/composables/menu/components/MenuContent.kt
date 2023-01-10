@@ -34,6 +34,7 @@ import com.badajoz.badajozentubolsillo.android.composables.bus.BusHomeRoute
 import com.badajoz.badajozentubolsillo.android.composables.calendar.CalendarRoute
 import com.badajoz.badajozentubolsillo.android.composables.fmd.FmdRoute
 import com.badajoz.badajozentubolsillo.android.composables.menu.models.icon
+import com.badajoz.badajozentubolsillo.android.composables.menu.models.screen
 import com.badajoz.badajozentubolsillo.android.composables.menu.models.title
 import com.badajoz.badajozentubolsillo.android.composables.news.NewsRoute
 import com.badajoz.badajozentubolsillo.android.composables.pharmacy.PharmacyRoute
@@ -42,14 +43,14 @@ import com.badajoz.badajozentubolsillo.android.composables.reusable.TopBar
 import com.badajoz.badajozentubolsillo.android.composables.taxes.TaxesRoute
 import com.badajoz.badajozentubolsillo.viewmodel.MenuEvent
 import com.badajoz.badajozentubolsillo.viewmodel.MenuState
-import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent
+import com.badajoz.badajozentubolsillo.viewmodel.Screen
 import kotlinx.coroutines.launch
 
 @Composable
 fun MenuContent(
     state: MenuState,
     onEvent: (MenuEvent) -> Unit,
-    onNavigationEvent: (NavigationEvent) -> Unit
+    onNavigate: (Screen) -> Unit
 ) {
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
@@ -102,7 +103,7 @@ fun MenuContent(
                         MenuState.values().forEach {
                             DrawerItem(title = it.title(), icon = it.icon(), isCurrent = it == state) {
                                 coroutineScope.launch { scaffoldState.drawerState.close() }
-                                onNavigationEvent(NavigationEvent.OnMenu(it))
+                                onNavigate(it.screen())
                             }
                         }
                     }
@@ -111,14 +112,14 @@ fun MenuContent(
         }
     ) {
         when (state) {
-            MenuState.News -> NewsRoute { onNavigationEvent(it) }
-            MenuState.Bike -> BikeRoute { onNavigationEvent(it) }
-            MenuState.Bus -> BusHomeRoute { onNavigationEvent(it) }
+            MenuState.News -> NewsRoute { onNavigate(it) }
+            MenuState.Bike -> BikeRoute { onNavigate(it) }
+            MenuState.Bus -> BusHomeRoute { onNavigate(it) }
             MenuState.Calendar -> CalendarRoute()
             MenuState.Fmd -> FmdRoute()
             MenuState.Minits -> EmptyView(message = "NotImplementedYet", icon = Icons.Default.ThumbDown)
-            MenuState.Pharmacy -> PharmacyRoute { onNavigationEvent(it) }
-            MenuState.Taxes -> TaxesRoute { onNavigationEvent(it) }
+            MenuState.Pharmacy -> PharmacyRoute { onNavigate(it) }
+            MenuState.Taxes -> TaxesRoute { onNavigate(it) }
         }
     }
 }

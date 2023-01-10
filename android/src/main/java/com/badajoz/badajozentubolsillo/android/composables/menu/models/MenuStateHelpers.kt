@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Sports
 import androidx.compose.material.icons.outlined.Newspaper
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.badajoz.badajozentubolsillo.viewmodel.MenuState
+import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 fun MenuState.title(): String = when (this) {
     MenuState.Bike -> "Bicicletas BiBa"
@@ -32,4 +33,15 @@ fun MenuState.icon(): ImageVector = when (this) {
     MenuState.News -> Icons.Outlined.Newspaper
     MenuState.Pharmacy -> Icons.Filled.LocalPharmacy
     MenuState.Taxes -> Icons.Filled.Business
+}
+
+fun MenuState.screen(): Screen = when (this) {
+    MenuState.Bike -> Screen.Bike
+    MenuState.Bus -> Screen.Bus
+    MenuState.Calendar -> Screen.Calendar
+    MenuState.Fmd -> Screen.Fmd
+    MenuState.Minits -> Screen.Minits
+    MenuState.News -> Screen.News
+    MenuState.Pharmacy -> Screen.Pharmacy
+    MenuState.Taxes -> Screen.Taxes
 }

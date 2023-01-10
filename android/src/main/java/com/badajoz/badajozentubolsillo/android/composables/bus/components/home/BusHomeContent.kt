@@ -21,13 +21,13 @@ import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
 import com.badajoz.badajozentubolsillo.model.category.bus.BusLineItem
 import com.badajoz.badajozentubolsillo.viewmodel.BusHomeEvent
 import com.badajoz.badajozentubolsillo.viewmodel.BusHomeState
-import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent
+import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable
 fun BusHomeContent(
     state: BusHomeState,
     onEvent: (BusHomeEvent) -> Unit,
-    onNavigationEvent: (NavigationEvent) -> Unit
+    onNavigate: (Screen) -> Unit
 ) {
     LaunchedEffect(Unit) {
         onEvent(BusHomeEvent.Attach)
@@ -65,7 +65,7 @@ fun BusHomeContent(
             when (state) {
                 is BusHomeState.InProgress -> LoadingView()
                 is BusHomeState.BusLines -> BusLinesView(state.lines) {
-                    onNavigationEvent(NavigationEvent.OnBusLineDetail(it.id))
+                    onNavigate(Screen.BusLineDetail(it.id))
                 }
 
                 is BusHomeState.FavoriteStops -> FavoriteStopsView(state.stops) {
@@ -123,6 +123,6 @@ fun BusLinesViewPreview() {
             )
         ),
         onEvent = {},
-        onNavigationEvent = {}
+        onNavigate = {}
     )
 }

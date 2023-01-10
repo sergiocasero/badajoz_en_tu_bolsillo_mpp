@@ -7,15 +7,15 @@ import com.badajoz.badajozentubolsillo.android.composables.bike.components.BikeC
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.viewmodel.BikeState
 import com.badajoz.badajozentubolsillo.viewmodel.BikeViewModel
-import com.badajoz.badajozentubolsillo.viewmodel.NavigationEvent
+import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable
-fun BikeRoute(onNavigationEvent: (NavigationEvent) -> Unit) {
+fun BikeRoute(onNavigate: (Screen) -> Unit) {
     val viewModel = remember { BikeViewModel(initialState = BikeState.InProgress) }
 
     BikeContent(
         state = viewModel.stateWithLifecycle().value,
         onEvent = { viewModel.onEvent(it) },
-        onNavigationEvent = onNavigationEvent
+        onNavigate = onNavigate
     )
 }
