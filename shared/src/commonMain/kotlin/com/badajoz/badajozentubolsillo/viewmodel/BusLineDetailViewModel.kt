@@ -43,16 +43,18 @@ class BusLineDetailViewModel(private val lineId: Int, initialState: BusLineDetai
     }
 
     private fun updateFavoriteStatus(stop: BusStop) {
+        val newStop = stop.copy(favorite = !stop.favorite)
         vmScope.launch {
             execute {
-                when (stop.favorite) {
-                    true -> repository.saveFavoriteStop(stop)
-                    false -> repository.removeFavoriteStop(stop)
+                when (newStop.favorite) {
+                    true -> repository.saveFavoriteStop(newStop)
+                    false -> repository.removeFavoriteStop(newStop)
                 }
             }.fold(
                 error = { println("Error: ") },
                 success = {
-                    _busStopsState.value = _busStopsState.withItemUpdated(stop) { it.id == stop.id }
+                    _busStopsState.value = _busStopsState
+                        .withItemUpdated(stop.copy(favorite = newStop.favorite)) { it.id == stop.id }
                 }
             )
         }

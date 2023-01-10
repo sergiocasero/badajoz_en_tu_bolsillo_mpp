@@ -2,23 +2,17 @@ package com.badajoz.badajozentubolsillo.android.composables.bus
 
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
 import androidx.compose.material.ExtendedFloatingActionButton
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
@@ -32,8 +26,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
+import com.badajoz.badajozentubolsillo.android.composables.StopItemView
 import com.badajoz.badajozentubolsillo.android.composables.TopBar
-import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.android.utils.staticUrl
 import com.badajoz.badajozentubolsillo.android.utils.withLifeCycle
@@ -119,7 +113,7 @@ fun BusLineDetailView(
             if (bigImage) {
                 AsyncImage(
                     model = imageRoute.staticUrl(LocalContext.current),
-                    contentDescription = "Recorrido ${title}",
+                    contentDescription = "Recorrido $title",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 80.dp)
@@ -128,32 +122,7 @@ fun BusLineDetailView(
             } else {
                 LazyColumn {
                     items(stops) { stop ->
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(4.dp),
-                            elevation = defaultCardElevation
-                        ) {
-                            Row {
-                                Text(
-                                    stop.name, modifier = Modifier
-                                        .padding(16.dp)
-                                        .weight(1f),
-                                    style = MaterialTheme.typography.body1
-                                )
-                                IconButton(onClick = {
-                                    onEvent(
-                                        BusLineDetailEvent.OnFavoriteClick(stop.copy(favorite = !stop.favorite))
-                                    )
-                                }) {
-                                    Icon(
-                                        if (stop.favorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                                        contentDescription = "Marcar como favorita"
-                                    )
-                                }
-                            }
-
-                        }
+                        StopItemView(stop = stop) { onEvent(BusLineDetailEvent.OnFavoriteClick(stop)) }
                     }
                 }
             }

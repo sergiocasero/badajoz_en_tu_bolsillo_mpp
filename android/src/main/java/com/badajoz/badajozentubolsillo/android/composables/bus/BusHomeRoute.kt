@@ -4,6 +4,7 @@ package com.badajoz.badajozentubolsillo.android.composables.bus
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -28,10 +29,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.badajoz.badajozentubolsillo.android.composables.LoadingView
+import com.badajoz.badajozentubolsillo.android.composables.StopItemView
 import com.badajoz.badajozentubolsillo.android.composables.TextBox
 import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.model.category.bus.BusLineItem
+import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
 import com.badajoz.badajozentubolsillo.viewmodel.BusHomeEvent
 import com.badajoz.badajozentubolsillo.viewmodel.BusHomeState
 import com.badajoz.badajozentubolsillo.viewmodel.BusHomeViewModel
@@ -80,17 +83,21 @@ fun BusHomeContent(
             }
         }
     ) {
-        Box(modifier = Modifier.padding(it)) {
+        Box(
+            modifier = Modifier
+                .padding(it)
+                .fillMaxSize()
+        ) {
             when (state) {
                 is BusHomeState.InProgress -> LoadingView()
                 is BusHomeState.BusLines -> BusLinesView(state.lines) {
-                    onNavigationEvent(
-                        NavigationEvent.OnBusLineDetail(it.id)
-                    )
-                } // BusLinesView
-                // (lines =
-                // state.lines)
-                is BusHomeState.FavoriteStops -> TODO() // BusStopsView(stops = state.stops)
+                    onNavigationEvent(NavigationEvent.OnBusLineDetail(it.id))
+                }
+
+                is BusHomeState.FavoriteStops -> FavoriteStopsView(state.stops) {
+                    onEvent(BusHomeEvent.OnRemoveStopClick(it))
+                }
+
                 is BusHomeState.Error -> TODO() // ErrorView(error = state.error)
             }
         }
@@ -100,7 +107,9 @@ fun BusHomeContent(
 
 @Composable
 fun BusLinesView(lines: List<BusLineItem>, onLineClick: (BusLineItem) -> Unit) {
-    LazyColumn {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize()
+    ) {
         items(lines) { busLine ->
             BusLineItemView(line = busLine) { onLineClick(busLine) }
         }
@@ -128,6 +137,15 @@ fun BusLineItemView(line: BusLineItem, onLineClick: (BusLineItem) -> Unit) {
                     .weight(1f),
                 style = MaterialTheme.typography.body1
             )
+        }
+    }
+}
+
+@Composable
+fun FavoriteStopsView(stops: List<BusStop>, onItemClick: (BusStop) -> Unit) {
+    LazyColumn {
+        items(stops) { busStop ->
+            StopItemView(stop = busStop) { onItemClick(busStop) }
         }
     }
 }

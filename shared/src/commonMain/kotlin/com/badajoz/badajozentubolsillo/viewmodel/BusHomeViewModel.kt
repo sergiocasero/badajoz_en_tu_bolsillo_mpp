@@ -5,7 +5,6 @@ import com.badajoz.badajozentubolsillo.model.AppError
 import com.badajoz.badajozentubolsillo.model.category.bus.BusLineItem
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
 import com.badajoz.badajozentubolsillo.repository.BusRepository
-import com.badajoz.badajozentubolsillo.utils.exhaustive
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
@@ -44,7 +43,21 @@ class BusHomeViewModel(initialState: BusHomeState) :
             BusHomeEvent.Attach -> attach()
             BusHomeEvent.OnBusLinesClick -> _uiState.value = BusHomeState.BusLines(busLines)
             BusHomeEvent.OnFavoriteStopsClick -> _uiState.value = BusHomeState.FavoriteStops(favoriteStops)
-        }.exhaustive
+            is BusHomeEvent.OnRemoveStopClick -> removeBusStopFromFavorites(event.stop)
+        }
+    }
+
+    private fun removeBusStopFromFavorites(busStop: BusStop) {
+        vmScope.launch {
+            _uiState.value = BusHomeState.InProgress
+            execute { repository.removeFavoriteStop(busStop) }.fold(
+                error = { println("Error: ") },
+                success = {
+                    favoriteStops.remove(busStop)
+                    _uiState.value = BusHomeState.FavoriteStops(favoriteStops)
+                }
+            )
+        }
     }
 }
 
@@ -59,4 +72,5 @@ sealed class BusHomeEvent {
     object Attach : BusHomeEvent()
     object OnBusLinesClick : BusHomeEvent()
     object OnFavoriteStopsClick : BusHomeEvent()
+    data class OnRemoveStopClick(val stop: BusStop) : BusHomeEvent()
 }
