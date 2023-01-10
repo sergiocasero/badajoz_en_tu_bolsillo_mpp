@@ -6,6 +6,7 @@ import com.badajoz.badajozentubolsillo.model.Either
 import com.badajoz.badajozentubolsillo.model.Encryptable
 import io.ktor.http.URLBuilder
 import io.ktor.http.encodedPath
+import kotlinx.coroutines.flow.MutableStateFlow
 
 const val BASE_URL = "https://badajoz.sergiocasero.es"
 const val BASIC_AUTH_USER = "android"
@@ -29,6 +30,15 @@ internal suspend fun <R> NetworkDataSource.execute(block: suspend () -> R): Eith
         }
     )
 }
+
+fun <T> MutableStateFlow<MutableList<T>>.withItemUpdated(item: T, where: (T) -> Boolean): MutableList<T> {
+    val newList = mutableListOf<T>()
+    newList.addAll(value)
+    val index = newList.indexOfFirst { where(it) }
+    newList[index] = item
+    return newList
+}
+
 
 internal fun URLBuilder.withPath(path: String, block: URLBuilder.(URLBuilder) -> Unit = {}) {
     encodedPath = path

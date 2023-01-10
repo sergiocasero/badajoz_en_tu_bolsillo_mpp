@@ -1,10 +1,12 @@
 package com.badajoz.badajozentubolsillo.viewmodel
 
 
+import com.badajoz.badajozentubolsillo.flow.cStateFlow
 import com.badajoz.badajozentubolsillo.model.AppError
-import com.badajoz.badajozentubolsillo.model.category.bus.BusLineDetail
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
 import com.badajoz.badajozentubolsillo.repository.BusRepository
+import com.badajoz.badajozentubolsillo.utils.withItemUpdated
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
@@ -12,10 +14,11 @@ class BusLineDetailViewModel(private val lineId: Int, initialState: BusLineDetai
     RootViewModel<BusLineDetailState, BusLineDetailEvent>(initialState) {
 
     private val repository: BusRepository by inject()
+    private val _bigImageState = MutableStateFlow(false)
+    private val _busStopsState = MutableStateFlow<MutableList<BusStop>>(mutableListOf())
 
-    private var line: BusLineDetail? = null
-
-    private var bigImage = false
+    val bigImageState = _bigImageState.cStateFlow()
+    val busStopsState = _busStopsState.cStateFlow()
 
     override fun attach() = apply {
         vmScope.launch {
@@ -24,8 +27,8 @@ class BusLineDetailViewModel(private val lineId: Int, initialState: BusLineDetai
             execute { repository.getBusLineDetail(lineId) }.fold(
                 error = { println("Error: ") },
                 success = {
-                    line = it
-                    _uiState.value = BusLineDetailState.Success(line = it, bigImage = bigImage)
+                    _busStopsState.value = it.stops.toMutableList()
+                    _uiState.value = BusLineDetailState.Success(title = it.name, imageRoute = it.image)
                 }
             )
         }
@@ -34,18 +37,13 @@ class BusLineDetailViewModel(private val lineId: Int, initialState: BusLineDetai
     override fun onEvent(event: BusLineDetailEvent) {
         when (event) {
             BusLineDetailEvent.Attach -> attach()
-            BusLineDetailEvent.OnImageClick -> line?.let {
-                bigImage = !bigImage
-                _uiState.value = BusLineDetailState.Success(line = it, bigImage = bigImage)
-            }
-
+            BusLineDetailEvent.OnImageClick -> _bigImageState.value = !_bigImageState.value
             is BusLineDetailEvent.OnFavoriteClick -> updateFavoriteStatus(event.stop)
         }
     }
 
     private fun updateFavoriteStatus(stop: BusStop) {
         vmScope.launch {
-            _uiState.value = BusLineDetailState.InProgress
             execute {
                 when (stop.favorite) {
                     true -> repository.saveFavoriteStop(stop)
@@ -54,10 +52,7 @@ class BusLineDetailViewModel(private val lineId: Int, initialState: BusLineDetai
             }.fold(
                 error = { println("Error: ") },
                 success = {
-                    line?.stops?.find { it.id == stop.id }?.favorite = stop.favorite
-                    line?.let {
-                        _uiState.value = BusLineDetailState.Success(line = it, bigImage = bigImage)
-                    }
+                    _busStopsState.value = _busStopsState.withItemUpdated(stop) { it.id == stop.id }
                 }
             )
         }
@@ -67,7 +62,10 @@ class BusLineDetailViewModel(private val lineId: Int, initialState: BusLineDetai
 sealed class BusLineDetailState : ViewState() {
     object InProgress : BusLineDetailState()
     class Error(val error: AppError) : BusLineDetailState()
-    data class Success(val line: BusLineDetail, val bigImage: Boolean) : BusLineDetailState()
+    data class Success(
+        val title: String,
+        val imageRoute: String
+    ) : BusLineDetailState()
 }
 
 sealed class BusLineDetailEvent {

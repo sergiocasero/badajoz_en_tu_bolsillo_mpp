@@ -39,6 +39,17 @@ fun <T> CStateFlow<T>.withLifeCycle(): State<T> {
     return flow.collectAsState(this.value)
 }
 
+@Composable
+fun <T> CStateFlow<List<T>>.withLifeCycle2(): State<List<T>> {
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    val flow = remember(this, lifecycleOwner) {
+        this.flowWithLifecycle(lifecycleOwner.lifecycle)
+    }
+
+    return flow.collectAsState(this.value)
+}
+
 fun basicAuth(): String {
     return "Basic " + Base64.encodeToString(
         "$BASIC_AUTH_USER:$BASIC_AUTH_PASSWORD".toByteArray(),
