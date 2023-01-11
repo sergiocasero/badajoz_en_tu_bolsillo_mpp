@@ -16,6 +16,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.badajoz.badajozentubolsillo.android.composables.bus.components.BusLinesView
+import com.badajoz.badajozentubolsillo.android.composables.bus.components.BusTimesDialog
 import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
 import com.badajoz.badajozentubolsillo.model.category.bus.BusLineItem
@@ -69,8 +70,16 @@ fun BusHomeContent(
                     onNavigate(Screen.BusLineDetail.toDestination(it.id))
                 }
 
-                is BusHomeState.FavoriteStops -> FavoriteStopsView(state.stops) {
-                    onEvent(BusHomeEvent.OnRemoveStopClick(it))
+                is BusHomeState.FavoriteStops -> {
+                    val selectedStop = state.selectedStop
+                    if (selectedStop != null) {
+                        BusTimesDialog(selectedStop) { onEvent(BusHomeEvent.OnDismissDialogClick) }
+                    }
+                    FavoriteStopsView(
+                        state.stops,
+                        onItemClick = { onEvent(BusHomeEvent.OnStopClick(it)) },
+                        onFavoriteClick = { onEvent(BusHomeEvent.OnRemoveStopClick(it)) }
+                    )
                 }
 
                 is BusHomeState.Error -> ErrorView(error = state.error) { onEvent(BusHomeEvent.Attach) }

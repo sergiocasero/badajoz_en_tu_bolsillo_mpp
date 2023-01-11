@@ -10,7 +10,7 @@ import com.badajoz.badajozentubolsillo.android.composables.reusable.EmptyView
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
 
 @Composable
-fun FavoriteStopsView(stops: List<BusStop>, onItemClick: (BusStop) -> Unit) {
+fun FavoriteStopsView(stops: List<BusStop>, onItemClick: (BusStop) -> Unit, onFavoriteClick: (BusStop) -> Unit) {
     if (stops.isEmpty()) {
         EmptyView(
             message = "Aún no tienes paradas favoritas, añádelas en el listado de paradas dentro de cada línea",
@@ -20,8 +20,8 @@ fun FavoriteStopsView(stops: List<BusStop>, onItemClick: (BusStop) -> Unit) {
         LazyColumn {
             items(stops) { busStop ->
                 StopItemView(stop = busStop,
-                    onClick = { TODO("Implement onClick") },
-                    onFavoriteClick = { onItemClick(busStop) }
+                    onClick = { onItemClick(busStop) },
+                    onFavoriteClick = { onFavoriteClick(busStop) }
                 )
             }
         }

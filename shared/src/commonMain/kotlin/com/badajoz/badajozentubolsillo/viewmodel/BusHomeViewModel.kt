@@ -4,6 +4,7 @@ package com.badajoz.badajozentubolsillo.viewmodel
 import com.badajoz.badajozentubolsillo.model.AppError
 import com.badajoz.badajozentubolsillo.model.category.bus.BusLineItem
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
+import com.badajoz.badajozentubolsillo.model.category.bus.BusStopDetail
 import com.badajoz.badajozentubolsillo.repository.BusRepository
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
@@ -44,6 +45,30 @@ class BusHomeViewModel(initialState: BusHomeState) :
             BusHomeEvent.OnBusLinesClick -> _uiState.value = BusHomeState.BusLines(busLines)
             BusHomeEvent.OnFavoriteStopsClick -> _uiState.value = BusHomeState.FavoriteStops(favoriteStops)
             is BusHomeEvent.OnRemoveStopClick -> removeBusStopFromFavorites(event.stop)
+            is BusHomeEvent.OnStopClick -> onFavoriteStopClick(event.stop)
+            BusHomeEvent.OnDismissDialogClick -> onDismissDialogClick()
+        }
+    }
+
+    private fun onDismissDialogClick() {
+        val currentState = _uiState.value
+        if (currentState is BusHomeState.FavoriteStops) {
+            _uiState.value = BusHomeState.FavoriteStops(currentState.stops)
+        }
+    }
+
+    private fun onFavoriteStopClick(stop: BusStop) {
+        val currentState = _uiState.value
+        if (currentState is BusHomeState.FavoriteStops) {
+
+            vmScope.launch {
+                execute { repository.getStopTimes(stop.line, stop.id) }.fold(
+                    error = { _uiState.value = BusHomeState.Error(it) },
+                    success = {
+                        _uiState.value = currentState.copy(selectedStop = BusStopDetail(stop, it))
+                    }
+                )
+            }
         }
     }
 
@@ -68,12 +93,14 @@ sealed class BusHomeState : ViewState() {
     object InProgress : BusHomeState()
     class Error(val error: AppError) : BusHomeState()
     data class BusLines(val lines: List<BusLineItem>) : BusHomeState()
-    data class FavoriteStops(val stops: List<BusStop>) : BusHomeState()
+    data class FavoriteStops(val stops: List<BusStop>, val selectedStop: BusStopDetail? = null) : BusHomeState()
 }
 
 sealed class BusHomeEvent {
     object Attach : BusHomeEvent()
     object OnBusLinesClick : BusHomeEvent()
     object OnFavoriteStopsClick : BusHomeEvent()
+    data class OnStopClick(val stop: BusStop, val selectedStop: BusStopDetail? = null) : BusHomeEvent()
+    object OnDismissDialogClick : BusHomeEvent()
     data class OnRemoveStopClick(val stop: BusStop) : BusHomeEvent()
 }
