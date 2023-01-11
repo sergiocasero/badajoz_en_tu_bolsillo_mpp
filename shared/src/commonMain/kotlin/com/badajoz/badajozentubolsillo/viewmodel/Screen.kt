@@ -4,25 +4,28 @@ sealed class Screen {
     abstract val route: String
 
     abstract val destinations: List<String>
+
+    open val template: String
+        get() = route
+
     fun checkAccess(destination: Screen): Boolean {
-        println(this.destinations)
-        val result = this.destinations.contains(destination.route)
-        println("Route from $this to $destination is $result")
-        return result
+        val canNavigate = this.destinations.contains(destination.template)
+        println("Can navigate from $route to ${destination.template}? $canNavigate")
+        return canNavigate
     }
 
     object News : Screen() {
         override val route: String = "news"
         override val destinations: List<String> =
             listOf(
-                Calendar.route,
-                Taxes.route,
-                Fmd.route,
-                Bike.route,
-                Bus.route,
-                Minits.route,
-                Pharmacy.route,
-                NewsDetail().route
+                Calendar.template,
+                Taxes.template,
+                Fmd.template,
+                Bike.template,
+                Bus.template,
+                Minits.template,
+                Pharmacy.template,
+                NewsDetail().template
             )
 
         override fun toString(): String = "News"
@@ -32,13 +35,13 @@ sealed class Screen {
         override val route: String = "calendar"
         override val destinations: List<String> =
             listOf(
-                News.route,
-                Taxes.route,
-                Fmd.route,
-                Bike.route,
-                Bus.route,
-                Minits.route,
-                Pharmacy.route
+                News.template,
+                Taxes.template,
+                Fmd.template,
+                Bike.template,
+                Bus.template,
+                Minits.template,
+                Pharmacy.template
             )
 
         override fun toString(): String = "Calendar"
@@ -49,13 +52,13 @@ sealed class Screen {
         override val route: String = "taxes"
         override val destinations: List<String> =
             listOf(
-                News.route,
-                Calendar.route,
-                Fmd.route,
-                Bike.route,
-                Bus.route,
-                Minits.route,
-                Pharmacy.route
+                News.template,
+                Calendar.template,
+                Fmd.template,
+                Bike.template,
+                Bus.template,
+                Minits.template,
+                Pharmacy.template
             )
 
         override fun toString(): String = "Taxes"
@@ -65,13 +68,14 @@ sealed class Screen {
         override val route: String = "fmd"
         override val destinations: List<String> =
             listOf(
-                News.route,
-                Calendar.route,
-                Taxes.route,
-                Bike.route,
-                Bus.route,
-                Minits.route,
-                Pharmacy.route
+                News.template,
+                Calendar.template,
+                Taxes.template,
+                Bike.template,
+                Bus.template,
+                Minits.template,
+                Pharmacy.template,
+                FmdCenterDetail().template
             )
 
         override fun toString(): String = "Fmd"
@@ -81,13 +85,13 @@ sealed class Screen {
         override val route: String = "bike"
         override val destinations: List<String> =
             listOf(
-                News.route,
-                Calendar.route,
-                Taxes.route,
-                Fmd.route,
-                Bus.route,
-                Minits.route,
-                Pharmacy.route
+                News.template,
+                Calendar.template,
+                Taxes.template,
+                Fmd.template,
+                Bus.template,
+                Minits.template,
+                Pharmacy.template
             )
 
         override fun toString(): String = "Bike"
@@ -97,14 +101,14 @@ sealed class Screen {
         override val route: String = "bus"
         override val destinations: List<String> =
             listOf(
-                News.route,
-                Calendar.route,
-                Taxes.route,
-                Fmd.route,
-                Bike.route,
-                Minits.route,
-                Pharmacy.route,
-                BusLineDetail().route
+                News.template,
+                Calendar.template,
+                Taxes.template,
+                Fmd.template,
+                Bike.template,
+                Minits.template,
+                Pharmacy.template,
+                BusLineDetail().template
             )
 
         override fun toString(): String = "Bus"
@@ -114,13 +118,13 @@ sealed class Screen {
         override val route: String = "minits"
         override val destinations: List<String> =
             listOf(
-                News.route,
-                Calendar.route,
-                Taxes.route,
-                Fmd.route,
-                Bike.route,
-                Bus.route,
-                Pharmacy.route
+                News.template,
+                Calendar.template,
+                Taxes.template,
+                Fmd.template,
+                Bike.template,
+                Bus.template,
+                Pharmacy.template
             )
 
         override fun toString(): String = "Minits"
@@ -130,49 +134,50 @@ sealed class Screen {
         override val route: String = "pharmacy"
         override val destinations: List<String> =
             listOf(
-                News.route,
-                Calendar.route,
-                Taxes.route,
-                Fmd.route,
-                Bike.route,
-                Bus.route,
-                Minits.route
+                News.template,
+                Calendar.template,
+                Taxes.template,
+                Fmd.template,
+                Bike.template,
+                Bus.template,
+                Minits.template
             )
 
         override fun toString(): String = "Pharmacy"
     }
 
-    class NewsDetail(id: String = "{id}") : Screen() {
-        override val route: String = "news/$id"
-        override val destinations: List<String> = listOf(ExternalLink().route)
+    class NewsDetail(val link: String = "{link}") : Screen() {
+        override val route: String = "news/$link"
+        override val destinations: List<String> = listOf(News.template, ExternalLink().template)
+        override val template: String = "news/{link}"
         override fun toString(): String = "NewsDetail($route)"
     }
 
     class BusLineDetail(val id: Int = -1) : Screen() {
-        override val route: String
-            get() = if (id == -1) "bus/{id}" else "bus/$id"
-        override val destinations: List<String> = listOf(MapLink().route)
-
+        override val route: String = "bus/$id"
+        override val destinations: List<String> = listOf(Bus.template, MapLink().template)
+        override val template: String = "bus/{id}"
         override fun toString(): String = "BusLineDetail($route)"
     }
 
     class FmdCenterDetail(val id: Int = -1) : Screen() {
-        override val route: String
-            get() = if (id == -1) "fmd/{id}" else "fmd/$id"
-        override val destinations: List<String> = listOf(MapLink().route)
-
+        override val route: String = "fmd/$id"
+        override val destinations: List<String> = listOf(Fmd.template, MapLink().template)
+        override val template: String = "fmd/{id}"
         override fun toString(): String = "FmdCenterDetail($route)"
     }
 
     class ExternalLink(link: String = "") : Screen() {
         override val route: String = "external/$link"
         override val destinations: List<String> = listOf()
+        override val template: String = "external/{link}"
         override fun toString(): String = "ExternalLink($route)"
     }
 
     class MapLink(address: String = "") : Screen() {
         override val route: String = "map/$address"
         override val destinations: List<String> = listOf()
+        override val template: String = "map/{address}"
         override fun toString(): String = "MapLink($route)"
     }
 }

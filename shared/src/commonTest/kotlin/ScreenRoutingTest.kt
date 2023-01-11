@@ -23,7 +23,7 @@ class ScreenRoutingTest {
         Pharmacy
     )
 
-    private val allRoutes = menuRoutes + Screen.NewsDetail() + Screen.BusLineDetail()
+    private val allRoutes = menuRoutes + Screen.NewsDetail() + Screen.BusLineDetail() + Screen.FmdCenterDetail()
 
     @Test
     fun `News menu route could navigate to all other menu routes except itself`() {
@@ -134,4 +134,19 @@ class ScreenRoutingTest {
         assertTrue(from.checkAccess(mapLink))
     }
 
+    @Test
+    fun `Fmd route should be able to navigate to FmdCenterDetail`() {
+        val from = Fmd
+        val to = Screen.FmdCenterDetail()
+
+        assertTrue(from.checkAccess(to))
+    }
+
+    @Test
+    fun `Fmd center ID cannot navigate to any screen`() {
+        val from = Screen.FmdCenterDetail()
+        val to = allRoutes.filter { it !is Screen.FmdCenterDetail }
+
+        assertTrue(to.all { !from.checkAccess(it) })
+    }
 }

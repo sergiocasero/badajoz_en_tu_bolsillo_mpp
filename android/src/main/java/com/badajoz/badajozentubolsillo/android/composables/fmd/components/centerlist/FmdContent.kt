@@ -1,8 +1,9 @@
-package com.badajoz.badajozentubolsillo.android.composables.fmd.components
+package com.badajoz.badajozentubolsillo.android.composables.fmd.components.centerlist
 
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import com.badajoz.badajozentubolsillo.android.composables.fmd.components.LoginView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
 import com.badajoz.badajozentubolsillo.viewmodel.FmdEvent

@@ -1,4 +1,4 @@
-package com.badajoz.badajozentubolsillo.android.composables.fmd.components
+package com.badajoz.badajozentubolsillo.android.composables.fmd.components.centerlist
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

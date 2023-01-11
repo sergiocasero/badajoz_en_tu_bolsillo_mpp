@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.badajoz.badajozentubolsillo.android.composables.bus.BusLineDetailRoute
+import com.badajoz.badajozentubolsillo.android.composables.fmd.FmdCenterDetailRoute
 import com.badajoz.badajozentubolsillo.android.composables.menu.MenuRoute
 import com.badajoz.badajozentubolsillo.android.composables.news.NewsDetailRoute
 import com.badajoz.badajozentubolsillo.viewmodel.MenuState
@@ -25,7 +26,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
     ) {
 
 
-        composable(Screen.News.route) {
+        composable(Screen.News.template) {
             MenuRoute(state = MenuState.News) {
                 if (Screen.News.checkAccess(it)) {
                     navController.navigate(it.route)
@@ -33,7 +34,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             }
         }
 
-        composable(Screen.Calendar.route) {
+        composable(Screen.Calendar.template) {
             MenuRoute(state = MenuState.Calendar) {
                 if (Screen.Calendar.checkAccess(it)) {
                     navController.navigate(it.route)
@@ -41,7 +42,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             }
         }
 
-        composable(Screen.Bus.route) {
+        composable(Screen.Bus.template) {
             MenuRoute(state = MenuState.Bus) {
                 if (Screen.Bus.checkAccess(it)) {
                     navController.navigate(it.route)
@@ -49,7 +50,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             }
         }
 
-        composable(Screen.Bike.route) {
+        composable(Screen.Bike.template) {
             MenuRoute(state = MenuState.Bike) {
                 if (Screen.Bike.checkAccess(it)) {
                     navController.navigate(it.route)
@@ -57,7 +58,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             }
         }
 
-        composable(Screen.Minits.route) {
+        composable(Screen.Minits.template) {
             MenuRoute(state = MenuState.Minits) {
                 if (Screen.Minits.checkAccess(it)) {
                     navController.navigate(it.route)
@@ -65,7 +66,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             }
         }
 
-        composable(Screen.Fmd.route) {
+        composable(Screen.Fmd.template) {
             MenuRoute(state = MenuState.Fmd) {
                 if (Screen.Fmd.checkAccess(it)) {
                     navController.navigate(it.route)
@@ -73,7 +74,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             }
         }
 
-        composable(Screen.Pharmacy.route) {
+        composable(Screen.Pharmacy.template) {
             MenuRoute(state = MenuState.Pharmacy) {
                 if (Screen.Pharmacy.checkAccess(it)) {
                     navController.navigate(it.route)
@@ -81,7 +82,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             }
         }
 
-        composable(Screen.Taxes.route) {
+        composable(Screen.Taxes.template) {
             MenuRoute(state = MenuState.Taxes) {
                 if (Screen.Taxes.checkAccess(it)) {
                     navController.navigate(it.route)
@@ -90,7 +91,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
         }
 
         composable(
-            route = Screen.NewsDetail().route,
+            route = Screen.NewsDetail().template,
             arguments = listOf(navArgument("link") { type = NavType.StringType })
         ) {
             val link = requireNotNull(it.arguments).getString("link")
@@ -105,14 +106,29 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
         }
 
         composable(
-            route = Screen.BusLineDetail().route,
-            arguments = listOf(navArgument("lineId") { type = NavType.IntType })
+            route = Screen.BusLineDetail().template,
+            arguments = listOf(navArgument("id") { type = NavType.IntType })
         ) {
-            val lineId = requireNotNull(it.arguments).getInt("lineId")
+            val lineId = requireNotNull(it.arguments).getInt("id")
             BusLineDetailRoute(
                 lineId = lineId,
                 onNavigate = {
                     if (Screen.BusLineDetail().checkAccess(it)) {
+                        navController.popBackStack()
+                    }
+                }
+            )
+        }
+
+        composable(
+            route = Screen.FmdCenterDetail().template,
+            arguments = listOf(navArgument("id") { type = NavType.IntType })
+        ) {
+            val centerId = requireNotNull(it.arguments).getInt("id")
+            FmdCenterDetailRoute(
+                id = centerId,
+                onNavigate = {
+                    if (Screen.FmdCenterDetail().checkAccess(it)) {
                         navController.popBackStack()
                     }
                 }

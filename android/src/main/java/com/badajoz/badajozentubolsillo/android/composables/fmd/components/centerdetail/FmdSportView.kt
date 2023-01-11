@@ -1,4 +1,4 @@
-package com.badajoz.badajozentubolsillo.android.composables.fmd.components
+package com.badajoz.badajozentubolsillo.android.composables.fmd.components.centerdetail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
