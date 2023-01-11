@@ -6,7 +6,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class BusTimes(
+data class BusStopTimes(
     @SerialName("times")
     val times: List<BusTime>
 ) : Encryptable()

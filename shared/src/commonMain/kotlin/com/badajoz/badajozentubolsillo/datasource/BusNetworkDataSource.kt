@@ -6,7 +6,7 @@ import com.badajoz.badajozentubolsillo.model.category.bus.BusLineDetail
 import com.badajoz.badajozentubolsillo.model.category.bus.BusLineItem
 import com.badajoz.badajozentubolsillo.model.category.bus.BusLines
 import com.badajoz.badajozentubolsillo.model.category.bus.BusTime
-import com.badajoz.badajozentubolsillo.model.category.bus.BusTimes
+import com.badajoz.badajozentubolsillo.model.category.bus.BusStopTimes
 import com.badajoz.badajozentubolsillo.model.response.EncryptedNetworkResponse
 import com.badajoz.badajozentubolsillo.utils.BASE_URL
 import com.badajoz.badajozentubolsillo.utils.BuildType
@@ -44,7 +44,7 @@ class SharedBusNetworkDataSource(private val buildType: BuildType) : BusNetworkD
             buildClientWithAuth(BASE_URL, buildType).use {
                 it.get {
                     url.withPath(Uris.Bus.times(lineId, stopId))
-                }.body<EncryptedNetworkResponse>().result.decrypt<BusTimes>().times
+                }.body<EncryptedNetworkResponse>().result.decrypt<BusStopTimes>().times
             }
         }
 

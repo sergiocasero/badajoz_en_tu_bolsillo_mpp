@@ -73,7 +73,10 @@ fun BusLineDetailView(
             } else {
                 LazyColumn {
                     items(stops) { stop ->
-                        StopItemView(stop = stop) { onEvent(BusLineDetailEvent.OnFavoriteClick(stop)) }
+                        StopItemView(stop = stop,
+                            onClick = { onEvent(BusLineDetailEvent.OnStopClick(stop)) },
+                            onFavoriteClick = { onEvent(BusLineDetailEvent.OnFavoriteClick(stop)) }
+                        )
                     }
                 }
             }

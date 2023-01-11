@@ -19,7 +19,10 @@ fun FavoriteStopsView(stops: List<BusStop>, onItemClick: (BusStop) -> Unit) {
     } else {
         LazyColumn {
             items(stops) { busStop ->
-                StopItemView(stop = busStop) { onItemClick(busStop) }
+                StopItemView(stop = busStop,
+                    onClick = { TODO("Implement onClick") },
+                    onFavoriteClick = { onItemClick(busStop) }
+                )
             }
         }
     }
