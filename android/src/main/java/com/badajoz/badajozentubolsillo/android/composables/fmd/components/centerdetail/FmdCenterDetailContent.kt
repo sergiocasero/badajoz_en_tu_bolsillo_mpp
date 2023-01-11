@@ -35,7 +35,7 @@ fun FmdCenterDetailContent(
             when (state) {
                 is FmdCenterDetailState.InProgress -> LoadingView()
                 is FmdCenterDetailState.Error -> ErrorView(error = state.error) { onEvent(FmdCenterDetailEvent.Attach) }
-                is FmdCenterDetailState.Success -> FmdSportsListView(state.center.sports)
+                is FmdCenterDetailState.Success -> FmdSportsListView(state.center.sports, onNavigate)
             }
         }
     )

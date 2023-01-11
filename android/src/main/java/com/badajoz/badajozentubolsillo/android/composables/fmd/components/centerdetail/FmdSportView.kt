@@ -1,5 +1,6 @@
 package com.badajoz.badajozentubolsillo.android.composables.fmd.components.centerdetail
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -25,13 +26,17 @@ import com.badajoz.badajozentubolsillo.model.category.fmd.FmdSportItem
 
 
 @Composable
-fun FmdSportView(sport: FmdSportItem) {
+fun FmdSportView(
+    sport: FmdSportItem,
+    onClick: () -> Unit
+) {
     Card(
         elevation = defaultCardElevation,
         modifier = Modifier
             .padding(4.dp)
             .width(40.dp)
             .height(120.dp)
+            .clickable { onClick() }
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -64,6 +69,7 @@ fun FmdSportViewPreview() {
             title = "Pádel",
             image = "https://badajoz.sergiocasero.es/static/fmd/padel.png",
             centerId = 0
-        )
+        ),
+        onClick = {}
     )
 }

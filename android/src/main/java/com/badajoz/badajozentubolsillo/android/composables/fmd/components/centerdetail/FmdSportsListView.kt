@@ -10,9 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.badajoz.badajozentubolsillo.model.category.fmd.FmdSportItem
+import com.badajoz.badajozentubolsillo.viewmodel.Destination
+import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable
-fun FmdSportsListView(sports: List<FmdSportItem>) {
+fun FmdSportsListView(
+    sports: List<FmdSportItem>,
+    onNavigate: (Destination) -> Unit
+) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(128.dp),
         modifier = Modifier.fillMaxSize(),
@@ -24,7 +29,7 @@ fun FmdSportsListView(sports: List<FmdSportItem>) {
         ),
         content = {
             items(sports) { sport ->
-                FmdSportView(sport)
+                FmdSportView(sport) { onNavigate(Screen.FmdSportDetail.toDestination(sport.centerId, sport.id)) }
             }
         }
     )
@@ -42,6 +47,7 @@ fun FmdSportsListViewPreview() {
             FmdSportItem(title = "Squash", image = "", centerId = 0, id = 0),
             FmdSportItem(title = "Fútbol 7", image = "", centerId = 0, id = 0),
             FmdSportItem(title = "Tenis", image = "", centerId = 0, id = 0),
-        )
+        ),
+        onNavigate = {}
     )
 }

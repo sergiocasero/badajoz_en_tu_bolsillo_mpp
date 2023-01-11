@@ -2,7 +2,7 @@ package com.badajoz.badajozentubolsillo.datasource
 
 import com.badajoz.badajozentubolsillo.model.AppError
 import com.badajoz.badajozentubolsillo.model.Either
-import io.ktor.client.plugins.ClientRequestException
+import io.ktor.client.plugins.ResponseException
 
 interface NetworkDataSource
 
@@ -14,7 +14,7 @@ internal suspend fun <R> NetworkDataSource.execute(block: suspend () -> R): Eith
     Either.Left(
         when (t) {
             is AppError -> t
-            is ClientRequestException -> {
+            is ResponseException -> {
                 when (t.response.status.value) {
                     404 -> AppError.NotFound
                     500 -> AppError.ServerError

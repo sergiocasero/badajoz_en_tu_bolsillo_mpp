@@ -40,5 +40,7 @@ class SharedFmdRepository(
         local.getUser()
 
     override suspend fun getSportDetail(centerId: Int, sportId: Int): Either<AppError, FmdSportDetail> =
-        network.getSportDetail(centerId, sportId)
+        local.getUser()
+            .ifRight { network.getSportDetail(it.success, centerId, sportId) }
+
 }
