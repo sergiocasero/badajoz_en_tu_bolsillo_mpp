@@ -14,5 +14,6 @@ data class FmdSportDay(
     @SerialName("image")
     val image: String,
     @SerialName("title")
-    val title: String
-): Encryptable()
+    val title: String,
+    val expanded: Boolean = false
+) : Encryptable()

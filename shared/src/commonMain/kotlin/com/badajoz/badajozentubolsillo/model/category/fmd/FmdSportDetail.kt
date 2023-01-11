@@ -8,5 +8,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class FmdSportDetail(
     @SerialName("sport")
-    val sport: List<FmdSportDay>
+    val days: List<FmdSportDay>
 ) : Encryptable()

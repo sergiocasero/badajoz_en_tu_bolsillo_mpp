@@ -26,6 +26,20 @@ class FmdSportDetailViewModel(private val centerId: Int, private val sportId: In
     override fun onEvent(event: FmdSportDetailEvent) {
         when (event) {
             FmdSportDetailEvent.Attach -> attach()
+            is FmdSportDetailEvent.DayClicked -> manageDayClick(event.dayId)
+        }
+    }
+
+    private fun manageDayClick(dayId: Int) {
+        val currentState = _uiState.value
+        if (currentState is FmdSportDetailState.Success) {
+            val days = currentState.sport.days
+            val day = days.find { it.id == dayId }
+            if (day != null) {
+                val newDay = day.copy(expanded = !day.expanded)
+                val newDays = days.map { if (it.id == dayId) newDay else it }
+                _uiState.value = FmdSportDetailState.Success(currentState.sport.copy(days = newDays))
+            }
         }
     }
 }
@@ -39,4 +53,5 @@ sealed class FmdSportDetailState : ViewState() {
 
 sealed class FmdSportDetailEvent {
     object Attach : FmdSportDetailEvent()
+    data class DayClicked(val dayId: Int) : FmdSportDetailEvent()
 }
