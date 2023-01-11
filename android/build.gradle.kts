@@ -56,6 +56,7 @@ dependencies {
         implementation(coil)
         implementation(htmlText)
         implementation(mapbox)
+        implementation(lottie)
     }
 
     with(Dependencies.DI) {

@@ -55,6 +55,7 @@ object Dependencies {
 
         const val coil = "io.coil-kt:coil-compose:2.2.2"
         const val mapbox = "com.mapbox.maps:android:$mapboxVersion"
+        const val lottie = "com.airbnb.android:lottie-compose:5.2.0"
 
         // Coroutines
         const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"

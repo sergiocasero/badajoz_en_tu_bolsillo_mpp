@@ -3,6 +3,7 @@ package com.badajoz.badajozentubolsillo.android.composables.fmd.components.sport
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import com.badajoz.badajozentubolsillo.android.R
 import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
@@ -22,7 +23,7 @@ fun FmdSportDetailContent(
     Scaffold(
         content = {
             when (state) {
-                is FmdSportDetailState.InProgress -> LoadingView()
+                is FmdSportDetailState.InProgress -> LoadingView(animationResource = R.raw.fmd_loading)
                 is FmdSportDetailState.Error -> ErrorView(error = state.error) { onEvent(FmdSportDetailEvent.Attach) }
                 is FmdSportDetailState.Success -> FmdSportDetailSuccess(state.sport)
             }
