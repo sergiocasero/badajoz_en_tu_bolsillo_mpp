@@ -1,10 +1,13 @@
 package com.badajoz.badajozentubolsillo.android.composables.fmd.components.centerdetail
 
 import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
+import com.badajoz.badajozentubolsillo.android.composables.reusable.TopBar
 import com.badajoz.badajozentubolsillo.viewmodel.FmdCenterDetailEvent
 import com.badajoz.badajozentubolsillo.viewmodel.FmdCenterDetailState
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
@@ -20,6 +23,13 @@ fun FmdCenterDetailContent(
     }
 
     Scaffold(
+        topBar = {
+            if (state is FmdCenterDetailState.Success) {
+                TopBar(title = state.center.title, icon = Icons.Default.ArrowBack) {
+                    onNavigate(Screen.Fmd)
+                }
+            }
+        },
         content = {
             when (state) {
                 is FmdCenterDetailState.InProgress -> LoadingView()
