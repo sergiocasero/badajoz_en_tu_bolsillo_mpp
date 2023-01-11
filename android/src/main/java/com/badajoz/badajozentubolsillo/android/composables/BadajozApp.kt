@@ -21,7 +21,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
 
     NavHost(
         navController = navController,
-        startDestination = Screen.News.route
+        startDestination = initialScreen.route
     ) {
 
 

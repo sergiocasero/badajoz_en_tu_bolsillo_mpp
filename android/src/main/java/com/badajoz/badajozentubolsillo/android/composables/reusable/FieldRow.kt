@@ -1,5 +1,6 @@
-package com.badajoz.badajozentubolsillo.android.composables.calendar.components
+package com.badajoz.badajozentubolsillo.android.composables.reusable
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,9 +14,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CalendarFieldRow(label: String, icon: ImageVector) {
+fun FieldRow(label: String, icon: ImageVector, onClick: () -> Unit = {}) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(

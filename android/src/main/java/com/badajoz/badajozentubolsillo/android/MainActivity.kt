@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    BadajozApp(initialScreen = Screen.News)
+                    BadajozApp(initialScreen = Screen.Fmd)
                 }
             }
         }

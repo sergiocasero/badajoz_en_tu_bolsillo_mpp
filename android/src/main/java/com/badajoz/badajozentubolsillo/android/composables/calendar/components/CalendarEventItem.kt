@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.Timer
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.badajoz.badajozentubolsillo.android.composables.reusable.FieldRow
 import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.model.category.calendar.CalendarItem
 
@@ -30,13 +31,13 @@ fun CalendarEventItem(item: CalendarItem) {
                 modifier = Modifier.padding(4.dp)
             )
             if (item.date.isNotBlank()) {
-                CalendarFieldRow(label = item.date, icon = Icons.Default.CalendarToday)
+                FieldRow(label = item.date, icon = Icons.Default.CalendarToday)
             }
             if (item.time.isNotBlank()) {
-                CalendarFieldRow(label = item.time, icon = Icons.Default.Timer)
+                FieldRow(label = item.time, icon = Icons.Default.Timer)
             }
             if (item.location.isNotBlank()) {
-                CalendarFieldRow(label = item.location, icon = Icons.Default.LocationOn)
+                FieldRow(label = item.location, icon = Icons.Default.LocationOn)
             }
         }
     }
