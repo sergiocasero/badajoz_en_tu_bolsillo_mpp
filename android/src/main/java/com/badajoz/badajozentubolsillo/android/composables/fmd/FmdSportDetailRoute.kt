@@ -8,7 +8,6 @@ import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
 import com.badajoz.badajozentubolsillo.viewmodel.FmdSportDetailState
 import com.badajoz.badajozentubolsillo.viewmodel.FmdSportDetailViewModel
-import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable
 fun FmdSportDetailRoute(centerId: Int, sportId: Int, onNavigate: (Destination) -> Unit) {
@@ -21,6 +20,7 @@ fun FmdSportDetailRoute(centerId: Int, sportId: Int, onNavigate: (Destination) -
     }
 
     FmdSportDetailContent(
+        centerId = centerId,
         state = viewModel.stateWithLifecycle().value,
         onEvent = { viewModel.onEvent(it) },
         onNavigate = onNavigate

@@ -11,16 +11,13 @@ sealed class Screen {
 
     fun checkAccess(destination: Destination): Boolean {
         val canNavigate = this.destinations.contains(destination.template)
-
-        // check if the destination contains /
-        // if it does, check if the destination is a child of the current screen
-
         println("Can navigate from $route to ${destination.to}? $canNavigate")
         return canNavigate
     }
 
     object News : Screen() {
-        override val route: String = "news"
+        override val route
+            get() = "news"
         override val destinations: List<String> =
             listOf(
                 Calendar.route,
@@ -37,7 +34,8 @@ sealed class Screen {
     }
 
     object Calendar : Screen() {
-        override val route: String = "calendar"
+        override val route
+            get() = "calendar"
         override val destinations: List<String> =
             listOf(
                 News.route,
@@ -54,7 +52,8 @@ sealed class Screen {
 
 
     object Taxes : Screen() {
-        override val route: String = "taxes"
+        override val route
+            get() = "taxes"
         override val destinations: List<String> =
             listOf(
                 News.route,
@@ -70,7 +69,8 @@ sealed class Screen {
     }
 
     object Fmd : Screen() {
-        override val route: String = "fmd"
+        override val route
+            get() = "fmd"
         override val destinations: List<String> =
             listOf(
                 News.route,
@@ -87,7 +87,8 @@ sealed class Screen {
     }
 
     object Bike : Screen() {
-        override val route: String = "bike"
+        override val route
+            get() = "bike"
         override val destinations: List<String> =
             listOf(
                 News.route,
@@ -103,7 +104,8 @@ sealed class Screen {
     }
 
     object Bus : Screen() {
-        override val route: String = "bus"
+        override val route
+            get() = "bus"
         override val destinations: List<String> =
             listOf(
                 News.route,
@@ -120,7 +122,8 @@ sealed class Screen {
     }
 
     object Minits : Screen() {
-        override val route: String = "minits"
+        override val route
+            get() = "minits"
         override val destinations: List<String> =
             listOf(
                 News.route,
@@ -136,7 +139,8 @@ sealed class Screen {
     }
 
     object Pharmacy : Screen() {
-        override val route: String = "pharmacy"
+        override val route
+            get() = "pharmacy"
         override val destinations: List<String> =
             listOf(
                 News.route,
@@ -152,7 +156,8 @@ sealed class Screen {
     }
 
     object NewsDetail : Screen() {
-        override val route: String = "news/{link}"
+        override val route
+            get() = "news/{link}"
         override val destinations: List<String> = listOf(News.route, ExternalLink.route)
         override fun toDestination(vararg params: Any): Destination =
             Destination(
@@ -170,7 +175,9 @@ sealed class Screen {
 
     object BusLineDetail : Screen() {
         override val destinations: List<String> = listOf(Bus.route, MapLink.route)
-        override val route: String = "bus/{id}"
+        override val route
+            get() = "bus/{id}"
+
         override fun toDestination(vararg params: Any): Destination =
             Destination(
                 route,
@@ -187,11 +194,12 @@ sealed class Screen {
 
     object FmdCenterDetail : Screen() {
         override val destinations: List<String> = listOf(Fmd.route, FmdSportDetail.route, MapLink.route)
-        override val route: String = "fmd/{id}"
+        override val route
+            get() = "fmd/{id}"
 
         override fun toDestination(vararg params: Any): Destination =
             Destination(
-                FmdCenterDetail.route,
+                route,
                 if (params.size == 1) {
                     val id = params[0] as Int
                     "fmd/$id"
@@ -204,8 +212,9 @@ sealed class Screen {
     }
 
     object FmdSportDetail : Screen() {
-        override val destinations: List<String> = listOf(FmdCenterDetail.route, MapLink.route)
-        override val route: String = "fmd/{centerId}/{sportId}"
+        override val destinations: List<String> = listOf(MapLink.route, FmdCenterDetail.route)
+        override val route
+            get() = "fmd/{centerId}/{sportId}"
 
         override fun toDestination(vararg params: Any): Destination =
             Destination(
@@ -224,7 +233,8 @@ sealed class Screen {
 
     object ExternalLink : Screen() {
         override val destinations: List<String> = listOf()
-        override val route: String = "external/{link}"
+        override val route
+            get() = "external/{link}"
 
         override fun toDestination(vararg params: Any): Destination =
             Destination(
@@ -242,7 +252,8 @@ sealed class Screen {
 
     object MapLink : Screen() {
         override val destinations: List<String> = listOf()
-        override val route: String = "map/{address}"
+        override val route
+            get() = "map/{address}"
 
         override fun toDestination(vararg params: Any): Destination =
             Destination(

@@ -1,6 +1,8 @@
 package com.badajoz.badajozentubolsillo.android.composables.fmd.components.sportdetail
 
+import androidx.compose.material.ExtendedFloatingActionButton
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -13,9 +15,11 @@ import com.badajoz.badajozentubolsillo.viewmodel.Destination
 import com.badajoz.badajozentubolsillo.viewmodel.FmdSportDetailEvent
 import com.badajoz.badajozentubolsillo.viewmodel.FmdSportDetailState
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
+import java.net.URLEncoder
 
 @Composable
 fun FmdSportDetailContent(
+    centerId: Int,
     state: FmdSportDetailState,
     onEvent: (FmdSportDetailEvent) -> Unit,
     onNavigate: (Destination) -> Unit
@@ -28,8 +32,19 @@ fun FmdSportDetailContent(
         topBar = {
             if (state is FmdSportDetailState.Success) {
                 TopBar(title = "Horarios disponibles", icon = Icons.Default.ArrowBack) {
-                    onNavigate(Screen.FmdCenterDetail.toDestination()) // TODO("This should navigate back")
+                    onNavigate(Screen.FmdCenterDetail.toDestination(centerId)) // TODO("This should navigate back")
                 }
+            }
+        },
+        floatingActionButton = {
+            if (state is FmdSportDetailState.Success) {
+                ExtendedFloatingActionButton(
+                    text = { Text("Reservar en la FMD") },
+                    onClick = {
+                        onNavigate(
+                            Screen.ExternalLink.toDestination(URLEncoder.encode("https://badajoz.i2a.es", "UTF-8"))
+                        )
+                    })
             }
         },
         content = {

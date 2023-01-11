@@ -1,8 +1,8 @@
 package com.badajoz.badajozentubolsillo.android.composables.reusable
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -20,16 +20,13 @@ fun TopBar(title: String, icon: ImageVector, onNavClick: () -> Unit) {
         },
         // Provide the navigation Icon (Icon on the left to toggle drawer)
         navigationIcon = {
-            Icon(
-                imageVector = icon,
-                contentDescription = "Menu",
-
-                // When clicked trigger onClick
-                // Callback to trigger drawer open
-                modifier = Modifier
-                    .clickable { onNavClick() }
-                    .padding(start = 8.dp)
-            )
+            IconButton(onClick = { onNavClick() }) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = "Menu",
+                    modifier = Modifier.padding(start = 8.dp)
+                )
+            }
         },
         backgroundColor = MaterialTheme.colors.background,
         elevation = 0.dp
