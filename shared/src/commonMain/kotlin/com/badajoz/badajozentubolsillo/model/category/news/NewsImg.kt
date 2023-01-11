@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class NewsImg(
     @SerialName("alt")
-    val alt: String,
+    val alt: String?,
     @SerialName("url")
-    val url: String
+    val url: String?
 ) : Encryptable()
