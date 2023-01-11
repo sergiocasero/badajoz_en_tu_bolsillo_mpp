@@ -9,10 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.badajoz.badajozentubolsillo.model.category.fmd.FmdSport
+import com.badajoz.badajozentubolsillo.model.category.fmd.FmdSportItem
 
 @Composable
-fun FmdSportsListView(sports: List<FmdSport>) {
+fun FmdSportsListView(sports: List<FmdSportItem>) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(128.dp),
         modifier = Modifier.fillMaxSize(),
@@ -35,13 +35,13 @@ fun FmdSportsListView(sports: List<FmdSport>) {
 fun FmdSportsListViewPreview() {
     FmdSportsListView(
         sports = listOf(
-            FmdSport(criteria = "PÁDEL", id = 0, name = "Pádel", image = ""),
-            FmdSport(criteria = "SALA", id = 1, name = "Fútbol sala", image = ""),
-            FmdSport(criteria = "GIMNASIO", id = 2, name = "Gimnasio", image = ""),
-            FmdSport(criteria = "Pisc. CLIM.", id = 3, name = "Piscina climatizada", image = ""),
-            FmdSport(criteria = "SQUASH", id = 4, name = "Squash", image = ""),
-            FmdSport(criteria = "FÚTBOL 7", id = 5, name = "Fútbol 7", image = ""),
-            FmdSport(criteria = "TENIS", id = 6, name = "Tenis", image = "")
+            FmdSportItem(title = "Pádel", image = "", centerId = 0, id = 0),
+            FmdSportItem(title = "Fútbol sala", image = "", centerId = 0, id = 0),
+            FmdSportItem(title = "Gimnasio", image = "", centerId = 0, id = 0),
+            FmdSportItem(title = "Piscina climatizada", image = "", centerId = 0, id = 0),
+            FmdSportItem(title = "Squash", image = "", centerId = 0, id = 0),
+            FmdSportItem(title = "Fútbol 7", image = "", centerId = 0, id = 0),
+            FmdSportItem(title = "Tenis", image = "", centerId = 0, id = 0),
         )
     )
 }

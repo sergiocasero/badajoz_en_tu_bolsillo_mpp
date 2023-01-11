@@ -2,8 +2,11 @@ package com.badajoz.badajozentubolsillo.datasource
 
 import com.badajoz.badajozentubolsillo.model.AppError
 import com.badajoz.badajozentubolsillo.model.Either
-import com.badajoz.badajozentubolsillo.model.category.fmd.FmdSport
-import com.badajoz.badajozentubolsillo.model.category.fmd.FmdSports
+import com.badajoz.badajozentubolsillo.model.category.fmd.FmdCenterDetail
+import com.badajoz.badajozentubolsillo.model.category.fmd.FmdCenterItem
+import com.badajoz.badajozentubolsillo.model.category.fmd.FmdCenters
+import com.badajoz.badajozentubolsillo.model.category.fmd.FmdSportDay
+import com.badajoz.badajozentubolsillo.model.category.fmd.FmdSportDetail
 import com.badajoz.badajozentubolsillo.model.response.EncryptedNetworkResponse
 import com.badajoz.badajozentubolsillo.utils.BASE_URL
 import com.badajoz.badajozentubolsillo.utils.BuildType
@@ -14,15 +17,33 @@ import io.ktor.client.request.get
 import io.ktor.utils.io.core.use
 
 interface FmdNetworkDataSource : NetworkDataSource {
-    suspend fun getSports(): Either<AppError, List<FmdSport>>
+    suspend fun getCenters(): Either<AppError, List<FmdCenterItem>>
+    suspend fun getCenterDetail(centerId: Int): Either<AppError, FmdCenterDetail>
+    suspend fun getSportDetail(centerId: Int, sportId: Int): Either<AppError, FmdSportDetail>
 }
 
 class SharedFmdNetworkDataSource(private val buildType: BuildType) : FmdNetworkDataSource {
-    override suspend fun getSports(): Either<AppError, List<FmdSport>> = execute {
+    override suspend fun getCenterDetail(centerId: Int): Either<AppError, FmdCenterDetail> = execute {
         buildClientWithAuth(BASE_URL, buildType).use {
             it.get {
-                url.withPath(Uris.Fmd.Sports)
-            }.body<EncryptedNetworkResponse>().result.decrypt<FmdSports>().sports
+                url.withPath(Uris.Fmd.centerDetail(centerId))
+            }.body<EncryptedNetworkResponse>().result.decrypt()
+        }
+    }
+
+    override suspend fun getCenters(): Either<AppError, List<FmdCenterItem>> = execute {
+        buildClientWithAuth(BASE_URL, buildType).use {
+            it.get {
+                url.withPath(Uris.Fmd.Centers)
+            }.body<EncryptedNetworkResponse>().result.decrypt<FmdCenters>().centers
+        }
+    }
+
+    override suspend fun getSportDetail(centerId: Int, sportId: Int): Either<AppError, FmdSportDetail> = execute {
+        buildClientWithAuth(BASE_URL, buildType).use {
+            it.get {
+                url.withPath(Uris.Fmd.sportDetail(centerId, sportId))
+            }.body<EncryptedNetworkResponse>().result.decrypt<FmdSportDetail>()
         }
     }
 }

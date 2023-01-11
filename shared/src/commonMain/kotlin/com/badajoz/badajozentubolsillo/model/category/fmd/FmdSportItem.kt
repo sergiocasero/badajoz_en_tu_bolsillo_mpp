@@ -6,9 +6,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class FmdDay(
-    @SerialName("data")
-    val `data`: List<com.badajoz.badajozentubolsillo.model.category.fmd.FmdSlot>,
+data class FmdSportItem(
+    @SerialName("centerId")
+    val centerId: Int,
     @SerialName("id")
     val id: Int,
     @SerialName("image")

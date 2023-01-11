@@ -6,13 +6,15 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class FmdSport(
-    @SerialName("criteria")
-    val criteria: String,
+data class FmdCenterItem(
     @SerialName("id")
     val id: Int,
-    @SerialName("name")
-    val name: String,
     @SerialName("image")
-    val image: String
-) : Encryptable()
+    val image: String,
+    @SerialName("location")
+    val location: String,
+    @SerialName("phone")
+    val phone: String,
+    @SerialName("title")
+    val title: String
+): Encryptable()

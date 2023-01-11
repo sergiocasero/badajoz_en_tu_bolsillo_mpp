@@ -156,6 +156,14 @@ sealed class Screen {
         override fun toString(): String = "BusLineDetail($route)"
     }
 
+    class FmdCenterDetail(val id: Int = -1) : Screen() {
+        override val route: String
+            get() = if (id == -1) "fmd/{id}" else "fmd/$id"
+        override val destinations: List<String> = listOf(MapLink().route)
+
+        override fun toString(): String = "FmdCenterDetail($route)"
+    }
+
     class ExternalLink(link: String = "") : Screen() {
         override val route: String = "external/$link"
         override val destinations: List<String> = listOf()

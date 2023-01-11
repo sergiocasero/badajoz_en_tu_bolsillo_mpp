@@ -2,7 +2,7 @@ package com.badajoz.badajozentubolsillo.viewmodel
 
 
 import com.badajoz.badajozentubolsillo.model.AppError
-import com.badajoz.badajozentubolsillo.model.category.fmd.FmdSport
+import com.badajoz.badajozentubolsillo.model.category.fmd.FmdCenterItem
 import com.badajoz.badajozentubolsillo.model.category.fmd.FmdUser
 import com.badajoz.badajozentubolsillo.repository.FmdRepository
 import kotlinx.coroutines.launch
@@ -35,9 +35,9 @@ class FmdViewModel(initialState: FmdState) :
 
     private fun showSports() {
         vmScope.launch {
-            execute { repository.getSports() }.fold(
+            execute { repository.getCenters() }.fold(
                 error = { _uiState.value = FmdState.Error(it) },
-                success = { _uiState.value = FmdState.SportList(it) }
+                success = { _uiState.value = FmdState.CenterList(it) }
             )
         }
     }
@@ -55,7 +55,7 @@ class FmdViewModel(initialState: FmdState) :
 sealed class FmdState : ViewState() {
     object InProgress : FmdState()
     class Error(val error: AppError) : FmdState()
-    data class SportList(val sports: List<FmdSport>) : FmdState()
+    data class CenterList(val centers: List<FmdCenterItem>) : FmdState()
     object NotLoggedIn : FmdState()
 
 }

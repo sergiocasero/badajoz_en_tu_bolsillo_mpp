@@ -19,7 +19,8 @@ object Uris {
     const val Pharmacy = "/api/pharmacy"
 
     object Fmd {
-        const val Sports = "/api/fmd/sports"
-        fun availability(sportId: Int) = "/api/fmd/sports/$sportId"
+        const val Centers = "/api/fmd/centers"
+        fun centerDetail(centerId: Int) = "/api/fmd/centers/$centerId"
+        fun sportDetail(centerId: Int, sportId: Int) = "/api/fmd/centers/$centerId/sports/$sportId"
     }
 }

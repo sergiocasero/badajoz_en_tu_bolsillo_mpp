@@ -7,14 +7,16 @@ import com.badajoz.badajozentubolsillo.android.composables.fmd.components.FmdCon
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.viewmodel.FmdState
 import com.badajoz.badajozentubolsillo.viewmodel.FmdViewModel
+import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable
-fun FmdRoute() {
+fun FmdRoute(onNavigate: (Screen) -> Unit) {
     val viewModel = remember { FmdViewModel(initialState = FmdState.InProgress) }
 
     FmdContent(
         state = viewModel.stateWithLifecycle().value,
-        onEvent = { viewModel.onEvent(it) }
+        onEvent = { viewModel.onEvent(it) },
+        onNavigate = onNavigate,
     )
 }
 

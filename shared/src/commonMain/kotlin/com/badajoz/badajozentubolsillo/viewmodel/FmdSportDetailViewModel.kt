@@ -6,7 +6,7 @@ import com.badajoz.badajozentubolsillo.repository.FmdRepository
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
-class FmdSportDetailViewModel(private val sportId: Int, initialState: FmdSportDetailState) :
+class FmdSportDetailViewModel(private val centerId: Int, private val sportId: Int, initialState: FmdSportDetailState) :
     RootViewModel<FmdSportDetailState, FmdSportDetailEvent>(initialState) {
 
     private val repository: FmdRepository by inject()
@@ -15,7 +15,7 @@ class FmdSportDetailViewModel(private val sportId: Int, initialState: FmdSportDe
         vmScope.launch {
             _uiState.value = FmdSportDetailState.InProgress
 
-            execute { repository.getSportDetail(sportId) }.fold(
+            execute { repository.getSportDetail(centerId, sportId) }.fold(
                 error = { println("Error: ") },
                 success = { println("Success: ") }
             )

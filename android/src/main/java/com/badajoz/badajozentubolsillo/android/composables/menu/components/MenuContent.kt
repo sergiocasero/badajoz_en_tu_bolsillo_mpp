@@ -116,7 +116,7 @@ fun MenuContent(
             MenuState.Bike -> BikeRoute { onNavigate(it) }
             MenuState.Bus -> BusHomeRoute { onNavigate(it) }
             MenuState.Calendar -> CalendarRoute()
-            MenuState.Fmd -> FmdRoute()
+            MenuState.Fmd -> FmdRoute { onNavigate(it) }
             MenuState.Minits -> EmptyView(message = "NotImplementedYet", icon = Icons.Default.ThumbDown)
             MenuState.Pharmacy -> PharmacyRoute { onNavigate(it) }
             MenuState.Taxes -> TaxesRoute { onNavigate(it) }

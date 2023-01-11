@@ -13,4 +13,4 @@ data class FmdSlot(
     val court: String,
     @SerialName("hour")
     val hour: String
-) : Encryptable()
+): Encryptable()
