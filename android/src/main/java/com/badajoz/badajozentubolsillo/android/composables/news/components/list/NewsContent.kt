@@ -12,6 +12,7 @@ import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
 import com.badajoz.badajozentubolsillo.model.category.news.News
 import com.badajoz.badajozentubolsillo.utils.MaterialColor
+import com.badajoz.badajozentubolsillo.viewmodel.Destination
 import com.badajoz.badajozentubolsillo.viewmodel.HomeState
 import com.badajoz.badajozentubolsillo.viewmodel.NewsEvent
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
@@ -20,7 +21,7 @@ import com.badajoz.badajozentubolsillo.viewmodel.Screen
 fun NewsContent(
     state: HomeState,
     onEvent: (NewsEvent) -> Unit,
-    onNavigate: (Screen) -> Unit
+    onNavigate: (Destination) -> Unit
 ) {
     LaunchedEffect(Unit) {
         onEvent(NewsEvent.Attach)

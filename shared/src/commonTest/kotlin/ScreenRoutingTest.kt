@@ -23,21 +23,21 @@ class ScreenRoutingTest {
         Pharmacy
     )
 
-    private val allRoutes = menuRoutes + Screen.NewsDetail() + Screen.BusLineDetail() + Screen.FmdCenterDetail()
+    private val allRoutes = menuRoutes + Screen.NewsDetail + Screen.BusLineDetail + Screen.FmdCenterDetail
 
     @Test
     fun `News menu route could navigate to all other menu routes except itself`() {
         val from = News
         val to = menuRoutes.filter { it != from }
 
-        assertTrue(to.all { from.checkAccess(it) })
+        assertTrue(to.all { from.checkAccess(it.toDestination()) })
     }
 
     @Test
     fun `Calendar menu route could navigate to all other menu routes except itself`() {
         val from = Calendar
         val to = menuRoutes.filter { it != from }
-        assertTrue(to.all { from.checkAccess(it) })
+        assertTrue(to.all { from.checkAccess(it.toDestination()) })
     }
 
     @Test
@@ -45,7 +45,7 @@ class ScreenRoutingTest {
         val from = Taxes
         val to = menuRoutes.filter { it != from }
 
-        assertTrue(to.all { from.checkAccess(it) })
+        assertTrue(to.all { from.checkAccess(it.toDestination()) })
     }
 
     @Test
@@ -53,7 +53,7 @@ class ScreenRoutingTest {
         val from = Fmd
         val to = menuRoutes.filter { it != from }
 
-        assertTrue(to.all { from.checkAccess(it) })
+        assertTrue(to.all { from.checkAccess(it.toDestination()) })
     }
 
     @Test
@@ -61,7 +61,7 @@ class ScreenRoutingTest {
         val from = Bike
         val to = menuRoutes.filter { it != from }
 
-        assertTrue(to.all { from.checkAccess(it) })
+        assertTrue(to.all { from.checkAccess(it.toDestination()) })
     }
 
     @Test
@@ -69,7 +69,7 @@ class ScreenRoutingTest {
         val from = Bus
         val to = menuRoutes.filter { it != from }
 
-        assertTrue(to.all { from.checkAccess(it) })
+        assertTrue(to.all { from.checkAccess(it.toDestination()) })
     }
 
     @Test
@@ -77,7 +77,7 @@ class ScreenRoutingTest {
         val from = Minits
         val to = menuRoutes.filter { it != from }
 
-        assertTrue(to.all { from.checkAccess(it) })
+        assertTrue(to.all { from.checkAccess(it.toDestination()) })
     }
 
     @Test
@@ -85,68 +85,68 @@ class ScreenRoutingTest {
         val from = Pharmacy
         val to = menuRoutes.filter { it != from }
 
-        assertTrue(to.all { from.checkAccess(it) })
+        assertTrue(to.all { from.checkAccess(it.toDestination()) })
     }
 
     @Test
     fun `Only News menu route can navigate to News Detail`() {
         val from = News
-        val to = Screen.NewsDetail()
+        val to = Screen.NewsDetail
 
-        assertTrue(from.checkAccess(to))
+        assertTrue(from.checkAccess(to.toDestination()))
 
         val otherRoutes = allRoutes.filter { it != from }
 
-        assertTrue(otherRoutes.all { !it.checkAccess(to) })
+        assertTrue(otherRoutes.all { !it.checkAccess(to.toDestination()) })
     }
 
     @Test
     fun `Only Bus menu route can navigate to Bus Line Detail`() {
         val from = Bus
-        val to = Screen.BusLineDetail()
+        val to = Screen.BusLineDetail
 
-        assertTrue(from.checkAccess(to))
+        assertTrue(from.checkAccess(to.toDestination()))
 
         val otherRoutes = allRoutes.filter { it != from }
 
-        assertTrue(otherRoutes.all { !it.checkAccess(to) })
+        assertTrue(otherRoutes.all { !it.checkAccess(to.toDestination()) })
     }
 
     @Test
-    fun `NewsDetail cannot navigate to any screen except ExternalLink`() {
-        val from = Screen.NewsDetail()
-        val to = allRoutes.filter { it !is Screen.ExternalLink }
+    fun `NewsDetail cannot navigate to any screen except ExternalLink and back to news`() {
+        val from = Screen.NewsDetail
+        val to = allRoutes.filter { it !is Screen.ExternalLink && it !is News }
 
-        assertTrue(to.all { !from.checkAccess(it) })
+        assertTrue(to.all { !from.checkAccess(it.toDestination()) })
 
-        val externalLink = Screen.ExternalLink()
-        assertTrue(from.checkAccess(externalLink))
+        val externalLink = Screen.ExternalLink
+        assertTrue(from.checkAccess(externalLink.toDestination()))
     }
 
     @Test
-    fun `BusLineDetail cannot navigate to any screen Except MapLink`() {
-        val from = Screen.BusLineDetail()
-        val to = allRoutes.filter { it !is Screen.MapLink }
+    fun `BusLineDetail cannot navigate to any screen Except MapLink or Bus`() {
+        val from = Screen.BusLineDetail
+        val to = allRoutes.filter { it !is Screen.MapLink && it !is Bus }
 
-        assertTrue(to.all { !from.checkAccess(it) })
+        assertTrue(to.all { !from.checkAccess(it.toDestination()) })
 
-        val mapLink = Screen.MapLink()
-        assertTrue(from.checkAccess(mapLink))
+        val mapLink = Screen.MapLink
+        assertTrue(from.checkAccess(mapLink.toDestination()))
     }
 
     @Test
     fun `Fmd route should be able to navigate to FmdCenterDetail`() {
         val from = Fmd
-        val to = Screen.FmdCenterDetail()
+        val to = Screen.FmdCenterDetail
 
-        assertTrue(from.checkAccess(to))
+        assertTrue(from.checkAccess(to.toDestination()))
     }
 
     @Test
-    fun `Fmd center ID cannot navigate to any screen`() {
-        val from = Screen.FmdCenterDetail()
-        val to = allRoutes.filter { it !is Screen.FmdCenterDetail }
+    fun `Fmd center ID cannot navigate to any screen except FmdSportCenterDetail or Fmd`() {
+        val from = Screen.FmdCenterDetail
+        val to = allRoutes.filter { it !is Screen.FmdCenterDetail && it !is Fmd }
 
-        assertTrue(to.all { !from.checkAccess(it) })
+        assertTrue(to.all { !from.checkAccess(it.toDestination()) })
     }
 }

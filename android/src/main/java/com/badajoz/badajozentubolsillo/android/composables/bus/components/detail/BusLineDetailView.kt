@@ -25,6 +25,7 @@ import com.badajoz.badajozentubolsillo.android.composables.reusable.TopBar
 import com.badajoz.badajozentubolsillo.android.utils.staticUrl
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
 import com.badajoz.badajozentubolsillo.viewmodel.BusLineDetailEvent
+import com.badajoz.badajozentubolsillo.viewmodel.Destination
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable
@@ -34,12 +35,12 @@ fun BusLineDetailView(
     bigImage: Boolean,
     stops: List<BusStop>,
     onEvent: (BusLineDetailEvent) -> Unit,
-    onNavigate: (Screen) -> Unit
+    onNavigate: (Destination) -> Unit
 ) {
     Scaffold(
         topBar = {
             TopBar(title = title, icon = Icons.Default.ArrowBack) {
-                onNavigate(Screen.Bus)
+                onNavigate(Screen.Bus.toDestination())
             }
         },
         floatingActionButton = {

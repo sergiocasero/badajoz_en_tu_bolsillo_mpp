@@ -12,6 +12,7 @@ import com.badajoz.badajozentubolsillo.android.composables.reusable.TopBar
 import com.badajoz.badajozentubolsillo.model.category.news.NewsDetail
 import com.badajoz.badajozentubolsillo.model.category.news.NewsDownload
 import com.badajoz.badajozentubolsillo.model.category.news.NewsImg
+import com.badajoz.badajozentubolsillo.viewmodel.Destination
 import com.badajoz.badajozentubolsillo.viewmodel.NewsDetailEvent
 import com.badajoz.badajozentubolsillo.viewmodel.NewsDetailState
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
@@ -20,7 +21,7 @@ import com.badajoz.badajozentubolsillo.viewmodel.Screen
 fun NewsDetailContent(
     state: NewsDetailState,
     onEvent: (NewsDetailEvent) -> Unit,
-    onNavigate: (Screen) -> Unit
+    onNavigate: (Destination) -> Unit
 ) {
     LaunchedEffect(Unit) {
         onEvent(NewsDetailEvent.Attach)
@@ -29,7 +30,7 @@ fun NewsDetailContent(
     Scaffold(topBar = {
         if (state is NewsDetailState.Success) {
             TopBar(title = state.newsDetail.title, icon = Icons.Default.ArrowBack, onNavClick = {
-                onNavigate(Screen.News)
+                onNavigate(Screen.News.toDestination())
             })
         }
     },

@@ -6,12 +6,13 @@ import androidx.compose.runtime.LaunchedEffect
 import com.badajoz.badajozentubolsillo.android.composables.fmd.components.LoginView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
+import com.badajoz.badajozentubolsillo.viewmodel.Destination
 import com.badajoz.badajozentubolsillo.viewmodel.FmdEvent
 import com.badajoz.badajozentubolsillo.viewmodel.FmdState
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable
-fun FmdContent(state: FmdState, onEvent: (FmdEvent) -> Unit, onNavigate: (Screen) -> Unit) {
+fun FmdContent(state: FmdState, onEvent: (FmdEvent) -> Unit, onNavigate: (Destination) -> Unit) {
     LaunchedEffect(Unit) {
         onEvent(FmdEvent.Attach)
     }

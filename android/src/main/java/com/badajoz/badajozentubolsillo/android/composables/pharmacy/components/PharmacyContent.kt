@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
+import com.badajoz.badajozentubolsillo.viewmodel.Destination
 import com.badajoz.badajozentubolsillo.viewmodel.PharmacyEvent
 import com.badajoz.badajozentubolsillo.viewmodel.PharmacyState
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
@@ -13,7 +14,7 @@ import com.badajoz.badajozentubolsillo.viewmodel.Screen
 fun PharmacyContent(
     state: PharmacyState,
     onEvent: (PharmacyEvent) -> Unit,
-    onNavigate: (Screen) -> Unit
+    onNavigate: (Destination) -> Unit
 ) {
     LaunchedEffect(Unit) {
         onEvent(PharmacyEvent.Attach)
@@ -25,7 +26,7 @@ fun PharmacyContent(
                 is PharmacyState.InProgress -> LoadingView()
                 is PharmacyState.Error -> ErrorView(error = state.error) { onEvent(PharmacyEvent.Attach) }
                 is PharmacyState.Success -> PharmacySuccessView(state.pharmacy) {
-                    onNavigate(Screen.MapLink(it.address))
+                    onNavigate(Screen.MapLink.toDestination(it.address))
                 }
             }
         }

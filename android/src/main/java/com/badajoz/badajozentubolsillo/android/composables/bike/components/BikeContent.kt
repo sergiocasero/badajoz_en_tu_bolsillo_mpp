@@ -20,10 +20,11 @@ import com.badajoz.badajozentubolsillo.android.composables.reusable.MapWithMarke
 import com.badajoz.badajozentubolsillo.viewmodel.BikeEvent
 import com.badajoz.badajozentubolsillo.viewmodel.BikeState
 import com.badajoz.badajozentubolsillo.viewmodel.BikeViewType
+import com.badajoz.badajozentubolsillo.viewmodel.Destination
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable
-fun BikeContent(state: BikeState, onEvent: (BikeEvent) -> Unit, onNavigate: (Screen) -> Unit = {}) {
+fun BikeContent(state: BikeState, onEvent: (BikeEvent) -> Unit, onNavigate: (Destination) -> Unit = {}) {
     LaunchedEffect(Unit) {
         onEvent(BikeEvent.Attach)
     }
@@ -58,7 +59,7 @@ fun BikeContent(state: BikeState, onEvent: (BikeEvent) -> Unit, onNavigate: (Scr
                 is BikeState.Error -> ErrorView(error = state.error) { onEvent(BikeEvent.Attach) }
                 is BikeState.Success -> when (state.view) {
                     BikeViewType.List -> BikeList(state.bikeStations) {
-                        onNavigate(Screen.MapLink("${it.lat},${it.lng}"))
+                        onNavigate(Screen.MapLink.toDestination("${it.lat},${it.lng}"))
                     }
 
                     BikeViewType.Map -> MapWithMarkers(

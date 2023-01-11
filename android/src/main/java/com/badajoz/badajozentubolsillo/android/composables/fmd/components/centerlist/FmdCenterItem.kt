@@ -24,12 +24,13 @@ import com.badajoz.badajozentubolsillo.android.composables.reusable.FieldRow
 import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.android.utils.staticUrl
 import com.badajoz.badajozentubolsillo.model.category.fmd.FmdCenterItem
+import com.badajoz.badajozentubolsillo.viewmodel.Destination
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable
 fun FmdCenterItemView(
     center: FmdCenterItem,
-    onNavigate: (Screen) -> Unit
+    onNavigate: (Destination) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -55,17 +56,17 @@ fun FmdCenterItemView(
             Spacer(modifier = Modifier.weight(1f))
             if (center.location.isNotBlank()) {
                 FieldRow(label = center.location, icon = Icons.Default.Place) {
-                    onNavigate(Screen.MapLink(center.location))
+                    onNavigate(Screen.MapLink.toDestination(center.location))
                 }
             }
             FieldRow(label = center.phone, icon = Icons.Default.Phone) {
-                onNavigate(Screen.ExternalLink(center.phone))
+                onNavigate(Screen.ExternalLink.toDestination(center.phone))
             }
             Button(
                 modifier = Modifier
                     .padding(4.dp)
                     .align(Alignment.End),
-                onClick = { onNavigate(Screen.FmdCenterDetail(center.id)) }) {
+                onClick = { onNavigate(Screen.FmdCenterDetail.toDestination(center.id)) }) {
                 Text(text = "Ver deportes")
             }
         }

@@ -1,4 +1,4 @@
-package com.badajoz.badajozentubolsillo.android.composables.bus.components
+package com.badajoz.badajozentubolsillo.android.composables.bus.components.home
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,19 +15,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.badajoz.badajozentubolsillo.android.composables.bus.components.home.FavoriteStopsView
+import com.badajoz.badajozentubolsillo.android.composables.bus.components.BusLinesView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
 import com.badajoz.badajozentubolsillo.model.category.bus.BusLineItem
 import com.badajoz.badajozentubolsillo.viewmodel.BusHomeEvent
 import com.badajoz.badajozentubolsillo.viewmodel.BusHomeState
+import com.badajoz.badajozentubolsillo.viewmodel.Destination
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable
 fun BusHomeContent(
     state: BusHomeState,
     onEvent: (BusHomeEvent) -> Unit,
-    onNavigate: (Screen) -> Unit
+    onNavigate: (Destination) -> Unit
 ) {
     LaunchedEffect(Unit) {
         onEvent(BusHomeEvent.Attach)
@@ -65,7 +66,7 @@ fun BusHomeContent(
             when (state) {
                 is BusHomeState.InProgress -> LoadingView()
                 is BusHomeState.BusLines -> BusLinesView(state.lines) {
-                    onNavigate(Screen.BusLineDetail(it.id))
+                    onNavigate(Screen.BusLineDetail.toDestination(it.id))
                 }
 
                 is BusHomeState.FavoriteStops -> FavoriteStopsView(state.stops) {

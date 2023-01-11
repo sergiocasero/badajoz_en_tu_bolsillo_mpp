@@ -2,6 +2,7 @@ package com.badajoz.badajozentubolsillo.viewmodel
 
 
 import com.badajoz.badajozentubolsillo.model.AppError
+import com.badajoz.badajozentubolsillo.model.category.fmd.FmdSportDetail
 import com.badajoz.badajozentubolsillo.repository.FmdRepository
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
@@ -16,8 +17,8 @@ class FmdSportDetailViewModel(private val centerId: Int, private val sportId: In
             _uiState.value = FmdSportDetailState.InProgress
 
             execute { repository.getSportDetail(centerId, sportId) }.fold(
-                error = { println("Error: ") },
-                success = { println("Success: ") }
+                error = { _uiState.value = FmdSportDetailState.Error(it) },
+                success = { _uiState.value = FmdSportDetailState.Success(it) }
             )
         }
     }
@@ -32,7 +33,7 @@ class FmdSportDetailViewModel(private val centerId: Int, private val sportId: In
 sealed class FmdSportDetailState : ViewState() {
     object InProgress : FmdSportDetailState()
     class Error(val error: AppError) : FmdSportDetailState()
-    object Success : FmdSportDetailState()
+    class Success(val sport: FmdSportDetail) : FmdSportDetailState()
 
 }
 
