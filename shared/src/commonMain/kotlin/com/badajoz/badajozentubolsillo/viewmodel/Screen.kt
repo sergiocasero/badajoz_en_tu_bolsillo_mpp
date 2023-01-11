@@ -62,7 +62,8 @@ sealed class Screen {
                 Bike.route,
                 Bus.route,
                 Minits.route,
-                Pharmacy.route
+                Pharmacy.route,
+                ExternalLink.route
             )
 
         override fun toString(): String = "Taxes"
@@ -149,7 +150,8 @@ sealed class Screen {
                 Fmd.route,
                 Bike.route,
                 Bus.route,
-                Minits.route
+                Minits.route,
+                MapLink.route
             )
 
         override fun toString(): String = "Pharmacy"

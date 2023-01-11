@@ -1,6 +1,10 @@
 package com.badajoz.badajozentubolsillo.android.composables
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -14,18 +18,20 @@ import com.badajoz.badajozentubolsillo.android.composables.menu.MenuRoute
 import com.badajoz.badajozentubolsillo.android.composables.news.NewsDetailRoute
 import com.badajoz.badajozentubolsillo.viewmodel.MenuState
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
+import kotlinx.coroutines.launch
 import java.net.URLDecoder
 
 @Composable
 fun BadajozApp(initialScreen: Screen, navController: NavHostController = rememberNavController()) {
 
     // val navigationViewModel = remember { NavigationViewModel(initialScreen) }
+    val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
 
     NavHost(
         navController = navController,
         startDestination = initialScreen.route
     ) {
-
 
         composable(Screen.News.route) {
             MenuRoute(state = MenuState.News) {
@@ -78,7 +84,20 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
         composable(Screen.Pharmacy.route) {
             MenuRoute(state = MenuState.Pharmacy) {
                 if (Screen.Pharmacy.checkAccess(it)) {
-                    navController.navigate(it.to)
+                    when (it.template) {
+                        Screen.MapLink.route -> {
+                            coroutineScope.launch {
+                                // intent to open navigation maps, action should be "google.navigation:q="
+                                // TODO("I don't like this")
+                                val to = Uri.parse("google.navigation:q=${it.to.replace("map/", "")}")
+                                val intent = Intent(Intent.ACTION_VIEW, to)
+                                context.startActivity(intent)
+                                // TODO ("I don't like this")
+                            }
+                        }
+
+                        else -> navController.navigate(it.to)
+                    }
                 }
             }
         }
@@ -86,7 +105,18 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
         composable(Screen.Taxes.route) {
             MenuRoute(state = MenuState.Taxes) {
                 if (Screen.Taxes.checkAccess(it)) {
-                    navController.navigate(it.to)
+                    when (it.template) {
+                        Screen.ExternalLink.route -> {
+                            coroutineScope.launch {
+                                // intent to open external link
+                                // TODO ("I don't like this")
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.to.replace("external/", "")))
+                                context.startActivity(intent)
+                            }
+                        }
+
+                        else -> navController.navigate(it.to)
+                    }
                 }
             }
         }
@@ -130,10 +160,9 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
                 id = centerId,
                 onNavigate = {
                     if (Screen.FmdCenterDetail.checkAccess(it)) {
-                        if (it.to == Screen.Fmd.route) {
-                            navController.popBackStack()
-                        } else {
-                            navController.navigate(it.to)
+                        when (it.template) {
+                            Screen.News.route -> navController.popBackStack()
+                            Screen.FmdSportDetail.route -> navController.navigate(it.to)
                         }
                     }
                 }
