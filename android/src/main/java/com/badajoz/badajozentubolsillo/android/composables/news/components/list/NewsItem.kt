@@ -1,23 +1,20 @@
 package com.badajoz.badajozentubolsillo.android.composables.news.components.list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.badajoz.badajozentubolsillo.android.R
 import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.model.category.news.News
 
@@ -26,7 +23,8 @@ fun NewsItem(news: News, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 8.dp, end = 8.dp, top = 4.dp, bottom = 4.dp),
+            .padding(start = 8.dp, end = 8.dp, top = 4.dp, bottom = 4.dp)
+            .clickable { onClick() },
         elevation = defaultCardElevation
     ) {
         Column(
@@ -67,13 +65,6 @@ fun NewsItem(news: News, onClick: () -> Unit) {
                         overflow = TextOverflow.Ellipsis,
                     )
                 }
-            }
-            Button(
-                onClick = { onClick() },
-                modifier = Modifier.align(Alignment.End),
-                shape = RoundedCornerShape(16.dp)
-            ) {
-                Text(text = stringResource(id = R.string.read_more))
             }
         }
     }

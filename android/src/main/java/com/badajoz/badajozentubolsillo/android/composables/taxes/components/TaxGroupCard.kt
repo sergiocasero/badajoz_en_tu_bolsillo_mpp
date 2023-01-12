@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.model.category.taxes.TaxGroup
 import com.badajoz.badajozentubolsillo.model.category.taxes.TaxLink
 
@@ -19,6 +20,7 @@ fun TaxGroupCard(taxGroup: TaxGroup, onLinkClick: (TaxLink) -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
+        elevation = defaultCardElevation
     ) {
         Column(
             modifier = Modifier.fillMaxWidth()
@@ -29,7 +31,8 @@ fun TaxGroupCard(taxGroup: TaxGroup, onLinkClick: (TaxLink) -> Unit) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colors.primary)
-                    .padding(8.dp)
+                    .padding(8.dp),
+                color = MaterialTheme.colors.onPrimary
             )
 
             TaxTaxLinkList(taxGroup.links) { onLinkClick(it) }
@@ -47,7 +50,7 @@ fun TaxGroupCard(taxGroup: TaxGroup, onLinkClick: (TaxLink) -> Unit) {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .background(MaterialTheme.colors.secondary)
-                                .padding(8.dp)
+                                .padding(8.dp),
                         )
                         TaxTaxLinkList(it.links) { onLinkClick(it) }
                     }

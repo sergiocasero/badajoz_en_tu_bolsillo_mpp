@@ -11,6 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.OpenInNew
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.badajoz.badajozentubolsillo.model.category.taxes.TaxLink
@@ -19,7 +20,9 @@ import com.badajoz.badajozentubolsillo.model.category.taxes.TaxLink
 fun TaxTaxLinkList(links: List<TaxLink>, onLinkClick: (TaxLink) -> Unit) {
     Column {
         links.forEach { link ->
-            Row {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
                 Text(
                     text = link.title,
                     style = MaterialTheme.typography.body1,
