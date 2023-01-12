@@ -26,34 +26,37 @@ import com.mapbox.maps.plugin.annotation.generated.createPointAnnotationManager
 
 @Composable
 fun MapWithMarkers(markers: List<Marker>) {
-    AndroidView(
-        factory = { context ->
-            MapView(context).apply {
-                val map = getMapboxMap()
-                map.loadStyleUri(Style.MAPBOX_STREETS)
-                map.addOnStyleLoadedListener {
-                    val api = annotations
-                    val manager = api.createPointAnnotationManager()
-                    val allCoordinates = markers.map {
-                        val point = Point.fromLngLat(it.longitude, it.latitude)
-                        val options = PointAnnotationOptions()
-                            .withPoint(Point.fromLngLat(it.longitude, it.latitude))
-                            .withIconImage(bitmapFromDrawableRes(context, R.drawable.item_bike_map)!!)
-                            .withTextField(it.title)
-                        // .withIconImage(bitmapFromDrawableRes(context, R.drawable.)!!)
-                        manager.create(options)
-                        point
+
+    val markerBitMaps =
+
+        AndroidView(
+            factory = { context ->
+                MapView(context).apply {
+                    val map = getMapboxMap()
+                    map.loadStyleUri(Style.MAPBOX_STREETS)
+                    map.addOnStyleLoadedListener {
+                        val api = annotations
+                        val allCoordinates = markers.map {
+                            val manager = api.createPointAnnotationManager()
+                            val point = Point.fromLngLat(it.longitude, it.latitude)
+                            val options = PointAnnotationOptions()
+                                .withPoint(Point.fromLngLat(it.longitude, it.latitude))
+                                .withIconImage(bitmapFromDrawableRes(context, R.drawable.item_bike_map)!!)
+                                .withTextField(it.title)
+                            // .withIconImage(bitmapFromDrawableRes(context, R.drawable.)!!)
+                            manager.create(options)
+                            point
+                        }
+
+                        val polygon = Polygon.fromLngLats(listOf(allCoordinates))
+
+                        val position = map.cameraForGeometry(polygon, EdgeInsets(100.0, 100.0, 100.0, 100.0))
+
+                        map.flyTo(position)
                     }
-
-                    val polygon = Polygon.fromLngLats(listOf(allCoordinates))
-
-                    val position = map.cameraForGeometry(polygon, EdgeInsets(100.0, 100.0, 100.0, 100.0))
-
-                    map.flyTo(position)
                 }
             }
-        }
-    )
+        )
 }
 
 @Composable
