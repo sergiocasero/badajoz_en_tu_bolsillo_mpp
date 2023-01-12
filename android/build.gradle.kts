@@ -42,7 +42,7 @@ android {
     }
 
     signingConfigs {
-        getByName("release") {
+        create("release") {
             val tmpFilePath = "keystore/"
             val allFilesFromDir = File(tmpFilePath).listFiles()
 
@@ -52,9 +52,9 @@ android {
             }
 
             storeFile = file("keystore/your_keystore.jks")
-            storePassword = System.getenv("SIGNING_STORE_PASSWORD")
-            keyAlias = System.getenv("SIGNING_KEY_ALIAS")
-            keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
+            storePassword = System.getenv("SIGNING_STORE_PASSWORD") ?: getLocalProperty("SIGNING_STORE_PASSWORD")
+            keyAlias = System.getenv("SIGNING_KEY_ALIAS") ?: getLocalProperty("SIGNING_KEY_ALIAS")
+            keyPassword = System.getenv("SIGNING_KEY_PASSWORD") ?: getLocalProperty("SIGNING_KEY_PASSWORD")
         }
     }
 }

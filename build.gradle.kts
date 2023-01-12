@@ -27,8 +27,12 @@ allprojects {
                 // This should always be `mapbox` (not your username).
                 username = "mapbox"
                 // Use the secret token you stored in gradle.properties as the password
-                val MAPBOX_DOWNLOADS_TOKEN: String by project
-                password = MAPBOX_DOWNLOADS_TOKEN
+                val token: String = if (System.getenv("MAPBOX_DOWNLOADS_TOKEN") != null) {
+                    System.getenv("MAPBOX_DOWNLOADS_TOKEN")
+                } else {
+                    project.properties["MAPBOX_DOWNLOADS_TOKEN"] as String
+                }
+                password = token
             }
             authentication {
                 create<BasicAuthentication>("basic")
