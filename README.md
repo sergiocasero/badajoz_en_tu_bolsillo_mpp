@@ -1,6 +1,6 @@
 ### Important
 
-English speaking? Checkout
+Spanish speaking? Checkout
 the [README-ES.md](https://github.com/sergiocasero/badajoz_en_tu_bolsillo_mpp/blob/main/README_ES.md)
 
 ### Introduction
