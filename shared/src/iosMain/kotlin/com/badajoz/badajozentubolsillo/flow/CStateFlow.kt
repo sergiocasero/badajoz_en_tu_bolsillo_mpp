@@ -1,5 +1,6 @@
 package com.badajoz.badajozentubolsillo.flow
 
+import com.badajoz.flow.CFlow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.StateFlow
 

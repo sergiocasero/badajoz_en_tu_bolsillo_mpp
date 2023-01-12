@@ -161,7 +161,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
                 onNavigate = {
                     if (Screen.FmdCenterDetail.checkAccess(it)) {
                         when (it.template) {
-                            Screen.News.route -> navController.popBackStack()
+                            Screen.Fmd.route -> navController.popBackStack()
                             Screen.FmdSportDetail.route -> navController.navigate(it.to)
                         }
                     }

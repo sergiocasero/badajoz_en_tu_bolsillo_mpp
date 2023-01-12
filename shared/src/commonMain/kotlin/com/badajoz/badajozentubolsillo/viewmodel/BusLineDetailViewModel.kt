@@ -1,7 +1,7 @@
 package com.badajoz.badajozentubolsillo.viewmodel
 
 
-import com.badajoz.badajozentubolsillo.flow.cStateFlow
+import com.badajoz.flow.cStateFlow
 import com.badajoz.badajozentubolsillo.model.AppConfigData
 import com.badajoz.badajozentubolsillo.model.AppError
 import com.badajoz.badajozentubolsillo.model.Either

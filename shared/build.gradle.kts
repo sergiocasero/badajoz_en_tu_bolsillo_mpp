@@ -49,6 +49,7 @@ kotlin {
             dependencies {
                 with(Dependencies.Shared.Android) {
                     implementation(Firebase.remoteConfig)
+                    implementation(Firebase.analytics)
                     implementation(ktorClientCore)
                     api(lifecycleViewModel)
                 }

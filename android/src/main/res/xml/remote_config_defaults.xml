@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<defaults>
+    <entry>
+        <key>BASIC_AUTH_USER</key>
+        <value></value>
+    </entry>
+    <entry>
+        <key>BASIC_AUTH_PASSWORD</key>
+        <value></value>
+    </entry>
+    <entry>
+        <key>ENCRYPTION_KEY</key>
+        <value></value>
+    </entry>
+    <entry>
+        <key>ENCRYPTION_IV</key>
+        <value></value>
+    </entry>
+</defaults>

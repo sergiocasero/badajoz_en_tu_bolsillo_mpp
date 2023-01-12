@@ -10,7 +10,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.flowWithLifecycle
 import coil.request.ImageRequest
-import com.badajoz.badajozentubolsillo.flow.CStateFlow
+import com.badajoz.flow.CStateFlow
 import com.badajoz.badajozentubolsillo.utils.BASE_URL
 import com.badajoz.badajozentubolsillo.viewmodel.RootViewModel
 import com.badajoz.badajozentubolsillo.viewmodel.ViewState

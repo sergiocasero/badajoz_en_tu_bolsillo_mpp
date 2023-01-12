@@ -132,6 +132,7 @@ object Dependencies {
             object Firebase {
                 const val bom = Dependencies.Android.Firebase.bom
                 const val remoteConfig = "com.google.firebase:firebase-config-ktx:21.2.0"
+                const val analytics = "com.google.firebase:firebase-analytics-ktx:21.2.0"
             }
         }
 

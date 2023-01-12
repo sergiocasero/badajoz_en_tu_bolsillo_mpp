@@ -1,5 +1,6 @@
 package com.badajoz.badajozentubolsillo.flow
 
+import com.badajoz.flow.CStateFlow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
