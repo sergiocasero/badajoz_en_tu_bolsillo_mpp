@@ -1,22 +1,24 @@
 ### Important
 
-English speaking? Checkout the [README-ES.md](http://README-EN.md)
+English speaking? Checkout
+the [README-ES.md](https://github.com/sergiocasero/badajoz_en_tu_bolsillo_mpp/blob/main/README_ES.md)
 
 ### Introduction
 
-This project is simply a proof of concept to learn how to use Jetpack Compose in conjunction with Model View View Model, Kotlin cross-platform, and related technologies.
+This project is simply a proof of concept to learn how to use Jetpack Compose in conjunction with Model View View Model,
+Kotlin cross-platform, and related technologies.
 
-### Librerías utilizadas
+### Libs
 
 ##### UI
 
 * Jetpack Compose
-  * Tooling
-  * Preview
-  * Icons
-  * Foundation
-  * Material
-  * Activity
+    * Tooling
+    * Preview
+    * Icons
+    * Foundation
+    * Material
+    * Activity
 * Corrutinas
 * Coil
 * Mapbox
@@ -33,7 +35,8 @@ This project is simply a proof of concept to learn how to use Jetpack Compose in
 
 ### Architecture
 
-The application follows an architecture based on MVVM along with the repository pattern, as additional information, all network calls are encrypted with AES-256-CBC encryption
+The application follows an architecture based on MVVM along with the repository pattern, as additional information, all
+network calls are encrypted with AES-256-CBC encryption
 
 ### Google Play
 

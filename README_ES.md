@@ -1,7 +1,3 @@
-### Important
-
-Spanish speaking? Checkout the [README-ES.md](http://README-EN.md)
-
 ### Introduction
 
 Este proyecto es simplemente una prueba de concepto para aprender a utilizar Jetpack Compose junto con Model View View
