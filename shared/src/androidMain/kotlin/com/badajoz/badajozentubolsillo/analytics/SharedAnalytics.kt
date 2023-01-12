@@ -10,7 +10,7 @@ actual class SharedAnalytics : Analytics {
 
     private val firebaseAnalytics by lazy { Firebase.analytics }
 
-    override fun logEvent(screen: Screen, params: Map<String, Any>?) {
+    override fun logEvent(screen: Screen, params: Map<String, Any?>?) {
         val bundle = Bundle().apply {
             putString(FirebaseAnalytics.Param.SCREEN_NAME, screen.route)
 

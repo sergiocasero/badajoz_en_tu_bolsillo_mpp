@@ -1,4 +1,4 @@
-package com.badajoz.flow
+package com.badajoz.badajozentubolsillo.flow
 
 import kotlinx.coroutines.flow.MutableStateFlow
 

@@ -3,6 +3,7 @@ package com.badajoz.badajozentubolsillo.android.composables
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
@@ -11,6 +12,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.badajoz.badajozentubolsillo.analytics.Analytics
+import com.badajoz.badajozentubolsillo.analytics.SharedAnalytics
 import com.badajoz.badajozentubolsillo.android.composables.bus.BusLineDetailRoute
 import com.badajoz.badajozentubolsillo.android.composables.fmd.FmdCenterDetailRoute
 import com.badajoz.badajozentubolsillo.android.composables.fmd.FmdSportDetailRoute
@@ -27,6 +30,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
     // val navigationViewModel = remember { NavigationViewModel(initialScreen) }
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
+    val analytics = remember<Analytics> { SharedAnalytics() }
 
     NavHost(
         navController = navController,
@@ -34,6 +38,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
     ) {
 
         composable(Screen.News.route) {
+            coroutineScope.launch { analytics.logEvent(Screen.News) }
             MenuRoute(state = MenuState.News) {
                 if (Screen.News.checkAccess(it)) {
                     navController.navigate(it.to)
@@ -42,6 +47,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
         }
 
         composable(Screen.Calendar.route) {
+            coroutineScope.launch { analytics.logEvent(Screen.Calendar) }
             MenuRoute(state = MenuState.Calendar) {
                 if (Screen.Calendar.checkAccess(it)) {
                     navController.navigate(it.to)
@@ -50,6 +56,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
         }
 
         composable(Screen.Bus.route) {
+            coroutineScope.launch { analytics.logEvent(Screen.Bus) }
             MenuRoute(state = MenuState.Bus) {
                 if (Screen.Bus.checkAccess(it)) {
                     navController.navigate(it.to)
@@ -58,6 +65,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
         }
 
         composable(Screen.Bike.route) {
+            coroutineScope.launch { analytics.logEvent(Screen.Bike) }
             MenuRoute(state = MenuState.Bike) {
                 if (Screen.Bike.checkAccess(it)) {
                     navController.navigate(it.to)
@@ -66,6 +74,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
         }
 
         composable(Screen.Minits.route) {
+            coroutineScope.launch { analytics.logEvent(Screen.Minits) }
             MenuRoute(state = MenuState.Minits) {
                 if (Screen.Minits.checkAccess(it)) {
                     navController.navigate(it.to)
@@ -74,6 +83,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
         }
 
         composable(Screen.Fmd.route) {
+            coroutineScope.launch { analytics.logEvent(Screen.Fmd) }
             MenuRoute(state = MenuState.Fmd) {
                 if (Screen.Fmd.checkAccess(it)) {
                     navController.navigate(it.to)
@@ -82,6 +92,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
         }
 
         composable(Screen.Pharmacy.route) {
+            coroutineScope.launch { analytics.logEvent(Screen.Pharmacy) }
             MenuRoute(state = MenuState.Pharmacy) {
                 if (Screen.Pharmacy.checkAccess(it)) {
                     when (it.template) {
@@ -103,6 +114,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
         }
 
         composable(Screen.Taxes.route) {
+            coroutineScope.launch { analytics.logEvent(Screen.Taxes) }
             MenuRoute(state = MenuState.Taxes) {
                 if (Screen.Taxes.checkAccess(it)) {
                     when (it.template) {
@@ -126,6 +138,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             arguments = listOf(navArgument("link") { type = NavType.StringType })
         ) {
             val link = requireNotNull(it.arguments).getString("link")
+            coroutineScope.launch { analytics.logEvent(Screen.NewsDetail, mapOf(Pair("link", link))) }
             NewsDetailRoute(
                 link = URLDecoder.decode(link, "UTF-8"),
                 onNavigate = {
@@ -141,6 +154,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             arguments = listOf(navArgument("id") { type = NavType.IntType })
         ) {
             val lineId = requireNotNull(it.arguments).getInt("id")
+            coroutineScope.launch { analytics.logEvent(Screen.BusLineDetail, mapOf(Pair("id", lineId))) }
             BusLineDetailRoute(
                 lineId = lineId,
                 onNavigate = {
@@ -156,6 +170,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             arguments = listOf(navArgument("id") { type = NavType.IntType })
         ) {
             val centerId = requireNotNull(it.arguments).getInt("id")
+            coroutineScope.launch { analytics.logEvent(Screen.FmdCenterDetail, mapOf(Pair("id", centerId))) }
             FmdCenterDetailRoute(
                 id = centerId,
                 onNavigate = {
@@ -179,6 +194,12 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             val requireNotNull = requireNotNull(it.arguments)
             val centerId = requireNotNull.getInt("centerId")
             val sportId = requireNotNull.getInt("sportId")
+            coroutineScope.launch {
+                analytics.logEvent(
+                    Screen.FmdSportDetail,
+                    mapOf(Pair("centerId", centerId), Pair("sportId", sportId))
+                )
+            }
             FmdSportDetailRoute(centerId = centerId, sportId = sportId) {
                 if (Screen.FmdSportDetail.checkAccess(it)) {
                     navController.popBackStack()

@@ -1,8 +1,8 @@
 package com.badajoz.badajozentubolsillo.viewmodel
 
 import com.badajoz.badajozentubolsillo.datasource.AppConfig
-import com.badajoz.flow.CStateFlow
-import com.badajoz.flow.cStateFlow
+import com.badajoz.badajozentubolsillo.flow.CStateFlow
+import com.badajoz.badajozentubolsillo.flow.cStateFlow
 import com.badajoz.badajozentubolsillo.model.AppError
 import com.badajoz.badajozentubolsillo.model.Either
 import com.badajoz.badajozentubolsillo.utils.Executor

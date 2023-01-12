@@ -5,7 +5,7 @@
 
     <application
         android:name=".App"
-        android:allowBackup="false"
+        android:allowBackup="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
