@@ -9,6 +9,7 @@ buildscript {
             classpath(android)
             classpath(serialization)
             classpath(google)
+            classpath(crashlytics)
         }
 
         classpath(kotlin("gradle-plugin", kotlin_version))

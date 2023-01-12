@@ -23,10 +23,11 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.android.utils.staticUrl
+import com.badajoz.badajozentubolsillo.model.AppConfigData
 import com.badajoz.badajozentubolsillo.model.category.bike.BikeStation
 
 @Composable
-fun BikeList(bikeStations: List<BikeStation>, onBikeClick: (BikeStation) -> Unit) {
+fun BikeList(appConfigData: AppConfigData, bikeStations: List<BikeStation>, onBikeClick: (BikeStation) -> Unit) {
     LazyColumn {
         items(bikeStations) { bikeStation ->
             Card(
@@ -41,7 +42,11 @@ fun BikeList(bikeStations: List<BikeStation>, onBikeClick: (BikeStation) -> Unit
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     AsyncImage(
-                        model = bikeStation.images.first().staticUrl(LocalContext.current),
+                        model = bikeStation.images.first().staticUrl(
+                            user = appConfigData.user,
+                            pass = appConfigData.pass,
+                            context = LocalContext.current
+                        ),
                         modifier = Modifier.width(100.dp),
                         contentDescription = bikeStation.name,
                         contentScale = ContentScale.Crop

@@ -26,31 +26,32 @@ interface FmdNetworkDataSource : NetworkDataSource {
     suspend fun getSportDetail(fmdUser: FmdUser, centerId: Int, sportId: Int): Either<AppError, FmdSportDetail>
 }
 
-class SharedFmdNetworkDataSource(private val buildType: BuildType) : FmdNetworkDataSource {
-    override suspend fun getCenterDetail(centerId: Int): Either<AppError, FmdCenterDetail> = execute {
-        buildClientWithAuth(BASE_URL, buildType).use {
-            it.get {
-                url.withPath(Uris.Fmd.centerDetail(centerId))
-            }.body<EncryptedNetworkResponse>().result.decrypt()
+class SharedFmdNetworkDataSource(private val buildType: BuildType, private val appConfig: AppConfig) :
+    FmdNetworkDataSource {
+    override suspend fun getCenterDetail(centerId: Int): Either<AppError, FmdCenterDetail> =
+        execute(appConfig) { config ->
+            buildClientWithAuth(BASE_URL, config.user, config.pass, buildType).use {
+                it.get {
+                    url.withPath(Uris.Fmd.centerDetail(centerId))
+                }.body<EncryptedNetworkResponse>().result.decrypt(config.key)
+            }
         }
-    }
 
-    override suspend fun getCenters(): Either<AppError, List<FmdCenterItem>> = execute {
-        buildClientWithAuth(BASE_URL, buildType).use {
+    override suspend fun getCenters(): Either<AppError, List<FmdCenterItem>> = execute(appConfig) { config ->
+        buildClientWithAuth(BASE_URL, config.user, config.pass, buildType).use {
             it.get {
                 url.withPath(Uris.Fmd.Centers)
-            }.body<EncryptedNetworkResponse>().result.decrypt<FmdCenters>().centers
+            }.body<EncryptedNetworkResponse>().result.decrypt<FmdCenters>(config.key).centers
         }
     }
 
     override suspend fun getSportDetail(fmdUser: FmdUser, centerId: Int, sportId: Int): Either<AppError,
-            FmdSportDetail> =
-        execute {
-            buildClientWithAuth(BASE_URL, buildType).use {
-                it.post {
-                    url.withPath(Uris.Fmd.sportDetail(centerId, sportId))
-                    setBody(EncryptedNetworkRequest(fmdUser.encrypt()))
-                }.body<EncryptedNetworkResponse>().result.decrypt()
-            }
+            FmdSportDetail> = execute(appConfig) { config ->
+        buildClientWithAuth(BASE_URL, config.user, config.pass, buildType).use {
+            it.post {
+                url.withPath(Uris.Fmd.sportDetail(centerId, sportId))
+                setBody(EncryptedNetworkRequest(fmdUser.encrypt(key = config.key, iv = config.iv)))
+            }.body<EncryptedNetworkResponse>().result.decrypt(config.key)
         }
+    }
 }

@@ -1,5 +1,7 @@
 plugins {
     id("com.android.application")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
     kotlin("android")
 }
 
@@ -57,6 +59,13 @@ dependencies {
         implementation(htmlText)
         implementation(mapbox)
         implementation(lottie)
+    }
+
+    with(Dependencies.Android.Firebase) {
+        implementation(platform(bom))
+        implementation(analytics)
+        implementation(crashlytics)
+        implementation(remoteConfig)
     }
 
     with(Dependencies.DI) {

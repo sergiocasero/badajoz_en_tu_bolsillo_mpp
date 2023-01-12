@@ -17,12 +17,13 @@ interface TaxNetworkDataSource : NetworkDataSource {
     suspend fun getTaxes(): Either<AppError, List<TaxGroup>>
 }
 
-class SharedTaxNetworkDataSource(private val buildType: BuildType) : TaxNetworkDataSource {
-    override suspend fun getTaxes(): Either<AppError, List<TaxGroup>> = execute {
-        buildClientWithAuth(BASE_URL, buildType).use {
+class SharedTaxNetworkDataSource(private val buildType: BuildType, private val appConfig: AppConfig) :
+    TaxNetworkDataSource {
+    override suspend fun getTaxes(): Either<AppError, List<TaxGroup>> = execute(appConfig) { config ->
+        buildClientWithAuth(BASE_URL, config.user, config.pass, buildType).use {
             it.get {
                 url.withPath(Uris.Taxes)
-            }.body<EncryptedNetworkResponse>().result.decrypt<TaxesList>().taxes
+            }.body<EncryptedNetworkResponse>().result.decrypt<TaxesList>(config.key).taxes
         }
     }
 }

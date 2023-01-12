@@ -23,21 +23,22 @@ interface NewsNetworkDataSource : NetworkDataSource {
     suspend fun getNewsDetail(link: String): Either<AppError, NewsDetail>
 }
 
-class SharedNewsNetworkDataSource(private val buildType: BuildType) : NewsNetworkDataSource {
-    override suspend fun getNewsPage(page: Int): Either<AppError, NewsPage> = execute {
-        buildClientWithAuth(BASE_URL, buildType).use {
+class SharedNewsNetworkDataSource(private val buildType: BuildType, private val appConfig: AppConfig) :
+    NewsNetworkDataSource {
+    override suspend fun getNewsPage(page: Int): Either<AppError, NewsPage> = execute(appConfig) { config ->
+        buildClientWithAuth(BASE_URL, config.user, config.pass, buildType).use {
             it.get {
                 url.withPath(Uris.News.page(page))
-            }.body<EncryptedNetworkResponse>().result.decrypt()
+            }.body<EncryptedNetworkResponse>().result.decrypt(config.key)
         }
     }
 
-    override suspend fun getNewsDetail(link: String): Either<AppError, NewsDetail> = execute {
-        buildClientWithAuth(BASE_URL, buildType).use {
+    override suspend fun getNewsDetail(link: String): Either<AppError, NewsDetail> = execute(appConfig) { config ->
+        buildClientWithAuth(BASE_URL, config.user, config.pass, buildType).use {
             it.post {
                 url.withPath(Uris.News.detail)
-                setBody(EncryptedNetworkRequest(NewsDetailRequest(link).encrypt()))
-            }.body<EncryptedNetworkResponse>().result.decrypt()
+                setBody(EncryptedNetworkRequest(NewsDetailRequest(link).encrypt(key = config.key, iv = config.iv)))
+            }.body<EncryptedNetworkResponse>().result.decrypt(config.key)
         }
     }
 

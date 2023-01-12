@@ -3,18 +3,20 @@ package com.badajoz.badajozentubolsillo.android.composables.fmd.components.cente
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import com.badajoz.badajozentubolsillo.model.AppConfigData
 import com.badajoz.badajozentubolsillo.model.category.fmd.FmdCenterItem
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
-import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable
 fun FmdCentersList(
+    appConfigData: AppConfigData,
     centers: List<FmdCenterItem>,
     onNavigate: (Destination) -> Unit
 ) {
     LazyColumn {
         items(centers) { center ->
             FmdCenterItemView(
+                appConfigData,
                 center = center,
                 onNavigate = onNavigate
             )

@@ -9,12 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.badajoz.badajozentubolsillo.model.AppConfigData
 import com.badajoz.badajozentubolsillo.model.category.fmd.FmdSportItem
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable
 fun FmdSportsListView(
+    appConfigData: AppConfigData,
     sports: List<FmdSportItem>,
     onNavigate: (Destination) -> Unit
 ) {
@@ -29,7 +31,14 @@ fun FmdSportsListView(
         ),
         content = {
             items(sports) { sport ->
-                FmdSportView(sport) { onNavigate(Screen.FmdSportDetail.toDestination(sport.centerId, sport.id)) }
+                FmdSportView(appConfigData, sport) {
+                    onNavigate(
+                        Screen.FmdSportDetail.toDestination(
+                            sport.centerId,
+                            sport.id
+                        )
+                    )
+                }
             }
         }
     )
@@ -48,6 +57,7 @@ fun FmdSportsListViewPreview() {
             FmdSportItem(title = "Fútbol 7", image = "", centerId = 0, id = 0),
             FmdSportItem(title = "Tenis", image = "", centerId = 0, id = 0),
         ),
-        onNavigate = {}
+        onNavigate = {},
+        appConfigData = AppConfigData("", "", "", "")
     )
 }

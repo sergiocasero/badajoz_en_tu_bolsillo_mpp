@@ -24,6 +24,7 @@ fun FmdContent(state: FmdState, onEvent: (FmdEvent) -> Unit, onNavigate: (Destin
                 is FmdState.Error -> ErrorView(error = state.error) { onEvent(FmdEvent.Attach) }
                 FmdState.NotLoggedIn -> LoginView(onEvent)
                 is FmdState.CenterList -> FmdCentersList(
+                    appConfigData = state.appConfigData,
                     centers = state.centers,
                     onNavigate = { onNavigate(it) },
                 )

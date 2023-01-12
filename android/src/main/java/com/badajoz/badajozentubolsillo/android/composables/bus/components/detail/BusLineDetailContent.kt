@@ -32,6 +32,7 @@ fun BusLineDetailContent(
                 BusTimesDialog(selectedStop) { onEvent(BusLineDetailEvent.OnDismissDialogClick) }
             }
             BusLineDetailView(
+                appConfigData = state.appConfigData,
                 title = state.title,
                 imageRoute = state.imageRoute,
                 stops = stops,

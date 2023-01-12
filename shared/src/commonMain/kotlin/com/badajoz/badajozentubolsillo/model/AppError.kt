@@ -6,5 +6,6 @@ sealed class AppError : Throwable() {
     object NotFound : AppError()
     object LocalError : AppError()
     object NoInternet : AppError()
+    object AppConfig : AppError()
 
 }

@@ -45,27 +45,27 @@ val sharedModule = module {
 
     single { Settings() }
 
-    single<NewsNetworkDataSource> { SharedNewsNetworkDataSource(buildType = get()) }
+    single<NewsNetworkDataSource> { SharedNewsNetworkDataSource(buildType = get(), appConfig = get()) }
     single<NewsRepository> { SharedNewsRepository(network = get()) }
 
-    single<CalendarNetworkDataSource> { SharedCalendarNetworkDataSource(buildType = get()) }
+    single<CalendarNetworkDataSource> { SharedCalendarNetworkDataSource(buildType = get(), appConfig = get()) }
     single<CalendarRepository> { SharedCalendarRepository(network = get()) }
 
-    single<TaxNetworkDataSource> { SharedTaxNetworkDataSource(buildType = get()) }
+    single<TaxNetworkDataSource> { SharedTaxNetworkDataSource(buildType = get(), appConfig = get()) }
     single<TaxRepository> { SharedTaxRepository(network = get()) }
 
-    single<BikeNetworkDataSource> { SharedBikeNetworkDataSource(buildType = get()) }
+    single<BikeNetworkDataSource> { SharedBikeNetworkDataSource(buildType = get(), appConfig = get()) }
     single<BikeRepository> { SharedBikeRepository(network = get()) }
 
     single<BusLocalDataSource> { SharedBusLocalDataSource(settings = get()) }
-    single<BusNetworkDataSource> { SharedBusNetworkDataSource(buildType = get()) }
+    single<BusNetworkDataSource> { SharedBusNetworkDataSource(buildType = get(), appConfig = get()) }
     single<BusRepository> { SharedBusRepository(local = get(), network = get()) }
 
-    single<PharmacyNetworkDataSource> { SharedPharmacyNetworkDataSource(buildType = get()) }
+    single<PharmacyNetworkDataSource> { SharedPharmacyNetworkDataSource(buildType = get(), appConfig = get()) }
     single<PharmacyRepository> { SharedPharmacyRepository(network = get()) }
 
     single<FmdLocalDataSource> { SharedFmdLocalDataSource(settings = get()) }
-    single<FmdNetworkDataSource> { SharedFmdNetworkDataSource(buildType = get()) }
+    single<FmdNetworkDataSource> { SharedFmdNetworkDataSource(buildType = get(), appConfig = get()) }
     single<FmdRepository> { SharedFmdRepository(local = get(), network = get()) }
 }
 

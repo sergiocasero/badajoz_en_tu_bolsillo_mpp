@@ -12,8 +12,6 @@ import androidx.lifecycle.flowWithLifecycle
 import coil.request.ImageRequest
 import com.badajoz.badajozentubolsillo.flow.CStateFlow
 import com.badajoz.badajozentubolsillo.utils.BASE_URL
-import com.badajoz.badajozentubolsillo.utils.BASIC_AUTH_PASSWORD
-import com.badajoz.badajozentubolsillo.utils.BASIC_AUTH_USER
 import com.badajoz.badajozentubolsillo.viewmodel.RootViewModel
 import com.badajoz.badajozentubolsillo.viewmodel.ViewState
 
@@ -50,17 +48,17 @@ fun <T> CStateFlow<List<T>>.withLifeCycle2(): State<List<T>> {
     return flow.collectAsState(this.value)
 }
 
-fun basicAuth(): String {
+fun basicAuth(user: String, pass: String): String {
     return "Basic " + Base64.encodeToString(
-        "$BASIC_AUTH_USER:$BASIC_AUTH_PASSWORD".toByteArray(),
+        "$user:$pass".toByteArray(),
         Base64.NO_WRAP
     )
 }
 
-fun String.staticUrl(context: Context): ImageRequest {
+fun String.staticUrl(user: String, pass: String, context: Context): ImageRequest {
     return ImageRequest.Builder(context)
         .data("$BASE_URL/$this")
-        .addHeader("Authorization", basicAuth())
+        .addHeader("Authorization", basicAuth(user, pass))
         .crossfade(true)
         .build()
 }

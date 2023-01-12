@@ -22,11 +22,13 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.android.utils.staticUrl
+import com.badajoz.badajozentubolsillo.model.AppConfigData
 import com.badajoz.badajozentubolsillo.model.category.fmd.FmdSportItem
 
 
 @Composable
 fun FmdSportView(
+    appConfigData: AppConfigData,
     sport: FmdSportItem,
     onClick: () -> Unit
 ) {
@@ -44,7 +46,11 @@ fun FmdSportView(
             verticalArrangement = Arrangement.Center
         ) {
             AsyncImage(
-                model = sport.image.staticUrl(LocalContext.current),
+                model = sport.image.staticUrl(
+                    user = appConfigData.user,
+                    pass = appConfigData.pass,
+                    context = LocalContext.current
+                ),
                 contentDescription = sport.title,
                 modifier = Modifier
                     .size(40.dp)
@@ -70,6 +76,7 @@ fun FmdSportViewPreview() {
             image = "https://badajoz.sergiocasero.es/static/fmd/padel.png",
             centerId = 0
         ),
-        onClick = {}
+        onClick = {},
+        appConfigData = AppConfigData("", "", "", "")
     )
 }

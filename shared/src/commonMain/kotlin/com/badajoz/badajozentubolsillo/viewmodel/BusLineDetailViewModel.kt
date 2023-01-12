@@ -2,7 +2,9 @@ package com.badajoz.badajozentubolsillo.viewmodel
 
 
 import com.badajoz.badajozentubolsillo.flow.cStateFlow
+import com.badajoz.badajozentubolsillo.model.AppConfigData
 import com.badajoz.badajozentubolsillo.model.AppError
+import com.badajoz.badajozentubolsillo.model.Either
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStopDetail
 import com.badajoz.badajozentubolsillo.repository.BusRepository
@@ -25,13 +27,20 @@ class BusLineDetailViewModel(private val lineId: Int, initialState: BusLineDetai
         vmScope.launch {
             _uiState.value = BusLineDetailState.InProgress
 
-            execute { repository.getBusLineDetail(lineId) }.fold(
-                error = { println("Error: ") },
-                success = {
-                    _busStopsState.value = it.stops.toMutableList()
-                    _uiState.value = BusLineDetailState.Success(title = it.name, imageRoute = it.image)
-                }
-            )
+            when (val result = appConfig.getAppConfigData()) {
+                is Either.Left -> _uiState.value = BusLineDetailState.Error(result.error)
+                is Either.Right -> execute { repository.getBusLineDetail(lineId) }.fold(
+                    error = { _uiState.value = BusLineDetailState.Error(it) },
+                    success = {
+                        _busStopsState.value = it.stops.toMutableList()
+                        _uiState.value = BusLineDetailState.Success(
+                            appConfigData = result.success,
+                            title = it.name,
+                            imageRoute = it.image
+                        )
+                    }
+                )
+            }
         }
     }
 
@@ -90,6 +99,7 @@ sealed class BusLineDetailState : ViewState() {
     object InProgress : BusLineDetailState()
     class Error(val error: AppError) : BusLineDetailState()
     data class Success(
+        val appConfigData: AppConfigData,
         val title: String,
         val imageRoute: String,
         val selectedStop: BusStopDetail? = null,

@@ -1,3 +1,5 @@
+import Dependencies.Shared.Android.Firebase
+
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
@@ -41,14 +43,12 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                with(Dependencies.Shared.Main) {
-                    implementation(mokk)
-                }
             }
         }
         val androidMain by getting {
             dependencies {
                 with(Dependencies.Shared.Android) {
+                    implementation(Firebase.remoteConfig)
                     implementation(ktorClientCore)
                     api(lifecycleViewModel)
                 }

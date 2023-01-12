@@ -1,5 +1,6 @@
 package com.badajoz.badajozentubolsillo.viewmodel
 
+import com.badajoz.badajozentubolsillo.datasource.AppConfig
 import com.badajoz.badajozentubolsillo.flow.CStateFlow
 import com.badajoz.badajozentubolsillo.flow.cStateFlow
 import com.badajoz.badajozentubolsillo.model.AppError
@@ -16,12 +17,14 @@ import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-abstract class RootViewModel<S, E>(initialState: S) : KoinComponent, PlatformViewModel
-    () {
+abstract class RootViewModel<S, E>(initialState: S)
+    : KoinComponent, PlatformViewModel() {
 
     private val job = SupervisorJob()
 
     private val executor: Executor by inject()
+
+    protected val appConfig: AppConfig by inject()
     protected val vmScope: CoroutineScope get() = CoroutineScope(job + executor.main)
 
     protected val _uiState = MutableStateFlow(initialState)
@@ -38,6 +41,8 @@ abstract class RootViewModel<S, E>(initialState: S) : KoinComponent, PlatformVie
 
     protected suspend fun <T> execute(f: suspend () -> Either<AppError, T>): Either<AppError, T> =
         withContext(executor.bg) { f() }
+
+
 
     fun <T> Flow<T>.observe(onChange: ((T) -> Unit)) {
         onEach {

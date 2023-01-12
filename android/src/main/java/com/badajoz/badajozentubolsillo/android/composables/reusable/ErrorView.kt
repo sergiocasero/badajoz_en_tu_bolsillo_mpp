@@ -4,6 +4,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CloudOff
 import androidx.compose.material.icons.filled.Dangerous
+import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.SyncProblem
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
@@ -17,6 +18,7 @@ fun ErrorView(error: AppError, onRetry: () -> Unit) {
         AppError.Unknown -> "Ha ocurrido un error inesperado"
         AppError.NoInternet -> "No se ha podido conectar con el servidor, comprueba tu conexión a internet"
         AppError.ServerError -> "Ha ocurrido un error en el servidor, inténtalo de nuevo más tarde"
+        AppError.AppConfig -> "Ha ocurrido un error al configurar la aplicación, inténtalo de nuevo más tarde"
     }
 
     val icon = when (error) {
@@ -25,6 +27,7 @@ fun ErrorView(error: AppError, onRetry: () -> Unit) {
         AppError.Unknown -> Icons.Filled.Dangerous
         AppError.NoInternet -> Icons.Filled.SyncProblem
         AppError.ServerError -> Icons.Filled.CloudOff
+        AppError.AppConfig -> Icons.Filled.Error
     }
     EmptyView(
         message = message,

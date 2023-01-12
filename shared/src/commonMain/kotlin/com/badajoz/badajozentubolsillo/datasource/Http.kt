@@ -1,7 +1,5 @@
 package com.badajoz.badajozentubolsillo.datasource
 
-import com.badajoz.badajozentubolsillo.utils.BASIC_AUTH_PASSWORD
-import com.badajoz.badajozentubolsillo.utils.BASIC_AUTH_USER
 import com.badajoz.badajozentubolsillo.utils.BuildType
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
@@ -47,14 +45,14 @@ private fun buildClient(endpoint: String, buildType: BuildType, block: HttpClien
         block(this)
     }
 
-fun buildClientWithAuth(endpoint: String, buildType: BuildType): HttpClient =
+fun buildClientWithAuth(endpoint: String, user: String, pass: String, buildType: BuildType): HttpClient =
     buildClient(endpoint, buildType) {
         install(Auth) {
             basic {
                 credentials {
                     BasicAuthCredentials(
-                        username = BASIC_AUTH_USER,
-                        password = BASIC_AUTH_PASSWORD
+                        username = user,
+                        password = pass
                     )
                 }
                 sendWithoutRequest { true }

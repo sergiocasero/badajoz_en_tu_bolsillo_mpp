@@ -3,8 +3,6 @@ package com.badajoz.badajozentubolsillo.utils
 import android.util.Base64
 import android.util.Log
 import com.badajoz.badajozentubolsillo.model.Encryptable
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -14,17 +12,17 @@ import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 
-actual inline fun <reified T : Encryptable> T.encrypt(production: Boolean): String {
+actual inline fun <reified T : Encryptable> T.encrypt(iv: String, key: String, production: Boolean): String {
     val json = Json.encodeToString(this)
     if (!production) {
         return json
     }
-    return Helper.encrypt(json)
+    return Helper.encrypt(iv, key, json)
 }
 
-actual inline fun <reified T : Encryptable> String.decrypt(production: Boolean): T {
+actual inline fun <reified T : Encryptable> String.decrypt(key: String, production: Boolean): T {
     val decrypted = when (production) {
-        true -> Helper.decrypt(this)
+        true -> Helper.decrypt(key, input = this)
         false -> this
     }
     return Json.decodeFromString(decrypted)
@@ -41,9 +39,8 @@ object Helper {
         return sb.toString()
     }
 
-    fun encrypt(value: String): String {
-        val iv = ENCRYPTION_IV
-        val key = md5(ENCRYPTION_KEY)
+    fun encrypt(iv: String, encryptionKey: String, value: String): String {
+        val key = md5(encryptionKey)
 
         Log.i("MainActivity - Key: ", key)
         val ivParameterSpec = IvParameterSpec(iv.toByteArray(charset("UTF-8")))
@@ -55,10 +52,10 @@ object Helper {
         return iv + base64
     }
 
-    fun decrypt(input: String): String {
+    fun decrypt(encryptionKey: String, input: String): String {
         val iv = input.substring(0, 16)
         val crypted = input.substring(16, input.replace("\"", "").length)
-        val key = md5(ENCRYPTION_KEY)
+        val key = md5(encryptionKey)
 
         val ivParameterSpec = IvParameterSpec(iv.toByteArray(charset("UTF-8")))
         val skeySpec = SecretKeySpec(key!!.toByteArray(charset("UTF-8")), "AES")

@@ -17,13 +17,14 @@ interface CalendarNetworkDataSource : NetworkDataSource {
     suspend fun getCalendar(): Either<AppError, List<CalendarItem>>
 }
 
-class SharedCalendarNetworkDataSource(private val buildType: BuildType) : CalendarNetworkDataSource {
+class SharedCalendarNetworkDataSource(private val buildType: BuildType, private val appConfig: AppConfig) :
+    CalendarNetworkDataSource {
 
-    override suspend fun getCalendar(): Either<AppError, List<CalendarItem>> = execute {
-        buildClientWithAuth(BASE_URL, buildType).use {
+    override suspend fun getCalendar(): Either<AppError, List<CalendarItem>> = execute(appConfig) { config ->
+        buildClientWithAuth(BASE_URL, config.user, config.pass, buildType).use {
             it.get {
                 url.withPath(Uris.Calendar)
-            }.body<EncryptedNetworkResponse>().result.decrypt<CalendarEvents>().events
+            }.body<EncryptedNetworkResponse>().result.decrypt<CalendarEvents>(config.key).events
         }
     }
 }

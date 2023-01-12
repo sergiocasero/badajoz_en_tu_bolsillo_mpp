@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.badajoz.badajozentubolsillo.android.composables.reusable.TopBar
 import com.badajoz.badajozentubolsillo.android.utils.staticUrl
+import com.badajoz.badajozentubolsillo.model.AppConfigData
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
 import com.badajoz.badajozentubolsillo.viewmodel.BusLineDetailEvent
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
@@ -30,6 +31,7 @@ import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable
 fun BusLineDetailView(
+    appConfigData: AppConfigData,
     title: String,
     imageRoute: String,
     bigImage: Boolean,
@@ -63,7 +65,11 @@ fun BusLineDetailView(
 
             if (bigImage) {
                 AsyncImage(
-                    model = imageRoute.staticUrl(LocalContext.current),
+                    model = imageRoute.staticUrl(
+                        user = appConfigData.user,
+                        pass = appConfigData.pass,
+                        context = LocalContext.current
+                    ),
                     contentDescription = "Recorrido $title",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -104,6 +110,7 @@ fun BusLineDetailPreview() {
             BusStop(id = 55, line = 3, name = "Av. Carolina Coronado  16"),
         ),
         onEvent = {},
-        onNavigate = {}
+        onNavigate = {},
+        appConfigData = AppConfigData("", "", "", "")
     )
 }

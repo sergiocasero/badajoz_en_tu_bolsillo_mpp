@@ -58,7 +58,7 @@ fun BikeContent(state: BikeState, onEvent: (BikeEvent) -> Unit, onNavigate: (Des
                 is BikeState.InProgress -> LoadingView()
                 is BikeState.Error -> ErrorView(error = state.error) { onEvent(BikeEvent.Attach) }
                 is BikeState.Success -> when (state.view) {
-                    BikeViewType.List -> BikeList(state.bikeStations) {
+                    BikeViewType.List -> BikeList(state.appConfigData, state.bikeStations) {
                         onNavigate(Screen.MapLink.toDestination("${it.lat},${it.lng}"))
                     }
 

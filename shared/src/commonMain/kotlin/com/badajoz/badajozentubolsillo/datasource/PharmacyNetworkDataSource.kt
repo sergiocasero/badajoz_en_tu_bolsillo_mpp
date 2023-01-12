@@ -17,12 +17,13 @@ interface PharmacyNetworkDataSource : NetworkDataSource {
     suspend fun getPharmacy(): Either<AppError, List<PharmacyGroup>>
 }
 
-class SharedPharmacyNetworkDataSource(private val buildType: BuildType) : PharmacyNetworkDataSource {
-    override suspend fun getPharmacy(): Either<AppError, List<PharmacyGroup>> = execute {
-        buildClientWithAuth(BASE_URL, buildType).use {
+class SharedPharmacyNetworkDataSource(private val buildType: BuildType, private val appConfig: AppConfig) :
+    PharmacyNetworkDataSource {
+    override suspend fun getPharmacy(): Either<AppError, List<PharmacyGroup>> = execute(appConfig) { config ->
+        buildClientWithAuth(BASE_URL, config.user, config.pass, buildType).use {
             it.get {
                 url.withPath(Uris.Pharmacy)
-            }.body<EncryptedNetworkResponse>().result.decrypt<PharmacyList>().pharmacy
+            }.body<EncryptedNetworkResponse>().result.decrypt<PharmacyList>(config.key).pharmacy
         }
     }
 }

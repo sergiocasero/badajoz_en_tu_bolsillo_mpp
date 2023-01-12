@@ -60,6 +60,13 @@ object Dependencies {
         // Coroutines
         const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
+        object Firebase {
+            const val bom = "com.google.firebase:firebase-bom:31.1.1"
+            const val analytics = "com.google.firebase:firebase-analytics-ktx"
+            const val crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
+            const val remoteConfig = "com.google.firebase:firebase-config-ktx"
+        }
+
         object Test {
             // Adds a remote binary dependency only for local tests.
             const val junit = "junit:junit:4.12"
@@ -95,7 +102,8 @@ object Dependencies {
     object Root {
         const val android = "com.android.tools.build:gradle:7.2.1"
         const val serialization = "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
-        const val google = "com.google.gms:google-services:4.3.3"
+        const val google = "com.google.gms:google-services:4.3.14"
+        const val crashlytics = "com.google.firebase:firebase-crashlytics-gradle:2.9.2"
     }
 
     object Shared {
@@ -120,6 +128,11 @@ object Dependencies {
             const val ktorClientCore = "io.ktor:ktor-client-android:$ktor_version"
             const val sqldelightDriverAndroid = "com.squareup.sqldelight:android-driver:$sqldelight_version"
             const val lifecycleViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycle}"
+
+            object Firebase {
+                const val bom = Dependencies.Android.Firebase.bom
+                const val remoteConfig = "com.google.firebase:firebase-config-ktx:21.2.0"
+            }
         }
 
         object Native {

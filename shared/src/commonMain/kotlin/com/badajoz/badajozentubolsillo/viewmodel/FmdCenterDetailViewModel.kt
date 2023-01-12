@@ -1,7 +1,9 @@
 package com.badajoz.badajozentubolsillo.viewmodel
 
 
+import com.badajoz.badajozentubolsillo.model.AppConfigData
 import com.badajoz.badajozentubolsillo.model.AppError
+import com.badajoz.badajozentubolsillo.model.Either
 import com.badajoz.badajozentubolsillo.model.category.fmd.FmdCenterDetail
 import com.badajoz.badajozentubolsillo.repository.FmdRepository
 import kotlinx.coroutines.launch
@@ -16,10 +18,13 @@ class FmdCenterDetailViewModel(val id: Int, initialState: FmdCenterDetailState) 
         vmScope.launch {
             _uiState.value = FmdCenterDetailState.InProgress
 
-            execute { repository.getCenterDetail(id) }.fold(
-                error = { _uiState.value = FmdCenterDetailState.Error(it) },
-                success = { _uiState.value = FmdCenterDetailState.Success(it) }
-            )
+            when (val result = appConfig.getAppConfigData()) {
+                is Either.Left -> _uiState.value = FmdCenterDetailState.Error(result.error)
+                is Either.Right -> execute { repository.getCenterDetail(id) }.fold(
+                    error = { _uiState.value = FmdCenterDetailState.Error(it) },
+                    success = { _uiState.value = FmdCenterDetailState.Success(appConfigData = result.success, it) }
+                )
+            }
         }
     }
 
@@ -33,7 +38,7 @@ class FmdCenterDetailViewModel(val id: Int, initialState: FmdCenterDetailState) 
 sealed class FmdCenterDetailState : ViewState() {
     object InProgress : FmdCenterDetailState()
     class Error(val error: AppError) : FmdCenterDetailState()
-    data class Success(val center: FmdCenterDetail) : FmdCenterDetailState()
+    data class Success(val appConfigData: AppConfigData, val center: FmdCenterDetail) : FmdCenterDetailState()
 }
 
 sealed class FmdCenterDetailEvent {

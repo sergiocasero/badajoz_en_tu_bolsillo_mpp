@@ -17,12 +17,14 @@ interface BikeNetworkDataSource : NetworkDataSource {
     suspend fun getBikeStations(): Either<AppError, List<BikeStation>>
 }
 
-class SharedBikeNetworkDataSource(private val buildType: BuildType) : BikeNetworkDataSource {
-    override suspend fun getBikeStations(): Either<AppError, List<BikeStation>> = execute {
-        buildClientWithAuth(BASE_URL, buildType).use {
+class SharedBikeNetworkDataSource(private val buildType: BuildType, private val appConfig: AppConfig) :
+    BikeNetworkDataSource {
+    override suspend fun getBikeStations(): Either<AppError, List<BikeStation>> = execute(appConfig) { config ->
+        buildClientWithAuth(BASE_URL, config.user, config.pass, buildType).use {
             it.get {
                 url.withPath(Uris.Biba)
-            }.body<EncryptedNetworkResponse>().result.decrypt<BikeStations>().stations
+            }.body<EncryptedNetworkResponse>()
+                .result.decrypt<BikeStations>(config.key).stations
         }
     }
 

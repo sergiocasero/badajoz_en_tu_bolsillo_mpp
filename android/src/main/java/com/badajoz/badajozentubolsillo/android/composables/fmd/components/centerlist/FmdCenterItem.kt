@@ -23,12 +23,14 @@ import coil.compose.AsyncImage
 import com.badajoz.badajozentubolsillo.android.composables.reusable.FieldRow
 import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.android.utils.staticUrl
+import com.badajoz.badajozentubolsillo.model.AppConfigData
 import com.badajoz.badajozentubolsillo.model.category.fmd.FmdCenterItem
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable
 fun FmdCenterItemView(
+    appConfigData: AppConfigData,
     center: FmdCenterItem,
     onNavigate: (Destination) -> Unit
 ) {
@@ -41,7 +43,11 @@ fun FmdCenterItemView(
 
         Column {
             AsyncImage(
-                model = center.image.staticUrl(LocalContext.current),
+                model = center.image.staticUrl(
+                    user = appConfigData.user,
+                    pass = appConfigData.pass,
+                    context = LocalContext.current
+                ),
                 contentDescription = center.title,
                 modifier = Modifier
                     .height(160.dp)
@@ -84,6 +90,7 @@ fun FmdCenterItemPreview() {
             location = "Calle de la Piscina, 1",
             phone = "924 00 00 00",
         ),
-        onNavigate = {}
+        onNavigate = {},
+        appConfigData = AppConfigData("", "", "", "")
     )
 }
