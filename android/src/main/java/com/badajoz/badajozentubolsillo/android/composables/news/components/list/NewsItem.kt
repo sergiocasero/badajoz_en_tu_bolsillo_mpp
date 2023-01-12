@@ -40,7 +40,7 @@ fun NewsItem(news: News, onClick: () -> Unit) {
                 Surface(
                     modifier = Modifier.padding(end = 8.dp, bottom = 8.dp),
                     shape = RoundedCornerShape(16.dp),
-                    color = MaterialTheme.colors.secondary
+                    color = MaterialTheme.colors.primaryVariant
                 ) {
                     Text(
                         text = news.category,

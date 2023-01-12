@@ -11,6 +11,7 @@ interface FmdLocalDataSource {
     suspend fun isUserLoggedIn(): Either<AppError, Boolean>
     suspend fun getUser(): Either<AppError, FmdUser>
     suspend fun saveUser(user: FmdUser): Either<AppError, Success>
+    suspend fun logout(): Either<AppError, Success>
 }
 
 class SharedFmdLocalDataSource(private val settings: Settings) : FmdLocalDataSource {
@@ -23,6 +24,15 @@ class SharedFmdLocalDataSource(private val settings: Settings) : FmdLocalDataSou
     override suspend fun isUserLoggedIn(): Either<AppError, Boolean> =
         try {
             Either.Right(settings.contains(USERNAME_KEY) && settings.contains(PASSWORD_KEY))
+        } catch (e: Exception) {
+            Either.Left(AppError.LocalError)
+        }
+
+    override suspend fun logout(): Either<AppError, Success> =
+        try {
+            settings.remove(USERNAME_KEY)
+            settings.remove(PASSWORD_KEY)
+            Either.Right(Success)
         } catch (e: Exception) {
             Either.Left(AppError.LocalError)
         }

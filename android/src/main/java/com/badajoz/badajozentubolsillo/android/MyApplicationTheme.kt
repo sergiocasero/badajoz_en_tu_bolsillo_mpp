@@ -23,7 +23,8 @@ fun MyApplicationTheme(
     val colors = if (darkTheme) {
         darkColors(
             primary = Color(0xFF6F4FE8),
-            secondary = Color(0x806F4FE8),
+            primaryVariant = Color(0x806F4FE8),
+            secondary = Color(0xFF6F4FE8),
             background = Color(0xFF1A1D1D),
             error = Color(0xFF3D3D),
             onSecondary = Color.White,
@@ -31,7 +32,8 @@ fun MyApplicationTheme(
     } else {
         lightColors(
             primary = Color(0xFF6F4FE8),
-            secondary = Color(0x806F4FE8),
+            primaryVariant = Color(0x806F4FE8),
+            secondary = Color(0xFF6F4FE8),
             background = Color(0xFFEFF1F7),
             error = Color(0xFF3D3D),
         )

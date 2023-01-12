@@ -28,6 +28,16 @@ class FmdViewModel(initialState: FmdState) :
         when (event) {
             FmdEvent.Attach -> attach()
             is FmdEvent.Login -> doLoginAndGetSports(FmdUser(event.username, event.password))
+            FmdEvent.Logout -> doLogout()
+        }
+    }
+
+    private fun doLogout() {
+        vmScope.launch {
+            execute { repository.logout() }.fold(
+                error = { _uiState.value = FmdState.Error(it) },
+                success = { _uiState.value = FmdState.NotLoggedIn }
+            )
         }
     }
 
@@ -68,4 +78,6 @@ sealed class FmdState : ViewState() {
 sealed class FmdEvent {
     object Attach : FmdEvent()
     data class Login(val username: String, val password: String) : FmdEvent()
+
+    object Logout : FmdEvent()
 }

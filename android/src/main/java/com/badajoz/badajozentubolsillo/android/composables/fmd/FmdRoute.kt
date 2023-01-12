@@ -20,4 +20,3 @@ fun FmdRoute(onNavigate: (Destination) -> Unit) {
         onNavigate = onNavigate,
     )
 }
-

@@ -48,4 +48,5 @@
     <string name="app_config">Ha ocurrido un error al configurar la aplicación, inténtalo de nuevo más tarde</string>
     <string name="retry">Reintentar</string>
     <string name="menu">Menu</string>
+    <string name="logout">Cerrar sesión</string>
 </resources>

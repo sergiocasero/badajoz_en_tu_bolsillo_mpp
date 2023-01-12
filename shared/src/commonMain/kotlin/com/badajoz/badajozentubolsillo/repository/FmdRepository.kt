@@ -17,6 +17,7 @@ interface FmdRepository {
     suspend fun saveUser(user: FmdUser): Either<AppError, Success>
     suspend fun isUserLoggedIn(): Either<AppError, Boolean>
     suspend fun getUser(): Either<AppError, FmdUser>
+    suspend fun logout(): Either<AppError, Success>
 }
 
 class SharedFmdRepository(
@@ -38,6 +39,9 @@ class SharedFmdRepository(
 
     override suspend fun getUser(): Either<AppError, FmdUser> =
         local.getUser()
+
+    override suspend fun logout(): Either<AppError, Success> =
+        local.logout()
 
     override suspend fun getSportDetail(centerId: Int, sportId: Int): Either<AppError, FmdSportDetail> =
         local.getUser()
