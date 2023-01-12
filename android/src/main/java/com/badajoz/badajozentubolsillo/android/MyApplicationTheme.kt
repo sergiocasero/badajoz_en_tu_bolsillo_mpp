@@ -14,7 +14,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.badajoz.badajozentubolsillo.utils.MaterialColor
 
 @Composable
 fun MyApplicationTheme(
@@ -23,17 +22,18 @@ fun MyApplicationTheme(
 ) {
     val colors = if (darkTheme) {
         darkColors(
-            primary = Color(MaterialColor.BLUE_GREY.tone(500)),
-            primaryVariant = Color(0xFF3700B3),
-            secondary = Color(0xFF03DAC5),
-            onSurface = Color(color = MaterialColor.RED.tone(500))
+            primary = Color(0xFF6F4FE8),
+            secondary = Color(0x806F4FE8),
+            background = Color(0xFF1A1D1D),
+            error = Color(0xFF3D3D),
+            onSecondary = Color.White,
         )
     } else {
         lightColors(
-            primary = Color(0xFF6200EE),
-            primaryVariant = Color(0xFF3700B3),
-            secondary = Color(0xFF03DAC5),
-            onPrimary = Color(MaterialColor.WHITE.tone(500)),
+            primary = Color(0xFF6F4FE8),
+            secondary = Color(0x806F4FE8),
+            background = Color(0xFFEFF1F7),
+            error = Color(0xFF3D3D),
         )
     }
     val typography = Typography(
@@ -50,7 +50,7 @@ fun MyApplicationTheme(
         h6 = TextStyle(
             fontFamily = FontFamily.SansSerif,
             fontWeight = FontWeight.Bold,
-            fontSize = 18.sp
+            fontSize = 17.sp
         ),
         body1 = TextStyle(
             fontFamily = FontFamily.Default,

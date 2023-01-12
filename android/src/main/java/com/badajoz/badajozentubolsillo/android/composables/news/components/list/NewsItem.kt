@@ -13,7 +13,10 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
 import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.model.category.news.News
@@ -36,7 +39,6 @@ fun NewsItem(news: News, onClick: () -> Unit) {
             ) {
                 Surface(
                     modifier = Modifier.padding(end = 8.dp, bottom = 8.dp),
-                    elevation = 4.dp,
                     shape = RoundedCornerShape(16.dp),
                     color = MaterialTheme.colors.secondary
                 ) {
@@ -45,7 +47,7 @@ fun NewsItem(news: News, onClick: () -> Unit) {
                         style = MaterialTheme.typography.subtitle2.apply {
                             copy(color = MaterialTheme.colors.onPrimary)
                         },
-                        modifier = Modifier.padding(4.dp)
+                        modifier = Modifier.padding(top = 4.dp, bottom = 4.dp, start = 8.dp, end = 8.dp)
                     )
                 }
                 Text(
@@ -57,7 +59,13 @@ fun NewsItem(news: News, onClick: () -> Unit) {
             }
             Row {
                 Column {
-                    Text(text = news.title, style = MaterialTheme.typography.h6)
+                    Text(
+                        text = news.title
+                            .toLowerCase(Locale.current)
+                            .capitalize(Locale.current),
+                        style = MaterialTheme.typography.h6,
+                        modifier = Modifier.padding(bottom = 4.dp),
+                    )
                     Text(
                         text = news.description,
                         style = MaterialTheme.typography.body2,

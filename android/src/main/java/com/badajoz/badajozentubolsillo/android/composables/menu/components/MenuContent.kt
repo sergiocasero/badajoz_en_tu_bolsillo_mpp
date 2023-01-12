@@ -69,7 +69,7 @@ fun MenuContent(
         drawerContent = {
             Column(
                 modifier = Modifier
-                    .background(MaterialTheme.colors.secondary)
+                    .background(MaterialTheme.colors.primary)
                     .fillMaxSize()
             ) {
 
@@ -118,8 +118,11 @@ fun MenuContent(
             MenuState.Bus -> BusHomeRoute { onNavigate(it) }
             MenuState.Calendar -> CalendarRoute()
             MenuState.Fmd -> FmdRoute { onNavigate(it) }
-            MenuState.Minits -> EmptyView(message = stringResource(id = R.string.not_implemented_yet), icon = Icons
-                .Default.ThumbDown)
+            MenuState.Minits -> EmptyView(
+                message = stringResource(id = R.string.not_implemented_yet), icon = Icons
+                    .Default.ThumbDown
+            )
+
             MenuState.Pharmacy -> PharmacyRoute { onNavigate(it) }
             MenuState.Taxes -> TaxesRoute { onNavigate(it) }
         }

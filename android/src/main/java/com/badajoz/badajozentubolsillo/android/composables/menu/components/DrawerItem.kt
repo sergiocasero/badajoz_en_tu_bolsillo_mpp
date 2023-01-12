@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 fun DrawerItem(title: String, icon: ImageVector, isCurrent: Boolean, onClick: () -> Unit) {
     Surface(
         shape = RoundedCornerShape(24.dp),
-        color = if (isCurrent) MaterialTheme.colors.primary else MaterialTheme.colors.background,
+        color = if (isCurrent) MaterialTheme.colors.secondary else MaterialTheme.colors.background,
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
@@ -37,7 +37,8 @@ fun DrawerItem(title: String, icon: ImageVector, isCurrent: Boolean, onClick: ()
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(24.dp),
+                tint = if (isCurrent) MaterialTheme.colors.onSecondary else MaterialTheme.colors.primary,
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(text = title)
