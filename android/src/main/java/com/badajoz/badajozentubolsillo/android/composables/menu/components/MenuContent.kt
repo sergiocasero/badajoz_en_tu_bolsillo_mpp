@@ -65,7 +65,7 @@ fun MenuContent(
                 }
             }
         },
-        drawerGesturesEnabled = scaffoldState.drawerState.isOpen,
+        drawerGesturesEnabled = scaffoldState.drawerState.isOpen || state !is MenuState.Bike,
         drawerContent = {
             Column(
                 modifier = Modifier
