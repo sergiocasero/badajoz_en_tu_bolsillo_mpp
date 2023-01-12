@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
@@ -39,7 +41,22 @@ android {
         }
     }
 
+    signingConfigs {
+        getByName("release") {
+            val tmpFilePath = "keystore/"
+            val allFilesFromDir = File(tmpFilePath).listFiles()
 
+            if (allFilesFromDir != null) {
+                val keystoreFile = allFilesFromDir.first()
+                keystoreFile.renameTo(File("keystore/your_keystore.jks"))
+            }
+
+            storeFile = file("keystore/your_keystore.jks")
+            storePassword = System.getenv("SIGNING_STORE_PASSWORD")
+            keyAlias = System.getenv("SIGNING_KEY_ALIAS")
+            keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
+        }
+    }
 }
 
 dependencies {
