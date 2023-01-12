@@ -14,8 +14,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.badajoz.badajozentubolsillo.android.R
 import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.model.category.news.News
 
@@ -71,7 +73,7 @@ fun NewsItem(news: News, onClick: () -> Unit) {
                 modifier = Modifier.align(Alignment.End),
                 shape = RoundedCornerShape(16.dp)
             ) {
-                Text(text = "Ver")
+                Text(text = stringResource(id = R.string.read_more))
             }
         }
     }

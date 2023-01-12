@@ -13,6 +13,8 @@ import androidx.compose.material.icons.filled.Map
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.badajoz.badajozentubolsillo.android.R
 import com.badajoz.badajozentubolsillo.android.composables.bike.models.toMarker
 import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
@@ -37,17 +39,17 @@ fun BikeContent(state: BikeState, onEvent: (BikeEvent) -> Unit, onNavigate: (Des
                         selected = state is BikeState.Success && state.view == BikeViewType.Map,
                         onClick = { onEvent(BikeEvent.OnBikeMapClick) },
                         icon = {
-                            Icon(Icons.Default.Map, contentDescription = "Mapa BiBa")
+                            Icon(Icons.Default.Map, contentDescription = stringResource(id = R.string.map))
                         },
-                        label = { Text("Mapa") }
+                        label = { Text(stringResource(id = R.string.map)) }
                     )
                     BottomNavigationItem(
                         selected = state is BikeState.Success && state.view == BikeViewType.List,
                         onClick = { onEvent(BikeEvent.OnBikeListClick) },
                         icon = {
-                            Icon(Icons.Default.List, contentDescription = "Listado BiBa")
+                            Icon(Icons.Default.List, contentDescription = stringResource(id = R.string.list))
                         },
-                        label = { Text("Listado") }
+                        label = { Text(stringResource(id = R.string.list)) }
                     )
                 }
             }
@@ -59,7 +61,11 @@ fun BikeContent(state: BikeState, onEvent: (BikeEvent) -> Unit, onNavigate: (Des
                 is BikeState.Error -> ErrorView(error = state.error) { onEvent(BikeEvent.Attach) }
                 is BikeState.Success -> when (state.view) {
                     BikeViewType.List -> BikeList(state.appConfigData, state.bikeStations) {
-                        onNavigate(Screen.MapLink.toDestination("${it.lat},${it.lng}"))
+                        onNavigate(
+                            Screen.MapLink.toDestination(
+                                "${it.lat},${it.lng}" // TODO Move to string
+                            )
+                        )
                     }
 
                     BikeViewType.Map -> MapWithMarkers(

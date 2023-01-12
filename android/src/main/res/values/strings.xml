@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Badajoz en tu bolsillo</string>
+    <string name="list">Listado</string>
+    <string name="map">Mapa</string>
+    <!-- lat lng template-->
+    <string name="latlng">%1$.5f,%2$.5f</string>
+    <string name="available">Disponibles: %1$d</string>
+    <string name="not_available">No disponibles: %1$d</string>
+    <string name="route">Recorrido %1$s</string>
+    <string name="see_stops">Ver paradas</string>
+    <string name="see_route">Ver recorrido</string>
+    <string name="see_times">Ver horarios</string>
+    <string name="mark_as_favorite">Marcar como favorita</string>
+    <string name="bus_lines">Líneas</string>
+    <string name="favorite_stops">Paradas favoritas</string>
+    <string name="no_favorite_stops_yet">Aún no tienes paradas favoritas, añádelas en el listado de paradas dentro de cada línea</string>
+    <string name="next_bus_at">Próximo a las %1$s</string>
+    <string name="close">Cerrar</string>
+    <string name="see_sports">Ver deportes</string>
+    <string name="available_times">Horarios disponibles</string>
+    <string name="book_fmd">Reservar en la FMD</string>
+    <string name="fmd_uri" translatable="false">https://badajoz.i2a.es</string>
+    <string name="fmd_login_1">Para poder mostrarte los deportes que están disponibles, necesitamos que inicies sesión con tu cuenta de usuario de la FMD</string>
+    <string name="fmd_login_2">El nombre de usuario es tu DNI y la contraseña por defecto suele ser 0000</string>
+    <string name="fmd_login_3">Con esta aplicación no podrás reservar, pero si que podrás ver los horarios libres de los deportes</string>
+    <string name="fmd_logo">Logo FMD</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="badajoz_logo">Logo</string>
+    <string name="biba">Bicicletas BiBa</string>
+    <string name="buses">Autobuses</string>
+    <string name="calendar">Calendario</string>
+    <string name="fmd">Reservas FMD</string>
+    <string name="minits">Minits</string>
+    <string name="news">Noticias</string>
+    <string name="pharmacy">Farmacias</string>
+    <string name="taxes">Trámites/Sede electrónica</string>
+    <string name="not_implemented_yet">No disponible todavía</string>
+    <string name="read_more">Ver más</string>
+    <string name="empty">Vacío</string>
+    <string name="local_error">Ha ocurrido un error al guardar la información, inténtalo de nuevo más tarde</string>
+    <string name="not_found">No encontrado</string>
+    <string name="unknown">Ha ocurrido un error inesperado</string>
+    <string name="no_internet">No se ha podido conectar con el servidor, comprueba tu conexión a internet</string>
+    <string name="server_error">Ha ocurrido un error en el servidor, inténtalo de nuevo más tarde</string>
+    <string name="app_config">Ha ocurrido un error al configurar la aplicación, inténtalo de nuevo más tarde</string>
+    <string name="retry">Reintentar</string>
+    <string name="menu">Menu</string>
+</resources>

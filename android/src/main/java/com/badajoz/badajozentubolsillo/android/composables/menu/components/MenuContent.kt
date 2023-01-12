@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.badajoz.badajozentubolsillo.android.R
 import com.badajoz.badajozentubolsillo.android.composables.bike.BikeRoute
@@ -76,14 +77,14 @@ fun MenuContent(
                 Row(modifier = Modifier.fillMaxWidth()) {
                     Image(
                         painterResource(id = R.drawable.badajoz_logo),
-                        contentDescription = "Logo",
+                        contentDescription = stringResource(id = R.string.badajoz_logo),
                         modifier = Modifier
                             .padding(start = 16.dp)
                             .size(50.dp),
                         colorFilter = ColorFilter.tint(Color.White)
                     )
                     Text(
-                        text = "Badajoz en tu bolsillo",
+                        text = stringResource(id = R.string.app_name),
                         style = MaterialTheme.typography.h5,
                         color = Color.White,
                         modifier = Modifier
@@ -117,7 +118,8 @@ fun MenuContent(
             MenuState.Bus -> BusHomeRoute { onNavigate(it) }
             MenuState.Calendar -> CalendarRoute()
             MenuState.Fmd -> FmdRoute { onNavigate(it) }
-            MenuState.Minits -> EmptyView(message = "NotImplementedYet", icon = Icons.Default.ThumbDown)
+            MenuState.Minits -> EmptyView(message = stringResource(id = R.string.not_implemented_yet), icon = Icons
+                .Default.ThumbDown)
             MenuState.Pharmacy -> PharmacyRoute { onNavigate(it) }
             MenuState.Taxes -> TaxesRoute { onNavigate(it) }
         }

@@ -34,7 +34,7 @@ fun TextBox(label: String? = null, icon: ImageVector? = null, color: Color) {
         } else if (icon != null) {
             Icon(
                 imageVector = icon,
-                contentDescription = "Icon",
+                contentDescription = null,
                 modifier = Modifier.align(Alignment.Center),
                 tint = MaterialTheme.colors.onPrimary
             )

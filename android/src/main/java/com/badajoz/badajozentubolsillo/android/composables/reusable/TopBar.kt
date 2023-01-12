@@ -9,7 +9,9 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.badajoz.badajozentubolsillo.android.R
 
 @Composable
 fun TopBar(title: String, icon: ImageVector, onNavClick: () -> Unit) {
@@ -23,7 +25,7 @@ fun TopBar(title: String, icon: ImageVector, onNavClick: () -> Unit) {
             IconButton(onClick = { onNavClick() }) {
                 Icon(
                     imageVector = icon,
-                    contentDescription = "Menu",
+                    contentDescription = stringResource(id = R.string.menu),
                     modifier = Modifier.padding(start = 8.dp)
                 )
             }

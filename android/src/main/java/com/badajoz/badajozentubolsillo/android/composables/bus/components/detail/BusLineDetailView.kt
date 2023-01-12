@@ -18,9 +18,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.badajoz.badajozentubolsillo.android.R
 import com.badajoz.badajozentubolsillo.android.composables.reusable.TopBar
 import com.badajoz.badajozentubolsillo.android.utils.staticUrl
 import com.badajoz.badajozentubolsillo.model.AppConfigData
@@ -49,11 +51,11 @@ fun BusLineDetailView(
             ExtendedFloatingActionButton(
                 onClick = { onEvent(BusLineDetailEvent.OnImageClick) },
                 modifier = Modifier.padding(16.dp),
-                text = { Text(if (bigImage) "Ver paradas" else "Ver recorrido") },
+                text = { Text(stringResource(id = if (bigImage) R.string.see_stops else R.string.see_route)) },
                 icon = {
                     Icon(
                         if (bigImage) Icons.Default.List else Icons.Default.Search,
-                        contentDescription = "Ampliar recorrido"
+                        contentDescription = stringResource(id = if (bigImage) R.string.see_stops else R.string.see_route)
                     )
                 }
             )
@@ -70,7 +72,7 @@ fun BusLineDetailView(
                         pass = appConfigData.pass,
                         context = LocalContext.current
                     ),
-                    contentDescription = "Recorrido $title",
+                    contentDescription = stringResource(id = R.string.route, title),
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 80.dp)

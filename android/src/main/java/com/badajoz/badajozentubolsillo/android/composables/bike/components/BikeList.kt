@@ -18,9 +18,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.badajoz.badajozentubolsillo.android.R
 import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.android.utils.staticUrl
 import com.badajoz.badajozentubolsillo.model.AppConfigData
@@ -60,13 +62,13 @@ fun BikeList(appConfigData: AppConfigData, bikeStations: List<BikeStation>, onBi
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         Text(
-                            text = "Disponibles: ${bikeStation.availableBikes}",
+                            text = stringResource(id = R.string.available, bikeStation.availableBikes),
                             style = MaterialTheme.typography.subtitle1,
                             color = MaterialTheme.colors.primary,
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "No disponibles: ${bikeStation.notAvailableBikes}",
+                            text = stringResource(id = R.string.not_available, bikeStation.notAvailableBikes),
                             style = MaterialTheme.typography.subtitle1
                         )
                     }

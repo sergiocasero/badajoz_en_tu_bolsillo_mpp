@@ -14,7 +14,9 @@ import androidx.compose.material.icons.filled.List
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.badajoz.badajozentubolsillo.android.R
 import com.badajoz.badajozentubolsillo.android.composables.bus.components.BusLinesView
 import com.badajoz.badajozentubolsillo.android.composables.bus.components.BusTimesDialog
 import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
@@ -43,17 +45,21 @@ fun BusHomeContent(
                         selected = state is BusHomeState.BusLines,
                         onClick = { onEvent(BusHomeEvent.OnBusLinesClick) },
                         icon = {
-                            Icon(Icons.Default.List, contentDescription = "Líneas de buses")
+                            Icon(Icons.Default.List, contentDescription = stringResource(id = R.string.bus_lines))
                         },
-                        label = { Text("Líneas") }
+                        label = { Text(stringResource(id = R.string.bus_lines)) }
                     )
                     BottomNavigationItem(
                         selected = state is BusHomeState.FavoriteStops,
                         onClick = { onEvent(BusHomeEvent.OnFavoriteStopsClick) },
                         icon = {
-                            Icon(Icons.Default.Favorite, contentDescription = "Paradas favoritas")
+                            Icon(
+                                Icons.Default.Favorite, contentDescription = stringResource(
+                                    id = R.string.favorite_stops
+                                )
+                            )
                         },
-                        label = { Text("Paradas favoritas") }
+                        label = { Text(stringResource(id = R.string.favorite_stops)) }
                     )
                 }
             }

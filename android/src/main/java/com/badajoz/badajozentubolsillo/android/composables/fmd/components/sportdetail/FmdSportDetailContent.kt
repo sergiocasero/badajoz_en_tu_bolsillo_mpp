@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.res.stringResource
 import com.badajoz.badajozentubolsillo.android.R
 import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
@@ -31,7 +32,7 @@ fun FmdSportDetailContent(
     Scaffold(
         topBar = {
             if (state is FmdSportDetailState.Success) {
-                TopBar(title = "Horarios disponibles", icon = Icons.Default.ArrowBack) {
+                TopBar(title = stringResource(id = R.string.available_times), icon = Icons.Default.ArrowBack) {
                     onNavigate(Screen.FmdCenterDetail.toDestination(centerId)) // TODO("This should navigate back")
                 }
             }
@@ -39,9 +40,10 @@ fun FmdSportDetailContent(
         floatingActionButton = {
             if (state is FmdSportDetailState.Success) {
                 ExtendedFloatingActionButton(
-                    text = { Text("Reservar en la FMD") },
+                    text = { Text(stringResource(id = R.string.book_fmd)) },
                     onClick = {
                         onNavigate(
+                            // TODO "Move to strings.xml"
                             Screen.ExternalLink.toDestination(URLEncoder.encode("https://badajoz.i2a.es", "UTF-8"))
                         )
                     })

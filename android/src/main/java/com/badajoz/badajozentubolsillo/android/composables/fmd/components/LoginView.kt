@@ -20,6 +20,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -41,26 +42,28 @@ fun LoginView(onEvent: (FmdEvent) -> Unit) {
         val password = remember { mutableStateOf("") }
         val keyboard = LocalSoftwareKeyboardController.current
 
-        Image(painter = painterResource(id = R.drawable.fmd_logo), contentDescription = "Logo FMD")
+        Image(
+            painter = painterResource(id = R.drawable.fmd_logo), contentDescription =
+            stringResource(id = R.string.fmd_logo)
+        )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "Para poder mostrarte los deportes que están disponibles, necesitamos que inicies sesión con tu " +
-                    "cuenta de usuario de la FMD",
+            text = stringResource(id = R.string.fmd_login_1),
             modifier = Modifier.padding(start = 32.dp, end = 32.dp),
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "El nombre de usuario es tu DNI y la contraseña por defecto suele ser 0000",
+            text = stringResource(id = R.string.fmd_login_2),
             modifier = Modifier.padding(start = 32.dp, end = 32.dp)
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "Con esta aplicación no podrás reservar, pero si que podrás ver los horarios libres de los deportes",
+            text = stringResource(id = R.string.fmd_login_3),
             modifier = Modifier.padding(start = 32.dp, end = 32.dp)
         )
         Spacer(modifier = Modifier.height(8.dp))
         OutlinedTextField(
-            label = { Text("Nombre de usuario") },
+            label = { Text(stringResource(id = R.string.username)) },
             value = username.value,
             onValueChange = { username.value = it },
             maxLines = 1,
@@ -68,7 +71,7 @@ fun LoginView(onEvent: (FmdEvent) -> Unit) {
         )
         Spacer(modifier = Modifier.height(8.dp))
         OutlinedTextField(
-            label = { Text("Contraseña") },
+            label = { Text(stringResource(id = R.string.password)) },
             value = password.value,
             onValueChange = { password.value = it },
             visualTransformation = PasswordVisualTransformation(),
@@ -78,7 +81,7 @@ fun LoginView(onEvent: (FmdEvent) -> Unit) {
         )
         Spacer(modifier = Modifier.height(8.dp))
         Button(onClick = { onEvent(FmdEvent.Login(username.value, password.value)) }) {
-            Text("Iniciar sesión")
+            Text(stringResource(id = R.string.login))
         }
     }
 }

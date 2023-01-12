@@ -13,7 +13,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.badajoz.badajozentubolsillo.android.R
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStopDetail
 import com.badajoz.badajozentubolsillo.viewmodel.BusLineDetailEvent
 
@@ -32,7 +34,7 @@ fun BusTimesDialog(selectedStop: BusStopDetail, onDismiss: () -> Unit) {
                             modifier = Modifier.width(30.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = "Próximo a las ${it.time}")
+                        Text(text = stringResource(id = R.string.next_bus_at, it.time))
                     }
                 }
             }
@@ -48,7 +50,7 @@ fun BusTimesDialog(selectedStop: BusStopDetail, onDismiss: () -> Unit) {
                         .padding(8.dp),
                     onClick = { onDismiss() }
                 ) {
-                    Text(text = "Cerrar")
+                    Text(text = stringResource(id = R.string.close))
                 }
             }
         }

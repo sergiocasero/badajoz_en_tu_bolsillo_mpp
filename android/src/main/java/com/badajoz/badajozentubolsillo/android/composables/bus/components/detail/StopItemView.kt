@@ -14,7 +14,9 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.badajoz.badajozentubolsillo.android.R
 import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
 
@@ -36,7 +38,7 @@ fun StopItemView(stop: BusStop, onClick: () -> Unit, onFavoriteClick: (BusStop) 
             IconButton(onClick = { onClick() }) {
                 Icon(
                     Icons.Default.AccessTime,
-                    contentDescription = "Ver horarios"
+                    contentDescription = stringResource(id = R.string.see_times)
                 )
             }
             IconButton(onClick = {
@@ -44,7 +46,7 @@ fun StopItemView(stop: BusStop, onClick: () -> Unit, onFavoriteClick: (BusStop) 
             }) {
                 Icon(
                     if (stop.favorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                    contentDescription = "Marcar como favorita"
+                    contentDescription = stringResource(id = R.string.mark_as_favorite)
                 )
             }
         }

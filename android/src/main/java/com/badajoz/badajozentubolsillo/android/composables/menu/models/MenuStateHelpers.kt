@@ -9,20 +9,26 @@ import androidx.compose.material.icons.filled.LocalPharmacy
 import androidx.compose.material.icons.filled.PedalBike
 import androidx.compose.material.icons.filled.Sports
 import androidx.compose.material.icons.outlined.Newspaper
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import com.badajoz.badajozentubolsillo.android.R
 import com.badajoz.badajozentubolsillo.viewmodel.MenuState
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
-fun MenuState.title(): String = when (this) {
-    MenuState.Bike -> "Bicicletas BiBa"
-    MenuState.Bus -> "Autobuses"
-    MenuState.Calendar -> "Calendario"
-    MenuState.Fmd -> "Reservas FMD"
-    MenuState.Minits -> "Minits"
-    MenuState.News -> "Noticias"
-    MenuState.Pharmacy -> "Farmacias"
-    MenuState.Taxes -> "Trámites/Sede electrónica"
-}
+@Composable
+fun MenuState.title(): String = stringResource(
+    id = when (this) {
+        MenuState.Bike -> R.string.biba
+        MenuState.Bus -> R.string.buses
+        MenuState.Calendar -> R.string.calendar
+        MenuState.Fmd -> R.string.fmd
+        MenuState.Minits -> R.string.minits
+        MenuState.News -> R.string.news
+        MenuState.Pharmacy -> R.string.pharmacy
+        MenuState.Taxes -> R.string.taxes
+    }
+)
 
 fun MenuState.icon(): ImageVector = when (this) {
     MenuState.Bike -> Icons.Filled.PedalBike
