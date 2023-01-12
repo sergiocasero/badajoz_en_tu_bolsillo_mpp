@@ -10,13 +10,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Decode Keystore
+      - name: Decode Keystore file
         id: decode_keystore
         uses: timheuer/base64-to-file@v1
         with:
           fileName: 'keystore/release.keystore'
           encodedString: ${{ secrets.KEYSTORE }}
-      - name: Decode google-services.json
+      - name: Decode google-services.json file
         id: decode_google_services
         uses: timheuer/base64-to-file@v1
         with:
