@@ -3,7 +3,6 @@ package com.badajoz.badajozentubolsillo.android.composables.about
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.tooling.preview.Preview
 import com.badajoz.badajozentubolsillo.android.R
 import com.badajoz.badajozentubolsillo.android.composables.about.components.AboutCard
@@ -21,9 +20,8 @@ fun AboutRoute(onNavigate: (Destination) -> Unit) {
                 buttonText = R.string.about_card_link_1,
                 onClick = {
                     onNavigate(
-                        Destination(
-                            Screen.ExternalLink.route,
-                            URLEncoder.encode(stringResource(id = R.string.github), "UTF-8")
+                        Screen.ExternalLink.toDestination(
+                            URLEncoder.encode(stringResource(R.string.github), "UTF-8")
                         )
                     )
                 }
@@ -36,8 +34,7 @@ fun AboutRoute(onNavigate: (Destination) -> Unit) {
                 buttonText = R.string.about_card_link_2,
                 onClick = {
                     onNavigate(
-                        Destination(
-                            Screen.ExternalLink.route,
+                        Screen.ExternalLink.toDestination(
                             URLEncoder.encode(stringResource(id = R.string.privacy), "UTF-8")
                         )
                     )

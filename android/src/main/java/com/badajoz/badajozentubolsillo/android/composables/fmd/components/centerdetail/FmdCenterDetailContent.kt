@@ -27,7 +27,7 @@ fun FmdCenterDetailContent(
         topBar = {
             if (state is FmdCenterDetailState.Success) {
                 TopBar(title = state.center.title, icon = Icons.Default.ArrowBack) {
-                    onNavigate(Screen.Fmd.toDestination())
+                    onNavigate(Screen.Menu.Fmd.toDestination())
                 }
             }
         },

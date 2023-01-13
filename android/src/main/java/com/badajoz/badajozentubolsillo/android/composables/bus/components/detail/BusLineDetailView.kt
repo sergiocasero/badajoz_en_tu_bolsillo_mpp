@@ -44,7 +44,7 @@ fun BusLineDetailView(
     Scaffold(
         topBar = {
             TopBar(title = title, icon = Icons.Default.ArrowBack) {
-                onNavigate(Screen.Bus.toDestination())
+                onNavigate(Screen.Menu.Bus.toDestination())
             }
         },
         floatingActionButton = {

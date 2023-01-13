@@ -1,7 +1,5 @@
 package com.badajoz.badajozentubolsillo.android.composables
 
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -37,70 +35,29 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
         startDestination = initialScreen.route
     ) {
 
-        composable(Screen.News.route) {
-            coroutineScope.launch { analytics.logEvent(Screen.News) }
-            MenuRoute(state = MenuState.News) {
-                if (Screen.News.checkAccess(it)) {
-                    navController.navigate(it.to)
+        Screen.Menu.values().forEach { screen ->
+            composable(screen.route) {
+                coroutineScope.launch { analytics.logEvent(screen) }
+                MenuRoute(
+                    state = when (screen) {
+                        Screen.Menu.About -> MenuState.About
+                        Screen.Menu.Bike -> MenuState.Bike
+                        Screen.Menu.Bus -> MenuState.Bus
+                        Screen.Menu.Calendar -> MenuState.Calendar
+                        Screen.Menu.Fmd -> MenuState.Fmd
+                        Screen.Menu.Minits -> MenuState.Minits
+                        Screen.Menu.News -> MenuState.News
+                        Screen.Menu.Pharmacy -> MenuState.Pharmacy
+                        Screen.Menu.Taxes -> MenuState.Taxes
+                    }
+                ) { destination ->
+                    screen.checkAccess(destination, granted = { navController.navigate(it) })
+                    // TODO: External link on taxes and pharmacies
                 }
             }
         }
 
-        composable(Screen.Calendar.route) {
-            coroutineScope.launch { analytics.logEvent(Screen.Calendar) }
-            MenuRoute(state = MenuState.Calendar) {
-                if (Screen.Calendar.checkAccess(it)) {
-                    navController.navigate(it.to)
-                }
-            }
-        }
-
-        composable(Screen.Bus.route) {
-            coroutineScope.launch { analytics.logEvent(Screen.Bus) }
-            MenuRoute(state = MenuState.Bus) {
-                if (Screen.Bus.checkAccess(it)) {
-                    navController.navigate(it.to)
-                }
-            }
-        }
-
-        composable(Screen.Bike.route) {
-            coroutineScope.launch { analytics.logEvent(Screen.Bike) }
-            MenuRoute(state = MenuState.Bike) {
-                if (Screen.Bike.checkAccess(it)) {
-                    navController.navigate(it.to)
-                }
-            }
-        }
-
-        composable(Screen.Minits.route) {
-            coroutineScope.launch { analytics.logEvent(Screen.Minits) }
-            MenuRoute(state = MenuState.Minits) {
-                if (Screen.Minits.checkAccess(it)) {
-                    navController.navigate(it.to)
-                }
-            }
-        }
-
-        composable(Screen.Fmd.route) {
-            coroutineScope.launch { analytics.logEvent(Screen.Fmd) }
-            MenuRoute(state = MenuState.Fmd) {
-                if (Screen.Fmd.checkAccess(it)) {
-                    navController.navigate(it.to)
-                }
-            }
-        }
-
-        composable(Screen.About.route) {
-            coroutineScope.launch { analytics.logEvent(Screen.About) }
-            MenuRoute(state = MenuState.About) {
-                if (Screen.About.checkAccess(it)) {
-                    navController.navigate(it.to)
-                }
-            }
-        }
-
-        composable(Screen.Pharmacy.route) {
+        /*composable(Screen.Pharmacy.route) {
             coroutineScope.launch { analytics.logEvent(Screen.Pharmacy) }
             MenuRoute(state = MenuState.Pharmacy) {
                 if (Screen.Pharmacy.checkAccess(it)) {
@@ -120,27 +77,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
                     }
                 }
             }
-        }
-
-        composable(Screen.Taxes.route) {
-            coroutineScope.launch { analytics.logEvent(Screen.Taxes) }
-            MenuRoute(state = MenuState.Taxes) {
-                if (Screen.Taxes.checkAccess(it)) {
-                    when (it.template) {
-                        Screen.ExternalLink.route -> {
-                            coroutineScope.launch {
-                                // intent to open external link
-                                // TODO ("I don't like this")
-                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.to.replace("external/", "")))
-                                context.startActivity(intent)
-                            }
-                        }
-
-                        else -> navController.navigate(it.to)
-                    }
-                }
-            }
-        }
+        }*/
 
         composable(
             route = Screen.NewsDetail.route,
@@ -151,9 +88,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             NewsDetailRoute(
                 link = URLDecoder.decode(link, "UTF-8"),
                 onNavigate = {
-                    if (Screen.NewsDetail.checkAccess(it)) {
-                        navController.popBackStack()
-                    }
+                    Screen.NewsDetail.checkAccess(it, back = { navController.popBackStack() })
                 }
             )
         }
@@ -167,9 +102,7 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             BusLineDetailRoute(
                 lineId = lineId,
                 onNavigate = {
-                    if (Screen.BusLineDetail.checkAccess(it)) {
-                        navController.popBackStack()
-                    }
+                    Screen.BusLineDetail.checkAccess(it, back = { navController.popBackStack() })
                 }
             )
         }
@@ -182,13 +115,12 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             coroutineScope.launch { analytics.logEvent(Screen.FmdCenterDetail, mapOf(Pair("id", centerId))) }
             FmdCenterDetailRoute(
                 id = centerId,
-                onNavigate = {
-                    if (Screen.FmdCenterDetail.checkAccess(it)) {
-                        when (it.template) {
-                            Screen.Fmd.route -> navController.popBackStack()
-                            Screen.FmdSportDetail.route -> navController.navigate(it.to)
-                        }
-                    }
+                onNavigate = { destination ->
+                    Screen.FmdCenterDetail.checkAccess(
+                        destination,
+                        back = { navController.popBackStack() },
+                        granted = { navController.navigate(it) }
+                    )
                 }
             )
         }
@@ -210,9 +142,10 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
                 )
             }
             FmdSportDetailRoute(centerId = centerId, sportId = sportId) {
-                if (Screen.FmdSportDetail.checkAccess(it)) {
-                    navController.popBackStack()
-                }
+                Screen.FmdSportDetail.checkAccess(
+                    destination = it,
+                    back = { navController.popBackStack() }
+                )
             }
         }
     }

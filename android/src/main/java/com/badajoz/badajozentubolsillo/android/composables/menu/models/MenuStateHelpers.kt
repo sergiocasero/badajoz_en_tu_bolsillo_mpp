@@ -45,13 +45,13 @@ fun MenuState.icon(): ImageVector = when (this) {
 }
 
 fun MenuState.screen(): Screen = when (this) {
-    MenuState.Bike -> Screen.Bike
-    MenuState.Bus -> Screen.Bus
-    MenuState.Calendar -> Screen.Calendar
-    MenuState.Fmd -> Screen.Fmd
-    MenuState.Minits -> Screen.Minits
-    MenuState.News -> Screen.News
-    MenuState.Pharmacy -> Screen.Pharmacy
-    MenuState.Taxes -> Screen.Taxes
-    MenuState.About -> Screen.About
+    MenuState.Bike -> Screen.Menu.Bike
+    MenuState.Bus -> Screen.Menu.Bus
+    MenuState.Calendar -> Screen.Menu.Calendar
+    MenuState.Fmd -> Screen.Menu.Fmd
+    MenuState.Minits -> Screen.Menu.Minits
+    MenuState.News -> Screen.Menu.News
+    MenuState.Pharmacy -> Screen.Menu.Pharmacy
+    MenuState.Taxes -> Screen.Menu.Taxes
+    MenuState.About -> Screen.Menu.About
 }
