@@ -76,7 +76,7 @@ fun MenuContent(
                 Spacer(modifier = Modifier.size(24.dp))
                 Row(modifier = Modifier.fillMaxWidth()) {
                     Image(
-                        painterResource(id = R.drawable.badajoz_logo),
+                        painterResource(id = R.drawable.logo),
                         contentDescription = stringResource(id = R.string.badajoz_logo),
                         modifier = Modifier
                             .padding(start = 16.dp)
