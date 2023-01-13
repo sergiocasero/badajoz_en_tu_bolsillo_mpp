@@ -30,6 +30,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.badajoz.badajozentubolsillo.android.R
+import com.badajoz.badajozentubolsillo.android.composables.about.AboutRoute
 import com.badajoz.badajozentubolsillo.android.composables.bike.BikeRoute
 import com.badajoz.badajozentubolsillo.android.composables.bus.BusHomeRoute
 import com.badajoz.badajozentubolsillo.android.composables.calendar.CalendarRoute
@@ -125,6 +126,7 @@ fun MenuContent(
 
             MenuState.Pharmacy -> PharmacyRoute { onNavigate(it) }
             MenuState.Taxes -> TaxesRoute { onNavigate(it) }
+            MenuState.About -> AboutRoute { onNavigate(it) }
         }
     }
 }

@@ -24,7 +24,8 @@ sealed class MenuState {
             Bike,
             Bus,
             // Minits,
-            Pharmacy
+            Pharmacy,
+            About
         )
     }
 
@@ -36,6 +37,7 @@ sealed class MenuState {
     object Bus : MenuState()
     object Minits : MenuState()
     object Pharmacy : MenuState()
+    object About : MenuState()
 }
 
 sealed class MenuEvent {

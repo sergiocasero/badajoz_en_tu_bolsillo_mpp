@@ -91,6 +91,15 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             }
         }
 
+        composable(Screen.About.route) {
+            coroutineScope.launch { analytics.logEvent(Screen.About) }
+            MenuRoute(state = MenuState.About) {
+                if (Screen.About.checkAccess(it)) {
+                    navController.navigate(it.to)
+                }
+            }
+        }
+
         composable(Screen.Pharmacy.route) {
             coroutineScope.launch { analytics.logEvent(Screen.Pharmacy) }
             MenuRoute(state = MenuState.Pharmacy) {

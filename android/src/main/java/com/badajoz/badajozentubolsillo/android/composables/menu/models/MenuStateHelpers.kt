@@ -5,6 +5,7 @@ import androidx.compose.material.icons.filled.BusAlert
 import androidx.compose.material.icons.filled.Business
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.ElectricCar
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LocalPharmacy
 import androidx.compose.material.icons.filled.PedalBike
 import androidx.compose.material.icons.filled.Sports
@@ -27,6 +28,7 @@ fun MenuState.title(): String = stringResource(
         MenuState.News -> R.string.news
         MenuState.Pharmacy -> R.string.pharmacy
         MenuState.Taxes -> R.string.taxes
+        MenuState.About -> R.string.about_app
     }
 )
 
@@ -39,6 +41,7 @@ fun MenuState.icon(): ImageVector = when (this) {
     MenuState.News -> Icons.Outlined.Newspaper
     MenuState.Pharmacy -> Icons.Filled.LocalPharmacy
     MenuState.Taxes -> Icons.Filled.Business
+    MenuState.About -> Icons.Filled.Info
 }
 
 fun MenuState.screen(): Screen = when (this) {
@@ -50,4 +53,5 @@ fun MenuState.screen(): Screen = when (this) {
     MenuState.News -> Screen.News
     MenuState.Pharmacy -> Screen.Pharmacy
     MenuState.Taxes -> Screen.Taxes
+    MenuState.About -> Screen.About
 }

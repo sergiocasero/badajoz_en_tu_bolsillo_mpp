@@ -49,4 +49,15 @@
     <string name="retry">Reintentar</string>
     <string name="menu">Menu</string>
     <string name="logout">Cerrar sesión</string>
+    <string name="about_app">Sobre la aplicación</string>
+    <string name="about_card_title_1">Finalidad</string>
+    <string name="about_card_title_2">De dónde se obtienen los datos</string>
+    <string name="about_card_title_3">¿Se guarda algún tipo de información?</string>
+    <string name="about_card_description_1">Esta aplicación se ha desarrollado única y exclusivamente sin ánimo de lucro y con el único objetivo de demostrar como desarrollar aplicaciones para Android con nuevas tecnologías. El código fuente de la misma es público y se puede visitar\nSi eres desarrollador de aplicaciones nativas, quizás te parezca interesante o quieras colaborar en su desarrollo</string>
+    <string name="about_card_link_1">https://github.com/sergiocasero/badajoz_en_tu_bolsillo_mpp</string>
+    <string name="github">https://github.com/sergiocasero/badajoz_en_tu_bolsillo_mpp</string>
+    <string name="about_card_description_2">Todos los datos aquí mostrados, son públicos y/o están accesibles públicamente en internet. Esta aplicación no genera contenido propio, puedes leer más en nuestra política de privacidad\n</string>
+    <string name="about_card_link_2">Ver</string>
+    <string name="privacy">https://badajoz.sergiocasero.es/privacy</string>
+    <string name="about_card_description_3">Esta aplicación no guarda ningún tipo de información de usuario salvo (si lo introduces) el usuario y contraseña de la FMD.\nEsto es necesario para ver los espacios libres, pero tu información no se almacena en ningún sitio adicional. Si desinstalas la aplicación, toda la información desaparecerá</string>
 </resources>

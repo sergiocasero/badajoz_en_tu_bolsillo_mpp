@@ -27,6 +27,7 @@ sealed class Screen {
                 Bus.route,
                 Minits.route,
                 Pharmacy.route,
+                About.route,
                 NewsDetail.route
             )
 
@@ -44,6 +45,7 @@ sealed class Screen {
                 Bike.route,
                 Bus.route,
                 Minits.route,
+                About.route,
                 Pharmacy.route
             )
 
@@ -63,10 +65,30 @@ sealed class Screen {
                 Bus.route,
                 Minits.route,
                 Pharmacy.route,
+                About.route,
                 ExternalLink.route
             )
 
         override fun toString(): String = "Taxes"
+    }
+
+    object About : Screen() {
+        override val route
+            get() = "about"
+        override val destinations: List<String> =
+            listOf(
+                News.route,
+                Calendar.route,
+                Fmd.route,
+                Bike.route,
+                Bus.route,
+                Minits.route,
+                Pharmacy.route,
+                ExternalLink.route,
+                Taxes.route
+            )
+
+        override fun toString(): String = "About"
     }
 
     object Fmd : Screen() {
@@ -81,6 +103,7 @@ sealed class Screen {
                 Bus.route,
                 Minits.route,
                 Pharmacy.route,
+                About.route,
                 FmdCenterDetail.route
             )
 
@@ -98,6 +121,7 @@ sealed class Screen {
                 Fmd.route,
                 Bus.route,
                 Minits.route,
+                About.route,
                 Pharmacy.route
             )
 
@@ -116,6 +140,7 @@ sealed class Screen {
                 Bike.route,
                 Minits.route,
                 Pharmacy.route,
+                About.route,
                 BusLineDetail.route
             )
 
@@ -133,6 +158,7 @@ sealed class Screen {
                 Fmd.route,
                 Bike.route,
                 Bus.route,
+                About.route,
                 Pharmacy.route
             )
 
@@ -151,6 +177,7 @@ sealed class Screen {
                 Bike.route,
                 Bus.route,
                 Minits.route,
+                About.route,
                 MapLink.route
             )
 
