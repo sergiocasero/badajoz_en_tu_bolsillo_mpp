@@ -1,50 +1,65 @@
 package com.badajoz.badajozentubolsillo.viewmodel
 
+class NavigationGraph {
+    fun checkPermission(
+        from: Screen,
+        to: Screen,
+        route: String? = null,
+        onBack: () -> Unit = {},
+        onGranted: (String) -> Unit = {},
+        onLink: (String) -> Unit = {},
+        onMap: (String) -> Unit = {}
+    ) {
+        if (from == to) {
+            throw IllegalArgumentException("You are trying to navigate to the same screen")
+        }
+        when (from) {
+            Screen.BusLineDetail -> when (to) {
+                Screen.Menu.Bus -> onBack()
+                else -> throw IllegalArgumentException("You are trying to navigate to a screen that is not allowed")
+            }
+
+            Screen.ExternalLink -> throw IllegalArgumentException("You are trying to navigate to a screen that is not allowed")
+            Screen.FmdCenterDetail -> when (to) {
+                Screen.FmdSportDetail -> when (route) {
+                    null -> throw IllegalArgumentException("This screen needs centerId and stopId to be defined")
+                    else -> onGranted(route)
+                }
+
+                Screen.Menu.Fmd -> onBack()
+                else -> throw IllegalArgumentException("You are trying to navigate to a screen that is not allowed")
+            }
+
+            Screen.FmdSportDetail -> when (to) {
+                Screen.FmdCenterDetail -> onBack()
+                else -> throw IllegalArgumentException("You are trying to navigate to a screen that is not allowed")
+            }
+
+            Screen.MapLink -> throw IllegalArgumentException("You are trying to navigate to a screen that is not allowed")
+            is Screen.Menu -> {
+                when {
+                    to is Screen.Menu -> onGranted(to.route)
+                    (from is Screen.Menu.Pharmacy || from is Screen.Menu.Bike || from is Screen.Menu.Fmd)
+                            && to is Screen.MapLink -> onMap(to.route)
+
+                    from is Screen.Menu.Taxes
+                            && to is Screen.ExternalLink -> onLink(route!!)
+                }
+            }
+
+            Screen.NewsDetail -> when (to) {
+                Screen.Menu.News -> onBack()
+                else -> throw IllegalArgumentException("You are trying to navigate to a screen that is not allowed")
+            }
+        }
+    }
+}
+
 data class Destination(val screen: Screen, val route: String? = null)
 sealed class Screen {
     // abstract fun build, it could receive N parameters
     open fun toDestination(vararg params: Any): Destination = Destination(screen = this, route = route)
     abstract val route: String
-
-    fun checkAccess(destination: Destination, back: () -> Unit = {}, granted: (String) -> Unit = {}) {
-        if (this == destination.screen) {
-            throw IllegalArgumentException("You are trying to navigate to the same screen")
-        }
-        when (this) {
-            BusLineDetail -> when (destination.screen) {
-                Menu.Bus -> back()
-                else -> throw IllegalArgumentException("You are trying to navigate to a screen that is not allowed")
-            }
-
-            ExternalLink -> throw IllegalArgumentException("You are trying to navigate to a screen that is not allowed")
-            FmdCenterDetail -> when (destination.screen) {
-                FmdSportDetail -> when (destination.route) {
-                    null -> throw IllegalArgumentException("This screen needs centerId and stopId to be defined")
-                    else -> granted(destination.route)
-                }
-
-                Menu.Fmd -> back()
-                else -> throw IllegalArgumentException("You are trying to navigate to a screen that is not allowed")
-            }
-
-            FmdSportDetail -> when (destination.screen) {
-                FmdCenterDetail -> back()
-                else -> throw IllegalArgumentException("You are trying to navigate to a screen that is not allowed")
-            }
-
-            MapLink -> throw IllegalArgumentException("You are trying to navigate to a screen that is not allowed")
-            is Menu -> {
-                if (destination.screen is Menu) {
-                    granted(destination.screen.route) // Menu routes don't have parameters
-                }
-            }
-
-            NewsDetail -> when (destination.screen) {
-                Menu.News -> back()
-                else -> throw IllegalArgumentException("You are trying to navigate to a screen that is not allowed")
-            }
-        }
-    }
 
     sealed class Menu : Screen() {
 

@@ -1,5 +1,8 @@
 package com.badajoz.badajozentubolsillo.android.composables
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -18,17 +21,31 @@ import com.badajoz.badajozentubolsillo.android.composables.fmd.FmdSportDetailRou
 import com.badajoz.badajozentubolsillo.android.composables.menu.MenuRoute
 import com.badajoz.badajozentubolsillo.android.composables.news.NewsDetailRoute
 import com.badajoz.badajozentubolsillo.viewmodel.MenuState
+import com.badajoz.badajozentubolsillo.viewmodel.NavigationGraph
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
 import kotlinx.coroutines.launch
 import java.net.URLDecoder
+
+private fun openExternalLink(context: Context, url: String) {
+    val to = Uri.parse(url.replace("external/", ""))
+    val intent = Intent(Intent.ACTION_VIEW, to)
+    context.startActivity(intent)
+}
+
+private fun openMaps(context: Context, url: String) {
+    val to = Uri.parse("google.navigation:q=${url.replace("maps/", "")}")
+    val intent = Intent(Intent.ACTION_VIEW, to)
+    context.startActivity(intent)
+}
 
 @Composable
 fun BadajozApp(initialScreen: Screen, navController: NavHostController = rememberNavController()) {
 
     // val navigationViewModel = remember { NavigationViewModel(initialScreen) }
     val coroutineScope = rememberCoroutineScope()
-    val context = LocalContext.current
+    val navigationGraph = remember { NavigationGraph() }
     val analytics = remember<Analytics> { SharedAnalytics() }
+    val context = LocalContext.current
 
     NavHost(
         navController = navController,
@@ -51,33 +68,17 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
                         Screen.Menu.Taxes -> MenuState.Taxes
                     }
                 ) { destination ->
-                    screen.checkAccess(destination, granted = { navController.navigate(it) })
-                    // TODO: External link on taxes and pharmacies
+                    navigationGraph.checkPermission(
+                        from = screen,
+                        to = destination.screen,
+                        route = destination.route,
+                        onGranted = { navController.navigate(it) },
+                        onLink = { openExternalLink(context, it) },
+                        onMap = { openMaps(context, it) }
+                    )
                 }
             }
         }
-
-        /*composable(Screen.Pharmacy.route) {
-            coroutineScope.launch { analytics.logEvent(Screen.Pharmacy) }
-            MenuRoute(state = MenuState.Pharmacy) {
-                if (Screen.Pharmacy.checkAccess(it)) {
-                    when (it.template) {
-                        Screen.MapLink.route -> {
-                            coroutineScope.launch {
-                                // intent to open navigation maps, action should be "google.navigation:q="
-                                // TODO("I don't like this")
-                                val to = Uri.parse("google.navigation:q=${it.to.replace("map/", "")}")
-                                val intent = Intent(Intent.ACTION_VIEW, to)
-                                context.startActivity(intent)
-                                // TODO ("I don't like this")
-                            }
-                        }
-
-                        else -> navController.navigate(it.to)
-                    }
-                }
-            }
-        }*/
 
         composable(
             route = Screen.NewsDetail.route,
@@ -88,7 +89,14 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             NewsDetailRoute(
                 link = URLDecoder.decode(link, "UTF-8"),
                 onNavigate = {
-                    Screen.NewsDetail.checkAccess(it, back = { navController.popBackStack() })
+                    navigationGraph.checkPermission(
+                        from = Screen.NewsDetail,
+                        to = it.screen,
+                        route = it.route,
+                        onBack = { navController.popBackStack() },
+                        onGranted = { navController.navigate(it) },
+                        onLink = { openExternalLink(context, it) }
+                    )
                 }
             )
         }
@@ -102,7 +110,14 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             BusLineDetailRoute(
                 lineId = lineId,
                 onNavigate = {
-                    Screen.BusLineDetail.checkAccess(it, back = { navController.popBackStack() })
+                    navigationGraph.checkPermission(
+                        from = Screen.BusLineDetail,
+                        to = it.screen,
+                        route = it.route,
+                        onBack = { navController.popBackStack() },
+                        onGranted = { navController.navigate(it) },
+                        onLink = { openExternalLink(context, it) }
+                    )
                 }
             )
         }
@@ -116,10 +131,13 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             FmdCenterDetailRoute(
                 id = centerId,
                 onNavigate = { destination ->
-                    Screen.FmdCenterDetail.checkAccess(
-                        destination,
-                        back = { navController.popBackStack() },
-                        granted = { navController.navigate(it) }
+                    navigationGraph.checkPermission(
+                        from = Screen.FmdCenterDetail,
+                        to = destination.screen,
+                        route = destination.route,
+                        onBack = { navController.popBackStack() },
+                        onGranted = { navController.navigate(it) },
+                        onLink = { openExternalLink(context, it) }
                     )
                 }
             )
@@ -142,9 +160,13 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
                 )
             }
             FmdSportDetailRoute(centerId = centerId, sportId = sportId) {
-                Screen.FmdSportDetail.checkAccess(
-                    destination = it,
-                    back = { navController.popBackStack() }
+                navigationGraph.checkPermission(
+                    from = Screen.FmdSportDetail,
+                    to = it.screen,
+                    route = it.route,
+                    onBack = { navController.popBackStack() },
+                    onGranted = { navController.navigate(it) },
+                    onLink = { openExternalLink(context, it) }
                 )
             }
         }
