@@ -53,6 +53,10 @@ class NavigationGraph {
                     from is Screen.Menu.Bus
                             && to is Screen.BusLineDetail
                             && route != null -> onGranted(route)
+
+                    from is Screen.Menu.Fmd
+                            && to is Screen.FmdCenterDetail
+                            && route != null -> onGranted(route)
                 }
             }
 

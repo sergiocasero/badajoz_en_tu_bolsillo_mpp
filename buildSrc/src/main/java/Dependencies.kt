@@ -18,7 +18,7 @@ const val mapboxVersion = "10.10.0"
 object App {
     const val minSdkVersion = 23
     const val targetSdkVersion = 33
-    const val versionCode = 5
+    const val versionCode = 6
     const val versionName = "1.0.4"
     const val testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
 }
