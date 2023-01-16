@@ -5,8 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
-import com.badajoz.badajozentubolsillo.viewmodel.CalendarEvent
-import com.badajoz.badajozentubolsillo.viewmodel.CalendarState
+import com.badajoz.badajozentubolsillo.viewmodel.calendar.CalendarEvent
+import com.badajoz.badajozentubolsillo.viewmodel.calendar.CalendarState
 
 @Composable
 fun CalendarContent(state: CalendarState, onEvent: (CalendarEvent) -> Unit) {

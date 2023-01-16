@@ -13,8 +13,8 @@ import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.TopBar
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
-import com.badajoz.badajozentubolsillo.viewmodel.FmdSportDetailEvent
-import com.badajoz.badajozentubolsillo.viewmodel.FmdSportDetailState
+import com.badajoz.badajozentubolsillo.viewmodel.fmd.FmdSportDetailEvent
+import com.badajoz.badajozentubolsillo.viewmodel.fmd.FmdSportDetailState
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
 import java.net.URLEncoder
 

@@ -6,9 +6,8 @@ import androidx.compose.runtime.remember
 import com.badajoz.badajozentubolsillo.android.composables.fmd.components.centerlist.FmdContent
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
-import com.badajoz.badajozentubolsillo.viewmodel.FmdState
-import com.badajoz.badajozentubolsillo.viewmodel.FmdViewModel
-import com.badajoz.badajozentubolsillo.viewmodel.Screen
+import com.badajoz.badajozentubolsillo.viewmodel.fmd.FmdState
+import com.badajoz.badajozentubolsillo.viewmodel.fmd.FmdViewModel
 
 @Composable
 fun FmdRoute(onNavigate: (Destination) -> Unit) {

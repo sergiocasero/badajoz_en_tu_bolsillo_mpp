@@ -22,8 +22,8 @@ import com.badajoz.badajozentubolsillo.android.composables.bus.components.BusTim
 import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
 import com.badajoz.badajozentubolsillo.model.category.bus.BusLineItem
-import com.badajoz.badajozentubolsillo.viewmodel.BusHomeEvent
-import com.badajoz.badajozentubolsillo.viewmodel.BusHomeState
+import com.badajoz.badajozentubolsillo.viewmodel.bus.BusHomeEvent
+import com.badajoz.badajozentubolsillo.viewmodel.bus.BusHomeState
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
 

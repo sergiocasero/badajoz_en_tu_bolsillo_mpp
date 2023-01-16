@@ -27,7 +27,7 @@ import com.badajoz.badajozentubolsillo.android.composables.reusable.TopBar
 import com.badajoz.badajozentubolsillo.android.utils.staticUrl
 import com.badajoz.badajozentubolsillo.model.AppConfigData
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
-import com.badajoz.badajozentubolsillo.viewmodel.BusLineDetailEvent
+import com.badajoz.badajozentubolsillo.viewmodel.bus.BusLineDetailEvent
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
 

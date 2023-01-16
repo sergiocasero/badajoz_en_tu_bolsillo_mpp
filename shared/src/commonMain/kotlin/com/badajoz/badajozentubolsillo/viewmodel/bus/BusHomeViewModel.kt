@@ -1,4 +1,4 @@
-package com.badajoz.badajozentubolsillo.viewmodel
+package com.badajoz.badajozentubolsillo.viewmodel.bus
 
 
 import com.badajoz.badajozentubolsillo.model.AppError
@@ -6,6 +6,8 @@ import com.badajoz.badajozentubolsillo.model.category.bus.BusLineItem
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStopDetail
 import com.badajoz.badajozentubolsillo.repository.BusRepository
+import com.badajoz.badajozentubolsillo.viewmodel.RootViewModel
+import com.badajoz.badajozentubolsillo.viewmodel.ViewState
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 

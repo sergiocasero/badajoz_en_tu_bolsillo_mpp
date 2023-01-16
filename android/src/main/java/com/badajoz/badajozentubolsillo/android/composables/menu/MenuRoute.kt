@@ -4,9 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import com.badajoz.badajozentubolsillo.android.composables.menu.components.MenuContent
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
-import com.badajoz.badajozentubolsillo.viewmodel.MenuState
-import com.badajoz.badajozentubolsillo.viewmodel.MenuViewModel
-import com.badajoz.badajozentubolsillo.viewmodel.Screen
+import com.badajoz.badajozentubolsillo.viewmodel.menu.MenuState
+import com.badajoz.badajozentubolsillo.viewmodel.menu.MenuViewModel
 
 
 @Composable

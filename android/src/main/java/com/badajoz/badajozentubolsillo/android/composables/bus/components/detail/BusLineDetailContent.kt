@@ -7,8 +7,8 @@ import com.badajoz.badajozentubolsillo.android.composables.bus.components.BusTim
 import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
-import com.badajoz.badajozentubolsillo.viewmodel.BusLineDetailEvent
-import com.badajoz.badajozentubolsillo.viewmodel.BusLineDetailState
+import com.badajoz.badajozentubolsillo.viewmodel.bus.BusLineDetailEvent
+import com.badajoz.badajozentubolsillo.viewmodel.bus.BusLineDetailState
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
 
 @Composable

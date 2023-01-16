@@ -17,7 +17,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.badajoz.badajozentubolsillo.android.R
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStopDetail
-import com.badajoz.badajozentubolsillo.viewmodel.BusLineDetailEvent
 
 @Composable
 fun BusTimesDialog(selectedStop: BusStopDetail, onDismiss: () -> Unit) {

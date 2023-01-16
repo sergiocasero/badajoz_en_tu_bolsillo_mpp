@@ -5,9 +5,8 @@ import androidx.compose.runtime.remember
 import com.badajoz.badajozentubolsillo.android.composables.news.components.list.NewsContent
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
-import com.badajoz.badajozentubolsillo.viewmodel.HomeState
-import com.badajoz.badajozentubolsillo.viewmodel.NewsViewModel
-import com.badajoz.badajozentubolsillo.viewmodel.Screen
+import com.badajoz.badajozentubolsillo.viewmodel.news.HomeState
+import com.badajoz.badajozentubolsillo.viewmodel.news.NewsViewModel
 
 @Composable
 fun NewsRoute(onNavigate: (Destination) -> Unit) {

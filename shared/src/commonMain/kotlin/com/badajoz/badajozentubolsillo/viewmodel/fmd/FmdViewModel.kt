@@ -1,4 +1,4 @@
-package com.badajoz.badajozentubolsillo.viewmodel
+package com.badajoz.badajozentubolsillo.viewmodel.fmd
 
 
 import com.badajoz.badajozentubolsillo.model.AppConfigData
@@ -7,6 +7,8 @@ import com.badajoz.badajozentubolsillo.model.Either
 import com.badajoz.badajozentubolsillo.model.category.fmd.FmdCenterItem
 import com.badajoz.badajozentubolsillo.model.category.fmd.FmdUser
 import com.badajoz.badajozentubolsillo.repository.FmdRepository
+import com.badajoz.badajozentubolsillo.viewmodel.RootViewModel
+import com.badajoz.badajozentubolsillo.viewmodel.ViewState
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 

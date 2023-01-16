@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import com.badajoz.badajozentubolsillo.android.R
-import com.badajoz.badajozentubolsillo.viewmodel.MenuState
+import com.badajoz.badajozentubolsillo.viewmodel.menu.MenuState
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable

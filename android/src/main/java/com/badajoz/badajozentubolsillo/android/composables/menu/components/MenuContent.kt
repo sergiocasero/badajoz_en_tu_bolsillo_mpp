@@ -44,8 +44,8 @@ import com.badajoz.badajozentubolsillo.android.composables.reusable.EmptyView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.TopBar
 import com.badajoz.badajozentubolsillo.android.composables.taxes.TaxesRoute
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
-import com.badajoz.badajozentubolsillo.viewmodel.MenuEvent
-import com.badajoz.badajozentubolsillo.viewmodel.MenuState
+import com.badajoz.badajozentubolsillo.viewmodel.menu.MenuEvent
+import com.badajoz.badajozentubolsillo.viewmodel.menu.MenuState
 import kotlinx.coroutines.launch
 
 @Composable

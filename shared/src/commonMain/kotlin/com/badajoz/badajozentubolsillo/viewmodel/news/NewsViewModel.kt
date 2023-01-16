@@ -1,8 +1,10 @@
-package com.badajoz.badajozentubolsillo.viewmodel
+package com.badajoz.badajozentubolsillo.viewmodel.news
 
 import com.badajoz.badajozentubolsillo.model.AppError
 import com.badajoz.badajozentubolsillo.model.category.news.News
 import com.badajoz.badajozentubolsillo.repository.NewsRepository
+import com.badajoz.badajozentubolsillo.viewmodel.RootViewModel
+import com.badajoz.badajozentubolsillo.viewmodel.ViewState
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 

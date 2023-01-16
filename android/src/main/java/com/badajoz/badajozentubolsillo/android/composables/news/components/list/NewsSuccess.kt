@@ -3,7 +3,7 @@ package com.badajoz.badajozentubolsillo.android.composables.news.components.list
 import androidx.compose.runtime.Composable
 import com.badajoz.badajozentubolsillo.model.category.news.News
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
-import com.badajoz.badajozentubolsillo.viewmodel.NewsEvent
+import com.badajoz.badajozentubolsillo.viewmodel.news.NewsEvent
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
 import java.net.URLEncoder
 

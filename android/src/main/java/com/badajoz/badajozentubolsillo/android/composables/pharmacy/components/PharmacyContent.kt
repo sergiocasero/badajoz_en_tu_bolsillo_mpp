@@ -6,8 +6,8 @@ import androidx.compose.runtime.LaunchedEffect
 import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
-import com.badajoz.badajozentubolsillo.viewmodel.PharmacyEvent
-import com.badajoz.badajozentubolsillo.viewmodel.PharmacyState
+import com.badajoz.badajozentubolsillo.viewmodel.pharmacy.PharmacyEvent
+import com.badajoz.badajozentubolsillo.viewmodel.pharmacy.PharmacyState
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable

@@ -1,10 +1,12 @@
-package com.badajoz.badajozentubolsillo.viewmodel
+package com.badajoz.badajozentubolsillo.viewmodel.taxes
 
 
 import com.badajoz.badajozentubolsillo.model.AppError
 import com.badajoz.badajozentubolsillo.model.category.taxes.TaxGroup
 import com.badajoz.badajozentubolsillo.repository.TaxRepository
 import com.badajoz.badajozentubolsillo.utils.exhaustive
+import com.badajoz.badajozentubolsillo.viewmodel.RootViewModel
+import com.badajoz.badajozentubolsillo.viewmodel.ViewState
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 

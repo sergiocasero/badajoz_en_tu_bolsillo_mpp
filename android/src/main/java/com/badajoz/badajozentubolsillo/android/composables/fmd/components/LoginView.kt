@@ -25,7 +25,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.badajoz.badajozentubolsillo.android.R
-import com.badajoz.badajozentubolsillo.viewmodel.FmdEvent
+import com.badajoz.badajozentubolsillo.viewmodel.fmd.FmdEvent
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable

@@ -1,4 +1,6 @@
-package com.badajoz.badajozentubolsillo.viewmodel
+package com.badajoz.badajozentubolsillo.viewmodel.menu
+
+import com.badajoz.badajozentubolsillo.viewmodel.RootViewModel
 
 class MenuViewModel(initialState: MenuState) :
     RootViewModel<MenuState, MenuEvent>(initialState) {

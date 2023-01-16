@@ -19,9 +19,9 @@ import com.badajoz.badajozentubolsillo.android.composables.bike.models.toMarker
 import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.MapWithMarkers
-import com.badajoz.badajozentubolsillo.viewmodel.BikeEvent
-import com.badajoz.badajozentubolsillo.viewmodel.BikeState
-import com.badajoz.badajozentubolsillo.viewmodel.BikeViewType
+import com.badajoz.badajozentubolsillo.viewmodel.bike.BikeEvent
+import com.badajoz.badajozentubolsillo.viewmodel.bike.BikeState
+import com.badajoz.badajozentubolsillo.viewmodel.bike.BikeViewType
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
 

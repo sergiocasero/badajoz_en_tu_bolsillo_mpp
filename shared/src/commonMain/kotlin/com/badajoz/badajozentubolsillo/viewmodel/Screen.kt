@@ -203,7 +203,7 @@ sealed class Screen {
                 this,
                 if (params.size == 1) {
                     val link = params[0] as String
-                    "external/$link"
+                    link
                 } else {
                     route
                 }
@@ -221,7 +221,7 @@ sealed class Screen {
                 this,
                 if (params.size == 1) {
                     val address = params[0] as String
-                    "map/$address"
+                    address
                 } else {
                     route
                 }

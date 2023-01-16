@@ -3,7 +3,7 @@ package com.badajoz.badajozentubolsillo.android.composables.calendar.components
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.badajoz.badajozentubolsillo.model.category.calendar.CalendarItem
-import com.badajoz.badajozentubolsillo.viewmodel.CalendarState
+import com.badajoz.badajozentubolsillo.viewmodel.calendar.CalendarState
 
 @Preview
 @Composable

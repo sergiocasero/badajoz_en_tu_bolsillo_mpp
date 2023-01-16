@@ -9,8 +9,8 @@ import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.TopBar
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
-import com.badajoz.badajozentubolsillo.viewmodel.FmdCenterDetailEvent
-import com.badajoz.badajozentubolsillo.viewmodel.FmdCenterDetailState
+import com.badajoz.badajozentubolsillo.viewmodel.fmd.FmdCenterDetailEvent
+import com.badajoz.badajozentubolsillo.viewmodel.fmd.FmdCenterDetailState
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable

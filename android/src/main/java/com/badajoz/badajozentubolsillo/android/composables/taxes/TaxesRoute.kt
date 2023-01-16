@@ -6,9 +6,8 @@ import androidx.compose.runtime.remember
 import com.badajoz.badajozentubolsillo.android.composables.taxes.components.TaxesContent
 import com.badajoz.badajozentubolsillo.android.utils.stateWithLifecycle
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
-import com.badajoz.badajozentubolsillo.viewmodel.Screen
-import com.badajoz.badajozentubolsillo.viewmodel.TaxesViewModel
-import com.badajoz.badajozentubolsillo.viewmodel.TaxesViewModelState
+import com.badajoz.badajozentubolsillo.viewmodel.taxes.TaxesViewModel
+import com.badajoz.badajozentubolsillo.viewmodel.taxes.TaxesViewModelState
 
 @Composable
 fun TaxesRoute(onNavigate: (Destination) -> Unit) {

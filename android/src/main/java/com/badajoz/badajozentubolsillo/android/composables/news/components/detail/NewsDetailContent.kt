@@ -13,8 +13,8 @@ import com.badajoz.badajozentubolsillo.model.category.news.NewsDetail
 import com.badajoz.badajozentubolsillo.model.category.news.NewsDownload
 import com.badajoz.badajozentubolsillo.model.category.news.NewsImg
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
-import com.badajoz.badajozentubolsillo.viewmodel.NewsDetailEvent
-import com.badajoz.badajozentubolsillo.viewmodel.NewsDetailState
+import com.badajoz.badajozentubolsillo.viewmodel.news.NewsDetailEvent
+import com.badajoz.badajozentubolsillo.viewmodel.news.NewsDetailState
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
 
 @Composable
