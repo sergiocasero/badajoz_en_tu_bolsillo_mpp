@@ -1,5 +1,6 @@
 import SwiftUI
 import FirebaseCore
+import shared
 
 
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -15,6 +16,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct iOSApp: App {
+    
+    init() {
+        
+    }
+    
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
 	var body: some Scene {
