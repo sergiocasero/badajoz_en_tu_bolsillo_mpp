@@ -43,7 +43,16 @@ class NavigationGraph {
                             && to is Screen.MapLink -> onMap(to.route)
 
                     from is Screen.Menu.Taxes
-                            && to is Screen.ExternalLink -> onLink(route!!)
+                            && to is Screen.ExternalLink
+                            && route != null -> onLink(route)
+
+                    from is Screen.Menu.News
+                            && to is Screen.NewsDetail
+                            && route != null -> onGranted(route)
+
+                    from is Screen.Menu.Bus
+                            && to is Screen.BusLineDetail
+                            && route != null -> onGranted(route)
                 }
             }
 
@@ -135,6 +144,17 @@ sealed class Screen {
     object NewsDetail : Screen() {
         override val route
             get() = "news/{link}"
+
+        override fun toDestination(vararg params: Any): Destination =
+            Destination(
+                this,
+                if (params.size == 1) {
+                    val id = params[0] as String
+                    "news/$id"
+                } else {
+                    route
+                }
+            )
 
         override fun toString(): String = "NewsDetail($route)"
     }
