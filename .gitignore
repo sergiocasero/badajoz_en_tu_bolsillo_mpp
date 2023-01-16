@@ -10,3 +10,5 @@ local.properties
 xcuserdata
 android/google-services.json
 keystore
+ios/ios/GoogleService-Info.plist
+ios/ios.xcodeproj/project.xcworkspace/
