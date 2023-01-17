@@ -40,4 +40,4 @@ network calls are encrypted with AES-256-CBC encryption
 
 ### Google Play
 
-The app is available on the Google Play Store
+The app is available on the [Google Play Store](https://play.google.com/store/apps/details?id=com.badajoz.badajozentubolsillo.android "Link to the app in Google Play Store")
