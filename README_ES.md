@@ -35,4 +35,4 @@ llamadas de red están encriptadas con cifrado AES-256-CBC
 
 ### Disponibilidad
 
-La aplicación está disponible en el Google Play Store
+La aplicación está disponible en el [Google Play Store](https://play.google.com/store/apps/details?id=com.badajoz.badajozentubolsillo.android "Enlace a la aplicación en Google Play Store")
