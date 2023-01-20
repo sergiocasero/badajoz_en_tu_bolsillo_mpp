@@ -18,14 +18,14 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct iOSApp: App {
     
     init() {
-        
+        IosDiKt.doInitKoinIos()
     }
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
 	var body: some Scene {
 		WindowGroup {
-			ContentView()
+			MenuRoute()
 		}
 	}
 }

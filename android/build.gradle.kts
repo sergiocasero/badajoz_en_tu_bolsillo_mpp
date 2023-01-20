@@ -83,6 +83,8 @@ dependencies {
         implementation(analytics)
         implementation(crashlytics)
         implementation(remoteConfig)
+        implementation(fcm)
+        implementation(inAppMessaging)
     }
 
     with(Dependencies.DI) {

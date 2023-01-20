@@ -65,6 +65,8 @@ object Dependencies {
             const val analytics = "com.google.firebase:firebase-analytics-ktx"
             const val crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
             const val remoteConfig = "com.google.firebase:firebase-config-ktx"
+            const val fcm = "com.google.firebase:firebase-messaging-ktx"
+            const val inAppMessaging = "com.google.firebase:firebase-inappmessaging-display-ktx"
         }
 
         object Test {
