@@ -1,5 +1,6 @@
 package com.badajoz.badajozentubolsillo.datasource
 
+import com.badajoz.badajozentubolsillo.utils.API_VERSION
 import com.badajoz.badajozentubolsillo.utils.BuildType
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
@@ -27,6 +28,7 @@ private fun buildClient(endpoint: String, buildType: BuildType, block: HttpClien
             }
 
             headers.append("Content-Type", "application/json")
+            headers.append("api-version", API_VERSION.toString())
         }
         if (buildType != BuildType.PRO) {
             install(Logging) {

@@ -18,6 +18,7 @@ import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
+import com.badajoz.badajozentubolsillo.android.composables.bus.models.toColor
 import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.model.category.news.News
 
@@ -40,10 +41,10 @@ fun NewsItem(news: News, onClick: () -> Unit) {
                 Surface(
                     modifier = Modifier.padding(end = 8.dp, bottom = 8.dp),
                     shape = RoundedCornerShape(16.dp),
-                    color = MaterialTheme.colors.primaryVariant
+                    color = news.category.color.toColor()
                 ) {
                     Text(
-                        text = news.category,
+                        text = news.category.name,
                         style = MaterialTheme.typography.subtitle2.apply {
                             copy(color = MaterialTheme.colors.onPrimary)
                         },

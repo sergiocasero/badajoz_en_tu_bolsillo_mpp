@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.badajoz.badajozentubolsillo.android.R
-import com.badajoz.badajozentubolsillo.android.composables.bus.components.BusLinesView
 import com.badajoz.badajozentubolsillo.android.composables.bus.components.BusTimesDialog
 import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView

@@ -1,4 +1,4 @@
-package com.badajoz.badajozentubolsillo.android.composables.bus.components
+package com.badajoz.badajozentubolsillo.android.composables.bus.components.home
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn

@@ -11,6 +11,7 @@ import androidx.compose.ui.zIndex
 import com.badajoz.badajozentubolsillo.android.composables.reusable.ErrorView
 import com.badajoz.badajozentubolsillo.android.composables.reusable.LoadingView
 import com.badajoz.badajozentubolsillo.model.category.news.News
+import com.badajoz.badajozentubolsillo.model.category.news.NewsCategory
 import com.badajoz.badajozentubolsillo.utils.MaterialColor
 import com.badajoz.badajozentubolsillo.viewmodel.Destination
 import com.badajoz.badajozentubolsillo.viewmodel.news.HomeState
@@ -58,7 +59,12 @@ fun NewsContentPreview() {
     val news = listOf(
         News(
             title = "Orden del Concurso Oficial de Murgas del Carnaval de Badajoz 2023",
-            category = "Ferias y Fiestas / Carnaval",
+            category =
+            NewsCategory(
+                id = "Ferias y Fiestas / Carnaval",
+                name = "Ferias y Fiestas / Carnaval",
+                color = "#F44336"
+            ),
             date = "07/01/2023",
             link = "https://www.aytobadajoz.es/es/ayto/noticias/noticia/53044/orden-del-concurso-oficial-de-murgas-del" +
                     "-carnaval-de-badajoz-2023/",
@@ -67,7 +73,11 @@ fun NewsContentPreview() {
         ),
         News(
             title = "MEDIDAS DE TRÁFICO CON MOTIVO DE LA CABALGATA DE LOS REYES MAGOS",
-            category = "Policía Local / Tráfico",
+            category = NewsCategory(
+                id = "Ferias y Fiestas / Carnaval",
+                name = "Ferias y Fiestas / Carnaval",
+                color = "#F44336"
+            ),
             date = "03/01/2023",
             link = "https://www.aytobadajoz" +
                     ".es/es/ayto/noticias/noticia/53032/medidas-de-trfico-con-motivo-de-la-cabalgata-de-los-reyes-magos/",
@@ -76,7 +86,11 @@ fun NewsContentPreview() {
         ),
         News(
             title = "Servicio Administrativo de Planeamiento y Gestión.- Aprobación definitiva Estudio de Detalle submanzana V-7A de la UA-1, del SUB-CC-5.2.1",
-            category = "Noticias Municipales / Urbanismo",
+            category = NewsCategory(
+                id = "Ferias y Fiestas / Carnaval",
+                name = "Ferias y Fiestas / Carnaval",
+                color = "#F44336"
+            ),
             date = "02/01/2023",
             link = "https://www.aytobadajozes/es/ayto/noticias/noticia/53031/servicio-administrativo-de-planeamiento-y-gestion-aprobacion-definitiva-estudio-de-detalle-submanzana-v-7a-de-la-ua-1-del-sub-cc-521/",
             description = "A  N  U  N  C  I  O   \\n            El Pleno del Excmo. Ayuntamiento de Badajoz en sesión celebrada con fecha \u00AD\u00AD\u00AD31 de octubre de 2022, adoptó acuerdo de aprobación definitiva del Estudio de Detalle (Refundido) de la submanzana V-7A de la UA-1 del SUB-CC-5.2.1, del Plan General Municipal de Badajoz, presentado por Urbanizadora..."

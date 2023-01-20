@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class News(
     @SerialName("category")
-    val category: String,
+    val category: NewsCategory,
     @SerialName("date")
     val date: String,
     @SerialName("description")

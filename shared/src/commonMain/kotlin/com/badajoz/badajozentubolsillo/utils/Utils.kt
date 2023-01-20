@@ -6,6 +6,7 @@ import io.ktor.http.encodedPath
 import kotlinx.coroutines.flow.MutableStateFlow
 
 const val BASE_URL = "https://badajoz.sergiocasero.es"
+const val API_VERSION = 2
 
 // encrypt any T object with aes-256-cbc encryption
 expect inline fun <reified T : Encryptable> T.encrypt(iv: String, key: String, production: Boolean = true): String
