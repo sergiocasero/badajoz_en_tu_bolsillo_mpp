@@ -21,6 +21,7 @@ import com.badajoz.badajozentubolsillo.android.composables.fmd.FmdCenterDetailRo
 import com.badajoz.badajozentubolsillo.android.composables.fmd.FmdSportDetailRoute
 import com.badajoz.badajozentubolsillo.android.composables.menu.MenuRoute
 import com.badajoz.badajozentubolsillo.android.composables.news.NewsDetailRoute
+import com.badajoz.badajozentubolsillo.android.composables.splash.SplashRoute
 import com.badajoz.badajozentubolsillo.viewmodel.NavigationGraph
 import com.badajoz.badajozentubolsillo.viewmodel.Screen
 import com.badajoz.badajozentubolsillo.viewmodel.menu.MenuState
@@ -63,6 +64,25 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
     NavHost(
         navController = navController, startDestination = initialScreen.route
     ) {
+
+        composable(route = Screen.Splash.route) {
+            logEvent(scope = coroutineScope, analytics = analytics, screen = Screen.Splash)
+            SplashRoute {
+                navigationGraph.checkPermission(
+                    from = Screen.Splash,
+                    to = it.screen,
+                    route = it.route,
+                    onLink = {
+                        openExternalLink(context, it)
+                    },
+                    onGranted = {
+                        navController.navigate(it) {
+                            popUpTo(Screen.Splash.route) { inclusive = true }
+                        }
+                    }
+                )
+            }
+        }
 
         Screen.Menu.values().forEach { screen ->
             composable(screen.route) {
@@ -135,9 +155,11 @@ fun BadajozApp(initialScreen: Screen, navController: NavHostController = remembe
             })
         }
 
-        composable(route = Screen.FmdSportDetail.route,
+        composable(
+            route = Screen.FmdSportDetail.route,
             arguments = listOf(navArgument("centerId") { type = NavType.IntType },
-                navArgument("sportId") { type = NavType.IntType })) {
+                navArgument("sportId") { type = NavType.IntType })
+        ) {
             val requireNotNull = requireNotNull(it.arguments)
             val centerId = requireNotNull.getInt("centerId")
             val sportId = requireNotNull.getInt("sportId")

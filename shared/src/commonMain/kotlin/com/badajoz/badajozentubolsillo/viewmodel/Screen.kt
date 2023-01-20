@@ -14,6 +14,11 @@ class NavigationGraph {
             throw IllegalArgumentException("You are trying to navigate to the same screen")
         }
         when (from) {
+            Screen.Splash -> when (to) {
+                Screen.ExternalLink -> onLink(route ?: "")
+                else -> onGranted(to.route)
+            }
+
             Screen.BusLineDetail -> when (to) {
                 Screen.Menu.Bus -> onBack()
                 else -> throw IllegalArgumentException("You are trying to navigate to a screen that is not allowed")
@@ -73,6 +78,10 @@ sealed class Screen {
     // abstract fun build, it could receive N parameters
     open fun toDestination(vararg params: Any): Destination = Destination(screen = this, route = route)
     abstract val route: String
+
+    object Splash : Screen() {
+        override val route: String = "splash"
+    }
 
     sealed class Menu : Screen() {
 

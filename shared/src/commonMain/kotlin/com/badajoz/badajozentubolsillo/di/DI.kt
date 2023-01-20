@@ -30,7 +30,9 @@ import com.badajoz.badajozentubolsillo.repository.SharedCalendarRepository
 import com.badajoz.badajozentubolsillo.repository.SharedFmdRepository
 import com.badajoz.badajozentubolsillo.repository.SharedNewsRepository
 import com.badajoz.badajozentubolsillo.repository.SharedPharmacyRepository
+import com.badajoz.badajozentubolsillo.repository.SharedSplashRepository
 import com.badajoz.badajozentubolsillo.repository.SharedTaxRepository
+import com.badajoz.badajozentubolsillo.repository.SplashRepository
 import com.badajoz.badajozentubolsillo.repository.TaxRepository
 import com.russhwolf.settings.Settings
 import org.koin.core.KoinApplication
@@ -67,6 +69,8 @@ val sharedModule = module {
     single<FmdLocalDataSource> { SharedFmdLocalDataSource(settings = get()) }
     single<FmdNetworkDataSource> { SharedFmdNetworkDataSource(buildType = get(), appConfig = get()) }
     single<FmdRepository> { SharedFmdRepository(local = get(), network = get()) }
+
+    single<SplashRepository> { SharedSplashRepository(appConfig = get()) }
 }
 
 fun initKoin(appModule: Module): KoinApplication {

@@ -17,6 +17,8 @@ actual class SharedAppConfig : AppConfig {
         private const val BASIC_AUTH_PASS = "BASIC_AUTH_PASSWORD"
         private const val ENCRYPTION_KEY = "ENCRYPTION_KEY"
         private const val ENCRYPTION_IV = "ENCRYPTION_IV"
+        private const val LATEST_VERSION = "LATEST_VERSION"
+        private const val IS_LATEST_VERSION_MANDATORY = "IS_LATEST_VERSION_MANDATORY"
     }
 
     override suspend fun getAppConfigData(): Either<AppError, AppConfigData> =
@@ -27,7 +29,9 @@ actual class SharedAppConfig : AppConfig {
                         user = remoteConfig.getString(BASIC_AUTH_USER),
                         pass = remoteConfig.getString(BASIC_AUTH_PASS),
                         key = remoteConfig.getString(ENCRYPTION_KEY),
-                        iv = remoteConfig.getString(ENCRYPTION_IV)
+                        iv = remoteConfig.getString(ENCRYPTION_IV),
+                        latestVersion = remoteConfig.getLong(LATEST_VERSION).toInt(),
+                        isLatestVersionMandatory = remoteConfig.getBoolean(IS_LATEST_VERSION_MANDATORY)
                     )
                     continuation.resume(Either.Right(data))
                 } else {

@@ -16,4 +16,12 @@
         <key>ENCRYPTION_IV</key>
         <value></value>
     </entry>
+    <entry>
+        <key>LATEST_VERSION</key>
+        <value>0</value>
+    </entry>
+    <entry>
+        <key>IS_LATEST_VERSION_MANDATORY</key>
+        <value>true</value>
+    </entry>
 </defaults>

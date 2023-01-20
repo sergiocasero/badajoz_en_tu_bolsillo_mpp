@@ -58,6 +58,6 @@ fun FmdSportsListViewPreview() {
             FmdSportItem(title = "Tenis", image = "", centerId = 0, id = 0),
         ),
         onNavigate = {},
-        appConfigData = AppConfigData("", "", "", "")
+        appConfigData = AppConfigData("", "", "", "", 0, true)
     )
 }

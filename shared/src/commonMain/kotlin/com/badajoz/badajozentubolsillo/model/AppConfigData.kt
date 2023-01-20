@@ -4,5 +4,7 @@ data class AppConfigData(
     val user: String,
     val pass: String,
     val key: String,
-    val iv: String
+    val iv: String,
+    val latestVersion: Int,
+    val isLatestVersionMandatory: Boolean
 )

@@ -60,4 +60,6 @@
     <string name="about_card_link_2">Ver</string>
     <string name="privacy">https://badajoz.sergiocasero.es/privacy</string>
     <string name="about_card_description_3">Esta aplicación no guarda ningún tipo de información de usuario salvo (si lo introduces) el usuario y contraseña de la FMD.\nEsto es necesario para ver los espacios libres, pero tu información no se almacena en ningún sitio adicional. Si desinstalas la aplicación, toda la información desaparecerá</string>
+    <string name="update_needed">Hay una versión de la aplicación disponible. Ve al Google Play Store a actualizarla. Disculpa las molestias.</string>
+    <string name="update_app">Actualizar</string>
 </resources>

@@ -77,6 +77,6 @@ fun FmdSportViewPreview() {
             centerId = 0
         ),
         onClick = {},
-        appConfigData = AppConfigData("", "", "", "")
+        appConfigData = AppConfigData("", "", "", "", 0, true)
     )
 }

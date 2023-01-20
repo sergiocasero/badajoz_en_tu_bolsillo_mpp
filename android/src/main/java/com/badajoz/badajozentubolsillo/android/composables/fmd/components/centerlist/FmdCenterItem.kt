@@ -93,6 +93,6 @@ fun FmdCenterItemPreview() {
             phone = "924 00 00 00",
         ),
         onNavigate = {},
-        appConfigData = AppConfigData("", "", "", "")
+        appConfigData = AppConfigData("", "", "", "", 0, true)
     )
 }
