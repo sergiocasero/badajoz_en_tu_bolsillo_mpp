@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
-import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -22,8 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.badajoz.badajozentubolsillo.android.R
+import com.badajoz.badajozentubolsillo.android.composables.reusable.DefaultCard
 import com.badajoz.badajozentubolsillo.android.composables.reusable.FieldRow
-import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.android.utils.staticUrl
 import com.badajoz.badajozentubolsillo.model.AppConfigData
 import com.badajoz.badajozentubolsillo.model.category.fmd.FmdCenterItem
@@ -36,13 +35,7 @@ fun FmdCenterItemView(
     center: FmdCenterItem,
     onNavigate: (Destination) -> Unit
 ) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-        elevation = defaultCardElevation
-    ) {
-
+    DefaultCard {
         Column {
             AsyncImage(
                 model = center.image.staticUrl(

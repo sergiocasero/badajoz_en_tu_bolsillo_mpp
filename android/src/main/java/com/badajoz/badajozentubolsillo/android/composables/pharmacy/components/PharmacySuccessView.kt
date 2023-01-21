@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -18,8 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.badajoz.badajozentubolsillo.android.composables.reusable.DefaultCard
 import com.badajoz.badajozentubolsillo.android.composables.reusable.TextBox
-import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
 import com.badajoz.badajozentubolsillo.model.category.pharmacy.Pharmacy
 import com.badajoz.badajozentubolsillo.model.category.pharmacy.PharmacyGroup
 import com.badajoz.badajozentubolsillo.utils.MaterialColor
@@ -49,12 +48,8 @@ fun PharmacySuccessView(pharmacy: List<PharmacyGroup>, onPharmacyClick: (Pharmac
                     }
                 }
 
-                is Pharmacy -> Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(60.dp)
-                        .padding(4.dp),
-                    elevation = defaultCardElevation
+                is Pharmacy -> DefaultCard(
+                    modifier = Modifier.height(60.dp),
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,

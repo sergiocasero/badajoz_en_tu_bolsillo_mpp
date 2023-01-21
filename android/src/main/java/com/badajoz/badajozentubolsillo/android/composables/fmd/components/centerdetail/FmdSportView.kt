@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -20,7 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
+import com.badajoz.badajozentubolsillo.android.composables.reusable.DefaultCard
 import com.badajoz.badajozentubolsillo.android.utils.staticUrl
 import com.badajoz.badajozentubolsillo.model.AppConfigData
 import com.badajoz.badajozentubolsillo.model.category.fmd.FmdSportItem
@@ -32,13 +30,8 @@ fun FmdSportView(
     sport: FmdSportItem,
     onClick: () -> Unit
 ) {
-    Card(
-        elevation = defaultCardElevation,
-        modifier = Modifier
-            .padding(4.dp)
-            .width(40.dp)
-            .height(120.dp)
-            .clickable { onClick() }
+    DefaultCard(
+        modifier = Modifier.clickable { onClick() }
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),

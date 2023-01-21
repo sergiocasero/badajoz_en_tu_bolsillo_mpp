@@ -10,18 +10,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
+import com.badajoz.badajozentubolsillo.android.composables.reusable.DefaultCard
 import com.badajoz.badajozentubolsillo.model.category.taxes.TaxGroup
 import com.badajoz.badajozentubolsillo.model.category.taxes.TaxLink
 
 @Composable
 fun TaxGroupCard(taxGroup: TaxGroup, onLinkClick: (TaxLink) -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-        elevation = defaultCardElevation
-    ) {
+    DefaultCard {
         Column(
             modifier = Modifier.fillMaxWidth()
         ) {

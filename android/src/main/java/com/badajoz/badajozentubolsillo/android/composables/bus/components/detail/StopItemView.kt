@@ -1,9 +1,7 @@
 package com.badajoz.badajozentubolsillo.android.composables.bus.components.detail
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -17,17 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.badajoz.badajozentubolsillo.android.R
-import com.badajoz.badajozentubolsillo.android.utils.defaultCardElevation
+import com.badajoz.badajozentubolsillo.android.composables.reusable.DefaultCard
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
 
 @Composable
 fun StopItemView(stop: BusStop, onClick: () -> Unit, onFavoriteClick: (BusStop) -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(4.dp),
-        elevation = defaultCardElevation
-    ) {
+    DefaultCard {
         Row {
             Text(
                 stop.name, modifier = Modifier

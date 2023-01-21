@@ -2,16 +2,19 @@ package com.badajoz.badajozentubolsillo.android.utils
 
 import android.content.Context
 import android.util.Base64
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.flowWithLifecycle
 import coil.request.ImageRequest
 import com.badajoz.badajozentubolsillo.flow.CStateFlow
 import com.badajoz.badajozentubolsillo.utils.BASE_URL
+import com.badajoz.badajozentubolsillo.utils.MaterialColor
 import com.badajoz.badajozentubolsillo.viewmodel.RootViewModel
 import com.badajoz.badajozentubolsillo.viewmodel.ViewState
 
@@ -50,17 +53,11 @@ fun <T> CStateFlow<List<T>>.withLifeCycle2(): State<List<T>> {
 
 fun basicAuth(user: String, pass: String): String {
     return "Basic " + Base64.encodeToString(
-        "$user:$pass".toByteArray(),
-        Base64.NO_WRAP
+        "$user:$pass".toByteArray(), Base64.NO_WRAP
     )
 }
 
 fun String.staticUrl(user: String, pass: String, context: Context): ImageRequest {
-    return ImageRequest.Builder(context)
-        .data("$BASE_URL/$this")
-        .addHeader("Authorization", basicAuth(user, pass))
-        .crossfade(true)
-        .build()
+    return ImageRequest.Builder(context).data("$BASE_URL/$this").addHeader("Authorization", basicAuth(user, pass))
+        .crossfade(true).build()
 }
-
-val defaultCardElevation = 8.dp
