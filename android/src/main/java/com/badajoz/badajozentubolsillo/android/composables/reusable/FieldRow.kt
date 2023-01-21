@@ -23,7 +23,7 @@ fun FieldRow(label: String, icon: ImageVector, onClick: () -> Unit = {}) {
     ) {
         Icon(
             imageVector = icon, contentDescription = label,
-            modifier = Modifier.padding(4.dp)
+            modifier = Modifier.padding(top = 4.dp, bottom = 4.dp)
         )
         Text(
             text = label, style = MaterialTheme.typography.body2,

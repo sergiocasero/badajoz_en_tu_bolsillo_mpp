@@ -1,10 +1,8 @@
 package com.badajoz.badajozentubolsillo.android.composables.taxes.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -25,17 +23,14 @@ fun TaxGroupCard(taxGroup: TaxGroup, onLinkClick: (TaxLink) -> Unit) {
                 style = MaterialTheme.typography.h5,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colors.primary)
-                    .padding(8.dp),
-                color = MaterialTheme.colors.onPrimary
+                    .padding(8.dp)
             )
 
             TaxTaxLinkList(taxGroup.links) { onLinkClick(it) }
 
             taxGroup.child.forEach {
-                Card(
+                DefaultCard(
                     modifier = Modifier
-                        .fillMaxWidth()
                         .padding(4.dp)
                 ) {
                     Column {
@@ -44,7 +39,6 @@ fun TaxGroupCard(taxGroup: TaxGroup, onLinkClick: (TaxLink) -> Unit) {
                             style = MaterialTheme.typography.h6,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .background(MaterialTheme.colors.secondary)
                                 .padding(8.dp),
                         )
                         TaxTaxLinkList(it.links) { onLinkClick(it) }
