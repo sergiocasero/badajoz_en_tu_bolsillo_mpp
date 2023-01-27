@@ -6,6 +6,15 @@ import com.badajoz.badajozentubolsillo.model.Either
 
 actual class SharedAppConfig : AppConfig {
     override suspend fun getAppConfigData(): Either<AppError, AppConfigData> {
-        TODO("Not yet implemented")
+        return Either.Right(
+            AppConfigData(
+                user = "",
+                pass = "",
+                key = "",
+                iv = "",
+                isLatestVersionMandatory = false,
+                latestVersion = 7
+            )
+        )
     }
 }

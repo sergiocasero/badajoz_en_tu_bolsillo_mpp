@@ -25,5 +25,7 @@ open class ViewModelObserver<S: ViewState, E: ViewEvent>: ObservableObject {
             }
             self.state = state
         }
+        
+        self.viewModel.attach()
     }
 }

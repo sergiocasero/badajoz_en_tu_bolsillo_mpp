@@ -11,12 +11,25 @@ import shared
 
 struct SplashRoute: View {
     
-    @StateObject var splashViewModelObserver = ViewModelObserver(
+    @StateObject var observer = ViewModelObserver(
         viewModel: SplashViewModel(currentAppVersion: 7, initialState: SplashState.InProgress()),
         state: SplashState.InProgress()
     )
     
     var body: some View {
-        Text("hello")
+        if observer.state is SplashState.InProgress {
+            LoadingView()
+        } else if observer.state is SplashState.Error {
+            if let state = observer.state as? SplashState.Error {
+                ErrorView(error: state.error) {
+                    observer.viewModel.attach()
+                }
+            }
+        } else if observer.state is SplashState.UpdateNeeded {
+            Text("Update needed")
+        } else if observer.state is SplashState.NoUpdateNeeded {
+            Text("No update needed")
+        }
     }
 }
+
