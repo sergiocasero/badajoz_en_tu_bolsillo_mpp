@@ -13,11 +13,13 @@ public class Navigator {
     
     public static var entryPoint: some View {
         return NavigationView {
-            SplashRoute()
+            splash.view
         }
     }
     
-    public static var menu: Destination = Destination(tag: 0, view: AnyView(MenuRoute()))
+    public static var splash: Destination = Destination(tag: 0, view: AnyView(SplashRoute()))
+    
+    public static var menu: Destination = Destination(tag: 1, view: AnyView(MenuRoute()))
 }
 
 public class Destination {
