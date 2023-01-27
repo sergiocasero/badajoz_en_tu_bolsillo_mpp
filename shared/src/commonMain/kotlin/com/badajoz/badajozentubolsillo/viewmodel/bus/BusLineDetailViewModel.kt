@@ -10,6 +10,7 @@ import com.badajoz.badajozentubolsillo.model.category.bus.BusStopDetail
 import com.badajoz.badajozentubolsillo.repository.BusRepository
 import com.badajoz.badajozentubolsillo.utils.withItemUpdated
 import com.badajoz.badajozentubolsillo.viewmodel.RootViewModel
+import com.badajoz.badajozentubolsillo.viewmodel.ViewEvent
 import com.badajoz.badajozentubolsillo.viewmodel.ViewState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -108,7 +109,7 @@ sealed class BusLineDetailState : ViewState() {
     ) : BusLineDetailState()
 }
 
-sealed class BusLineDetailEvent {
+sealed class BusLineDetailEvent : ViewEvent() {
     object Attach : BusLineDetailEvent()
     object OnImageClick : BusLineDetailEvent()
 

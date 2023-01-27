@@ -6,6 +6,7 @@ import com.badajoz.badajozentubolsillo.model.category.pharmacy.PharmacyGroup
 import com.badajoz.badajozentubolsillo.repository.PharmacyRepository
 import com.badajoz.badajozentubolsillo.utils.exhaustive
 import com.badajoz.badajozentubolsillo.viewmodel.RootViewModel
+import com.badajoz.badajozentubolsillo.viewmodel.ViewEvent
 import com.badajoz.badajozentubolsillo.viewmodel.ViewState
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
@@ -40,6 +41,6 @@ sealed class PharmacyState : ViewState() {
 
 }
 
-sealed class PharmacyEvent {
+sealed class PharmacyEvent : ViewEvent() {
     object Attach : PharmacyEvent()
 }

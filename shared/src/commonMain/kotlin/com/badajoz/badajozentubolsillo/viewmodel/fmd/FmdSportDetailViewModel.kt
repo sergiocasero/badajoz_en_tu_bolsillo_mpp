@@ -5,6 +5,7 @@ import com.badajoz.badajozentubolsillo.model.AppError
 import com.badajoz.badajozentubolsillo.model.category.fmd.FmdSportDetail
 import com.badajoz.badajozentubolsillo.repository.FmdRepository
 import com.badajoz.badajozentubolsillo.viewmodel.RootViewModel
+import com.badajoz.badajozentubolsillo.viewmodel.ViewEvent
 import com.badajoz.badajozentubolsillo.viewmodel.ViewState
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
@@ -53,7 +54,7 @@ sealed class FmdSportDetailState : ViewState() {
 
 }
 
-sealed class FmdSportDetailEvent {
+sealed class FmdSportDetailEvent : ViewEvent() {
     object Attach : FmdSportDetailEvent()
     data class DayClicked(val dayId: Int) : FmdSportDetailEvent()
 }

@@ -8,6 +8,7 @@ import com.badajoz.badajozentubolsillo.model.category.fmd.FmdCenterItem
 import com.badajoz.badajozentubolsillo.model.category.fmd.FmdUser
 import com.badajoz.badajozentubolsillo.repository.FmdRepository
 import com.badajoz.badajozentubolsillo.viewmodel.RootViewModel
+import com.badajoz.badajozentubolsillo.viewmodel.ViewEvent
 import com.badajoz.badajozentubolsillo.viewmodel.ViewState
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
@@ -77,7 +78,7 @@ sealed class FmdState : ViewState() {
 
 }
 
-sealed class FmdEvent {
+sealed class FmdEvent : ViewEvent() {
     object Attach : FmdEvent()
     data class Login(val username: String, val password: String) : FmdEvent()
 

@@ -7,6 +7,7 @@ import com.badajoz.badajozentubolsillo.model.Either
 import com.badajoz.badajozentubolsillo.model.category.fmd.FmdCenterDetail
 import com.badajoz.badajozentubolsillo.repository.FmdRepository
 import com.badajoz.badajozentubolsillo.viewmodel.RootViewModel
+import com.badajoz.badajozentubolsillo.viewmodel.ViewEvent
 import com.badajoz.badajozentubolsillo.viewmodel.ViewState
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
@@ -43,6 +44,6 @@ sealed class FmdCenterDetailState : ViewState() {
     data class Success(val appConfigData: AppConfigData, val center: FmdCenterDetail) : FmdCenterDetailState()
 }
 
-sealed class FmdCenterDetailEvent {
+sealed class FmdCenterDetailEvent : ViewEvent() {
     object Attach : FmdCenterDetailEvent()
 }

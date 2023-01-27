@@ -17,8 +17,7 @@ import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-abstract class RootViewModel<S, E>(initialState: S)
-    : KoinComponent, PlatformViewModel() {
+abstract class RootViewModel<S : ViewState, E : ViewEvent>(initialState: S) : KoinComponent, PlatformViewModel() {
 
     private val job = SupervisorJob()
 
@@ -43,7 +42,6 @@ abstract class RootViewModel<S, E>(initialState: S)
         withContext(executor.bg) { f() }
 
 
-
     fun <T> Flow<T>.observe(onChange: ((T) -> Unit)) {
         onEach {
             onChange(it)
@@ -54,3 +52,4 @@ abstract class RootViewModel<S, E>(initialState: S)
 }
 
 open class ViewState
+open class ViewEvent

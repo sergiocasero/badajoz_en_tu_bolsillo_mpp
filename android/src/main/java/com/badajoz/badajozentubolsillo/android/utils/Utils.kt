@@ -2,24 +2,21 @@ package com.badajoz.badajozentubolsillo.android.utils
 
 import android.content.Context
 import android.util.Base64
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.flowWithLifecycle
 import coil.request.ImageRequest
 import com.badajoz.badajozentubolsillo.flow.CStateFlow
 import com.badajoz.badajozentubolsillo.utils.BASE_URL
-import com.badajoz.badajozentubolsillo.utils.MaterialColor
 import com.badajoz.badajozentubolsillo.viewmodel.RootViewModel
+import com.badajoz.badajozentubolsillo.viewmodel.ViewEvent
 import com.badajoz.badajozentubolsillo.viewmodel.ViewState
 
 @Composable
-fun <S : ViewState, E> RootViewModel<S, E>.stateWithLifecycle(): State<S> {
+fun <S : ViewState, E : ViewEvent> RootViewModel<S, E>.stateWithLifecycle(): State<S> {
     val lifecycleOwner = LocalLifecycleOwner.current
 
     val flow = remember(state, lifecycleOwner) {

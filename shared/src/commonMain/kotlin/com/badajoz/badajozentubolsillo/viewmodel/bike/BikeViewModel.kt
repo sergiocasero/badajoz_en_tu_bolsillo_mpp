@@ -7,6 +7,7 @@ import com.badajoz.badajozentubolsillo.model.Either
 import com.badajoz.badajozentubolsillo.model.category.bike.BikeStation
 import com.badajoz.badajozentubolsillo.repository.BikeRepository
 import com.badajoz.badajozentubolsillo.viewmodel.RootViewModel
+import com.badajoz.badajozentubolsillo.viewmodel.ViewEvent
 import com.badajoz.badajozentubolsillo.viewmodel.ViewState
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
@@ -59,7 +60,7 @@ sealed class BikeState : ViewState() {
 
 }
 
-sealed class BikeEvent {
+sealed class BikeEvent : ViewEvent() {
     object Attach : BikeEvent()
     object OnBikeMapClick : BikeEvent()
     object OnBikeListClick : BikeEvent()

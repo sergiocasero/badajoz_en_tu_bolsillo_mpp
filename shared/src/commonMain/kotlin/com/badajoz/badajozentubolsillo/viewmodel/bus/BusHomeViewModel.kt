@@ -7,6 +7,7 @@ import com.badajoz.badajozentubolsillo.model.category.bus.BusStop
 import com.badajoz.badajozentubolsillo.model.category.bus.BusStopDetail
 import com.badajoz.badajozentubolsillo.repository.BusRepository
 import com.badajoz.badajozentubolsillo.viewmodel.RootViewModel
+import com.badajoz.badajozentubolsillo.viewmodel.ViewEvent
 import com.badajoz.badajozentubolsillo.viewmodel.ViewState
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
@@ -98,7 +99,7 @@ sealed class BusHomeState : ViewState() {
     data class FavoriteStops(val stops: List<BusStop>, val selectedStop: BusStopDetail? = null) : BusHomeState()
 }
 
-sealed class BusHomeEvent {
+sealed class BusHomeEvent : ViewEvent() {
     object Attach : BusHomeEvent()
     object OnBusLinesClick : BusHomeEvent()
     object OnFavoriteStopsClick : BusHomeEvent()

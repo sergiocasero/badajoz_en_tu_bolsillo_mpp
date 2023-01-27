@@ -1,6 +1,8 @@
 package com.badajoz.badajozentubolsillo.viewmodel.menu
 
 import com.badajoz.badajozentubolsillo.viewmodel.RootViewModel
+import com.badajoz.badajozentubolsillo.viewmodel.ViewEvent
+import com.badajoz.badajozentubolsillo.viewmodel.ViewState
 
 class MenuViewModel(initialState: MenuState) :
     RootViewModel<MenuState, MenuEvent>(initialState) {
@@ -16,7 +18,7 @@ class MenuViewModel(initialState: MenuState) :
     }
 }
 
-sealed class MenuState {
+sealed class MenuState : ViewState() {
     companion object {
         fun values() = listOf(
             News,
@@ -42,6 +44,6 @@ sealed class MenuState {
     object About : MenuState()
 }
 
-sealed class MenuEvent {
+sealed class MenuEvent : ViewEvent() {
     object Attach : MenuEvent()
 }

@@ -4,6 +4,7 @@ package com.badajoz.badajozentubolsillo.viewmodel.splash
 import com.badajoz.badajozentubolsillo.model.AppError
 import com.badajoz.badajozentubolsillo.repository.SplashRepository
 import com.badajoz.badajozentubolsillo.viewmodel.RootViewModel
+import com.badajoz.badajozentubolsillo.viewmodel.ViewEvent
 import com.badajoz.badajozentubolsillo.viewmodel.ViewState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -47,6 +48,6 @@ sealed class SplashState : ViewState() {
     object NoUpdateNeeded : SplashState()
 }
 
-sealed class SplashEvent {
+sealed class SplashEvent : ViewEvent() {
     object Attach : SplashEvent()
 }
