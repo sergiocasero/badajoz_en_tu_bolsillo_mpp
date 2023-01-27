@@ -17,9 +17,7 @@ public class Navigator {
         }
     }
     
-    public static func menu() -> Destination {
-        return Destination(tag: 0, view: AnyView(MenuRoute()))
-    }
+    public static var menu: Destination = Destination(tag: 0, view: AnyView(MenuRoute()))
 }
 
 public class Destination {

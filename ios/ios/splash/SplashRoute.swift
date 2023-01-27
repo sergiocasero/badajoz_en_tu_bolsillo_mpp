@@ -21,7 +21,7 @@ struct SplashRoute: View {
     var body: some View {
         
         ZStack {
-            NavigationLink(destination: Navigator.menu().view, tag: Navigator.menu().tag, selection: $tag) {}
+            NavigationLink(destination: Navigator.menu.view, tag: Navigator.menu.tag, selection: $tag) {}
             
             if observer.state is SplashState.InProgress {
                 LoadingView()
@@ -36,7 +36,7 @@ struct SplashRoute: View {
             } else if observer.state is SplashState.NoUpdateNeeded {
                 Text("Update not needed")
                     .onAppear {
-                        tag = Navigator.menu().tag
+                        tag = Navigator.menu.tag
                     }
                 //
             }
