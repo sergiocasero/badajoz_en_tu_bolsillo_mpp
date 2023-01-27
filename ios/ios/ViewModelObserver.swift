@@ -8,6 +8,7 @@
 
 import Foundation
 import shared
+import SwiftUI
 
 open class ViewModelObserver<S: ViewState, E: ViewEvent>: ObservableObject {
     

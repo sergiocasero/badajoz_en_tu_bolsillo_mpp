@@ -16,19 +16,30 @@ struct SplashRoute: View {
         state: SplashState.InProgress()
     )
     
+    @State var tag:Int? = nil
+    
     var body: some View {
-        if observer.state is SplashState.InProgress {
-            LoadingView()
-        } else if observer.state is SplashState.Error {
-            if let state = observer.state as? SplashState.Error {
-                ErrorView(error: state.error) {
-                    observer.viewModel.attach()
+        
+        ZStack {
+            NavigationLink(destination: Navigator.menu().view, tag: Navigator.menu().tag, selection: $tag) {}
+            
+            if observer.state is SplashState.InProgress {
+                LoadingView()
+            } else if observer.state is SplashState.Error {
+                if let state = observer.state as? SplashState.Error {
+                    ErrorView(error: state.error) {
+                        observer.viewModel.attach()
+                    }
                 }
+            } else if observer.state is SplashState.UpdateNeeded {
+                Text("Update needed")
+            } else if observer.state is SplashState.NoUpdateNeeded {
+                Text("Update not needed")
+                    .onAppear {
+                        tag = Navigator.menu().tag
+                    }
+                //
             }
-        } else if observer.state is SplashState.UpdateNeeded {
-            Text("Update needed")
-        } else if observer.state is SplashState.NoUpdateNeeded {
-            Text("No update needed")
         }
     }
 }
